@@ -1,0 +1,23 @@
+/* custom font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap');
+
+/*Variables*/
+:root {
+    --primary: #4f515a;
+    --secondary: #ebebeb;
+    --warning: #da0f41;
+    --border: rgb(218, 220, 224);
+    --main: #f38b04;
+    --second:#8a4e009c;
+}
+
+/* base styles  */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif; 
+}
+body {
+  background: #f5f5f5;
+  overflow-x: hidden;
+}

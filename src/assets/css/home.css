@@ -1,0 +1,25 @@
+.template-card a{
+    color: #202124;
+    text-decoration: none;
+}
+
+.template-title{
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.template-card img {
+    width: 200px;
+    height: auto; 
+    border: 1px solid rgb(218, 220, 224);
+    border-radius: 5px;
+}
+
+.template-card img:hover {
+    border: 1px solid #046cf3;
+}
+
+#template_list{
+    display: none;
+}
