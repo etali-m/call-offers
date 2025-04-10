@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000/api'; // Remplacez par l'URL de votre API
+const API_URL = 'http://localhost:8000/api'; // Remplace par l'URL de ton API
 
 export function useAuth() {
   const register = async (userData) => {
@@ -8,7 +8,11 @@ export function useAuth() {
       const response = await axios.post(`${API_URL}/signup/`, userData);
       return response.data;
     } catch (error) {
-      throw error.response ? error.response.data : error.message;
+      if (error.response && error.response.data) {
+        return Promise.reject(error.response.data);
+      } else {
+        return Promise.reject({ detail: error.message });
+      }
     }
   };
 
@@ -17,7 +21,11 @@ export function useAuth() {
       const response = await axios.post(`${API_URL}/login/`, credentials);
       return response.data;
     } catch (error) {
-      throw error.response ? error.response.data : error.message;
+      if (error.response && error.response.data) {
+        return Promise.reject(error.response.data);
+      } else {
+        return Promise.reject({ detail: error.message });
+      }
     }
   };
 

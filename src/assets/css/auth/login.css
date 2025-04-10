@@ -152,3 +152,8 @@
     left: 22%;
     width: 500px;
 }
+input::placeholder,
+textarea::placeholder {
+  text-align: left;
+  opacity: 1;
+}

@@ -12,9 +12,11 @@ import './assets/css/main.css'
 import './assets/css/style.css'
 
 import VueTelInput from 'vue3-tel-input'
+import VOtpInput from 'vue3-otp-input'
 import 'vue3-tel-input/dist/vue3-tel-input.css'
 
 const app = createApp(App)
 app.use(VueTelInput)
+app.component('v-otp-input', VOtpInput)
 
 app.use(router).mount('#app')
