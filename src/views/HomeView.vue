@@ -57,9 +57,22 @@
 </template>
 
 <script>
-// @ is an alias to /src 
+import { ref, onMounted } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
 export default {
-  name: 'HomeView',
-   
+    name: 'HomeView',
+    setup () {
+        const email = ref('')
+        const route = useRoute()
+
+        onMounted(() => {
+            email.value = route.query.email;
+        })
+
+        return {
+            email,
+        }
+    }
 }
 </script>

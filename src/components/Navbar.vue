@@ -10,17 +10,45 @@
     </a>
     <div class="d-flex">
         <div class="border-end navbar-user">
-            <small>John</small>
-        </div> &nbsp;
-        <a href=""><i class="bi bi-person-circle navbar-icon"></i></a>
+            <small v-if="user">{{ user }}</small>
+        </div> &nbsp;  &nbsp; 
+        <div class="dropdown">
+            <span href="#" class="dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle navbar-icon fs-4"></i>
+            </span>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="/profil">Mon profil</a></li> 
+                <li><button class="dropdown-item" @click="handleLogout"><i class="bi bi-box-arrow-in-right"></i> Déconnexion</button></li>
+            </ul>
+        </div>
+
         <!--<a href=""><i class="bi bi-gear navbar-icon"></i></a>-->
     </div> 
 </nav> 
 </template>
 
 <script>
-export default {
+import { ref } from 'vue'; 
+import { useRouter } from 'vue-router';
+import { useAuth } from '@/composables/useAuth';
 
+export default { 
+    setup () {
+        const { getUser, logout } = useAuth();
+        const user = getUser()
+        const router = useRouter()
+
+        const handleLogout = async() => {
+            try {
+                await logout(router);
+                router.push({ name: 'login' })
+            } catch(error) {
+                console.log(error);
+            }
+        }
+
+        return { user, handleLogout }
+    }
 }
 </script>
 
