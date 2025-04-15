@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import Login from '@/views/auth/Login.vue'
 import Signup from '@/views/auth/Signup.vue'
 import Layout from '@/components/Layout.vue'
+import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
 
 const routes = [
@@ -22,6 +23,11 @@ const routes = [
         name: 'about', 
         component: AboutView
       },
+      {
+        path: '/profil',
+        name: 'profil',
+        component: Profil
+      }
     ]
   },
   {

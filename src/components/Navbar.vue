@@ -12,13 +12,13 @@
         <div class="border-end navbar-user">
             <small v-if="user">{{ user }}</small>
         </div> &nbsp;  &nbsp; 
-        <div class="dropdown">
+        <div v-if="user" class="dropdown">
             <span href="#" class="dropdown-toggle d-flex align-items-center text-decoration-none" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle navbar-icon fs-4"></i>
             </span>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="/profil">Mon profil</a></li> 
-                <li><button class="dropdown-item" @click="handleLogout"><i class="bi bi-box-arrow-in-right"></i> Déconnexion</button></li>
+                <li><router-link :to="{ name: 'profil' }" class="dropdown-item" >Mon profil</router-link></li> 
+                <li><button class="dropdown-item" @click="handleLogout"><i class="bi bi-box-arrow-in-right"></i> Se déconnecter</button></li>
             </ul>
         </div>
 

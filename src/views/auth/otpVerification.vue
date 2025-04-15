@@ -64,14 +64,14 @@ export default {
 </script>
 
 
-<style>
-.contenu{
+<style scoped>
+  .contenu{
     height: 100vh;
     width: 100vw;
     background-color: white; 
     padding-top: 60px;
 }
-.otp-input {
+::v-deep .otp-input {
   width: 40px;
   height: 40px;
   padding: 5px;
@@ -81,12 +81,12 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.3);
   text-align: center;
 }
-input:focus {
+::v-deep input:focus {
   border:2px solid #f38b04;
   outline: none;
 }
 /* Background colour of an input field with value */
-.otp-input.is-complete {
+::v-deep .otp-input.is-complete {
   background-color: #e4e4e4;
 }
 .otp-input::-webkit-inner-spin-button,
