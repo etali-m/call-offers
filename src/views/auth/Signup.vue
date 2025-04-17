@@ -34,8 +34,10 @@
                     v-model="phone_number"
                     defaultCountry="CM"
                     :inputOptions="{ placeholder: 'Votre numéro de téléphone' }"
+                    styleClasses="custom-input"
+                    @validate="validatePhoneNumber"
                   />
-                  <div v-if="errors.phone_number" class="error">{{ errors.phone_number[0] }}</div>
+                  <div v-if="phoneError" class="error">{{ phoneError }}</div>
                 </div>
                 <div class="col">
                   <input type="text" v-model="company" class="form-control custom-input" placeholder="Entreprise">
@@ -95,6 +97,7 @@
       const errors = ref({}); 
       const message = ref(''); //message d'inscription réussi
       const isLoading = ref(false);
+      const phoneError = ref('');
 
       const router = useRouter();
   
@@ -106,6 +109,14 @@
         } else {
           passwordMismatch.value = false; // réinitialise si l'utilisateur efface le champ
         }
+      };
+
+      const validatePhoneNumber = (phoneObject) => {
+          if (!phoneObject.valid) {
+              phoneError.value = 'Numéro de téléphone invalide.';
+          } else {
+              phoneError.value = '';
+          }
       };
 
       const handleRegister = async () => {

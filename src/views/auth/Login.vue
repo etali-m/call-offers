@@ -25,15 +25,7 @@
                         </div>
                         <div class="form-group">
                             <input type="password" v-model="password" class="form-control custom-input" placeholder="Mot de passe" required> 
-                        </div>
-                        <div class="col-12 text-start">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                Rester connecté
-                                </label>
-                            </div>
-                        </div>
+                        </div> 
                         <div class="d-grid gap-2 mt-2">
                             <button class="btn signin-link" type="submit">
                                 <span v-if="isLoading">

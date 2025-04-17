@@ -40,7 +40,10 @@
                             mode="international"
                             :autoFormat="true"
                             :inputOptions="{ placeholder: 'Votre numéro de téléphone' }"
+                            styleClasses="custom_phone"
+                            @validate="validatePhoneNumber"
                         /> 
+                        <small v-if="phoneError" class="text-danger">{{ phoneError }}</small>
                     </div>
                     <div class="col-md-6">
                         <label for=""><b>Entreprise</b></label>
@@ -81,6 +84,7 @@ export default {
         const isLoading = ref(false)
         const message = ref('')
         const errorMessage = ref("");
+        const phoneError = ref('')
 
         const { getProfil, updateProfil } = useProfil()
 
@@ -96,9 +100,22 @@ export default {
             }
             getProfil()
         })
+        //Valider le numéro de téléphone
+        const validatePhoneNumber = (phoneObject) => {
+            if (!phoneObject.valid && phone_number.value != '') {
+                phoneError.value = 'Numéro de téléphone invalide.';
+            } else {
+                phoneError.value = '';
+            }
+        };
 
+        //fonctin pour mettre à jour le profil
         const handleSubmit = async() => {
             isLoading.value = true;
+            if (phoneError.value) {
+                return; // Ne pas soumettre si le numéro de téléphone est invalide
+            }
+
             try{
                 const userData = {
                     email: email.value,
@@ -115,7 +132,7 @@ export default {
                 }
             } catch(error) {
                 console.log(error);
-                errorMessage.value = "Une erreur est survenue. Veuillez réessayer.";
+                errorMessage.value = "Veuillez réessayer.";
             } finally {
                 isLoading.value = false;
             }
@@ -131,6 +148,8 @@ export default {
             message,
             errorMessage,
             handleSubmit,
+            validatePhoneNumber,
+            phoneError,
             isLoading
         }
 
@@ -138,30 +157,53 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .shadow-custom {
         max-width: 100%;
         margin: 0 auto; 
         box-shadow: 1px 2px 3px rgba(50,50,50,0.05);  
     }
 
+    .custom_phone{
+        border: none !important;
+        border-bottom: 2px solid var(--secondary) !important;
+        border-radius: 5px !important;
+        outline: none !important;
+        box-shadow: none !important; 
+        margin: 10px auto !important; 
+    }
+
+    ::v-deep .vti__input {
+        padding: 10px !important; 
+    }
+
+    ::v-deep .vti__input:focus { 
+        border-bottom: 2px solid #f38b04;
+        background-color: var(--secondary);
+    }
+
+    .custom_phone:focus{
+        outline: none !important; 
+        box-shadow: none !important; 
+    }
+
     input, textarea, select {
         border: 0;
         border-radius: 5px;
-        border-bottom: 1px solid var(--secondary);
+        border-bottom: 2px solid var(--secondary);
         padding: 10px;
         outline: none;
         display: block;
         width: 100%;
         box-sizing: border-box;
-        margin: 20px auto; 
+        margin: 10px auto; 
     }
     select {
         border-radius: 8px;
     }
 
     input:focus, textarea:focus {  
-        border-bottom: 1px solid #f38b04;
+        border-bottom: 2px solid #f38b04;
         background-color: var(--secondary);
     }
 

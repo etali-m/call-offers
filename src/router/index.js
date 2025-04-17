@@ -9,6 +9,21 @@ import otpVerification from '@/views/auth/otpVerification.vue'
 
 const routes = [
   {
+    path: '/login',
+    name: 'login', 
+    component: Login
+  },
+  {
+    path: '/signup',
+    name: 'signup', 
+    component: Signup
+  },
+  {
+    path: '/verify-email',
+    name: 'otp-verification', 
+    component: otpVerification
+  },
+  {
     path: '/', 
     redirect: '/home',
     component: Layout,
@@ -30,21 +45,6 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'login', 
-    component: Login
-  },
-  {
-    path: '/signup',
-    name: 'signup', 
-    component: Signup
-  },
-  {
-    path: '/verify-email',
-    name: 'otp-verification', 
-    component: otpVerification
-  }
 ]
 
 const router = createRouter({
