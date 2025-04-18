@@ -25,15 +25,15 @@
             <form @submit.prevent="handleSubmit"> 
                 <div class="row">
                     <div class="col-md-6">
-                        <label for=""><b>Nom</b></label>
-                        <input type="text" v-model="first_name">
+                        <label class="label-custom" for=""><b>Nom</b></label>
+                        <input class="input-custom" type="text" v-model="first_name" placeholder="Etali">
                     </div>
                     <div class="col-md-6">
-                        <label for=""><b>Prénom</b></label>
-                        <input type="text" v-model="last_name" placeholder="Mathias">
+                        <label class="label-custom" for=""><b>Prénom</b></label>
+                        <input class="input-custom" type="text" v-model="last_name" placeholder="Mathias">
                     </div>
                     <div class="col-md-6">
-                        <label for=""><b>Téléphone</b></label>
+                        <label class="label-custom" for=""><b>Téléphone</b></label>
                         <vue-tel-input
                             v-model="phone_number"
                             defaultCountry="CM"
@@ -46,8 +46,8 @@
                         <small v-if="phoneError" class="text-danger">{{ phoneError }}</small>
                     </div>
                     <div class="col-md-6">
-                        <label for=""><b>Entreprise</b></label>
-                        <input type="text" v-model="company" placeholder="OCTAL GROUP">
+                        <label class="label-custom" for=""><b>Entreprise</b></label>
+                        <input class="input-custom" type="text" v-model="company" placeholder="OCTAL GROUP">
                     </div>
                 </div> 
                 <div class="d-grid gap-2 mt-5">
@@ -158,12 +158,6 @@ export default {
 </script>
 
 <style scoped>
-    .shadow-custom {
-        max-width: 100%;
-        margin: 0 auto; 
-        box-shadow: 1px 2px 3px rgba(50,50,50,0.05);  
-    }
-
     .custom_phone{
         border: none !important;
         border-bottom: 2px solid var(--secondary) !important;
@@ -185,59 +179,5 @@ export default {
     .custom_phone:focus{
         outline: none !important; 
         box-shadow: none !important; 
-    }
-
-    input, textarea, select {
-        border: 0;
-        border-radius: 5px;
-        border-bottom: 2px solid var(--secondary);
-        padding: 10px;
-        outline: none;
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        margin: 10px auto; 
-    }
-    select {
-        border-radius: 8px;
-    }
-
-    input:focus, textarea:focus {  
-        border-bottom: 2px solid #f38b04;
-        background-color: var(--secondary);
-    }
-
-    input[type="file"] {
-        border: 0;
-        padding: 0;
-    }
-
-    label {
-        font-size: 13px;
-        display: block;
-        margin-top: 30px;
-    }
-
-    .btn-custom { 
-        background: var(--secondary);
-        border-radius: 8px;
-        border: 0;
-        padding: 8px 12px;
-        font-weight: 600;
-        cursor: pointer;
-        display: inline-block;
-    }
-
-    .btn-custom:hover{
-        background: var(--primary);
-        color: white;
-    }
-
-    button:disabled {
-        opacity: 0.5;
-        color: var(--primary);
-        background: var(--secondary);
-        cursor: not-allowed;
-        margin-top: 20px;
     }
 </style>

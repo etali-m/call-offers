@@ -30,5 +30,4 @@ export default {
         margin-right: 0;
         padding-top: 100px;
     }
-    
 </style>

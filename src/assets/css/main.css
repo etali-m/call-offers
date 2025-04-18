@@ -28,3 +28,64 @@ body {
   font-size: 14px;
   margin: 16px 0;
 }
+
+.shadow-custom {
+  max-width: 100%;
+  margin: 0 auto; 
+  box-shadow: 1px 2px 3px rgba(50,50,50,0.05);  
+}
+
+.input-custom, .textarea-custom, .select-custom {
+  border: 0;
+  border-radius: 5px;
+  border-bottom: 2px solid var(--secondary);
+  padding: 10px;
+  outline: none;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px auto; 
+}
+
+.select-custom {
+  border-radius: 8px;
+}
+
+.input-custom:focus, .textarea-custom:focus {  
+  border-bottom: 2px solid #f38b04;
+  background-color: var(--secondary);
+}
+
+.input-custom[type="file"] {
+  border: 0;
+  padding: 0;
+}
+
+.label-custom {
+  font-size: 13px;
+  display: block;
+  margin-top: 30px;
+}
+
+.btn-custom { 
+  background: var(--secondary);
+  border-radius: 8px;
+  border: 0;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-custom:hover{
+  background: var(--primary);
+  color: white;
+}
+
+button:disabled {
+  opacity: 0.5;
+  color: var(--primary);
+  background: var(--secondary);
+  cursor: not-allowed;
+  margin-top: 20px;
+}

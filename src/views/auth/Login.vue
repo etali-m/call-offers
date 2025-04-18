@@ -20,23 +20,33 @@
                     <div v-if="error" class="error">{{ error }}</div>
 
                     <form @submit.prevent="handleSubmit"> 
-                        <div class="form-group">
-                            <input type="email" v-model="email" class="form-control custom-input" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" v-model="password" class="form-control custom-input" placeholder="Mot de passe" required> 
+                        <div class="row gy-3">
+                            <div class="col-12">
+                                <input type="email" v-model="email" class="form-control auth-input" placeholder="Email" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="password" v-model="password" class="form-control auth-input" placeholder="Mot de passe" required> 
+                            </div> 
+                            <div class="col-12 text-start">
+                                <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck">
+                                <label class="form-check-label" for="gridCheck">
+                                    Rester connecté
+                                </label>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-2">
+                                <button class="btn signin-link" type="submit">
+                                    <span v-if="isLoading">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Chargement...
+                                    </span>
+                                    <span v-else>
+                                        Se connecter
+                                    </span>
+                                </button>
+                            </div>
                         </div> 
-                        <div class="d-grid gap-2 mt-2">
-                            <button class="btn signin-link" type="submit">
-                                <span v-if="isLoading">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    Chargement...
-                                </span>
-                                <span v-else>
-                                    Se connecter
-                                </span>
-                            </button>
-                        </div>
                     </form> 
                 </div> 
             </div>

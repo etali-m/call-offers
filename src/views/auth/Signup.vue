@@ -19,39 +19,39 @@
             <form @submit.prevent="handleRegister">
               <div class="row g-2">
                 <div class="col">
-                  <input type="text" v-model="first_name" class="form-control custom-input" placeholder="Nom" required>
+                  <input type="text" v-model="first_name" class="form-control auth-input" placeholder="Nom" required>
                   <div v-if="errors.first_name" class="error">{{ errors.first_name[0] }}</div>
                 </div>
                 <div class="col">
-                  <input type="text" v-model="last_name" class="form-control custom-input" placeholder="Prénom" required>
+                  <input type="text" v-model="last_name" class="form-control auth-input" placeholder="Prénom" required>
                   <div v-if="errors.last_name" class="error">{{ errors.last_name[0] }}</div>
                 </div>
                 <div class="col-12">
-                  <input type="email" v-model="email" class="form-control custom-input" placeholder="Email" required>
+                  <input type="email" v-model="email" class="form- auth-input" placeholder="Email" required>
                 </div>
                 <div class="col">
                   <vue-tel-input
                     v-model="phone_number"
                     defaultCountry="CM"
-                    :inputOptions="{ placeholder: 'Votre numéro de téléphone' }"
-                    styleClasses="custom-input"
+                    :inputOptions="{ placeholder: 'Numéro de téléphone' }"
+                    styleClasses="signup__custom_phone"
                     @validate="validatePhoneNumber"
                   />
                   <div v-if="phoneError" class="error">{{ phoneError }}</div>
                 </div>
                 <div class="col">
-                  <input type="text" v-model="company" class="form-control custom-input" placeholder="Entreprise">
+                  <input type="text" v-model="company" class="form-control auth-input" placeholder="Entreprise">
                 </div>
                 <div class="col-12">
-                  <input type="password" v-model="password" class="form-control custom-input" placeholder="Mot de passe" required>
+                  <input type="password" v-model="password" class="form-control auth-input" placeholder="Mot de passe" required>
                   <span v-if="errors.password" class="error">{{ errors.password2[0] }}</span>
                 </div>
                 <div class="col-12">
-                  <input type="password" v-model="password2" class="form-control custom-input" placeholder="Confirmer mot de passe" @input="checkPasswords" required>
+                  <input type="password" v-model="password2" class="form-control auth-input" placeholder="Confirmer mot de passe" @input="checkPasswords" required>
                   <small v-if="passwordMismatch" class="error">Les mots de passe ne correspondent pas.</small>
                   <span v-if="errors.password2" class="error">{{ errors.password2[0] }}</span>
                 </div>
-                <div class="d-grid gap-2">
+                <div class="d-grid gap-2 mt-3">
                   <button class="btn signin-link" type="submit" :disabled="isLoading">
                     <span v-if="isLoading">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -171,5 +171,160 @@
   };
 </script>
   
-<style scoped src="@/assets/css/auth/login.css"></style>
+<style scoped>
+    .left-section { 
+        color: white; 
+        width: 45%; 
+        background-color: #F38B04;  
+        background-image: 
+            linear-gradient(45deg, rgba(255, 165, 0, 0.1) 50%, transparent 50%),
+            linear-gradient(-45deg, rgba(255, 140, 0, 0.15) 50%, transparent 50%),
+            linear-gradient(135deg, rgba(255, 120, 0, 0.2) 50%, transparent 50%),
+            linear-gradient(-135deg, rgba(255, 100, 0, 0.1) 50%, transparent 50%);
+        
+        background-size: 
+            80px 80px,
+            120px 120px,
+            160px 160px,
+            200px 200px;
+        
+        background-position: 
+            var(--pos-1), 
+            var(--pos-2), 
+            var(--pos-3), 
+            var(--pos-4);
+        
+        animation: float 25s linear infinite;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .left-section h2 {
+        color: #fff;
+        text-align: center;
+        font-size: 48px;
+        font-weight: bolder;
+    }
+
+    .right-section { 
+        width: 55%;  
+        padding: 30px; 
+
+        background-image: 
+        /* Cercle petit en haut à gauche */
+        radial-gradient(circle at 20% 20%, rgba(243, 139, 4, 0.1) 15%, transparent 15%),
+        /* Cercle moyen en bas à droite */
+        radial-gradient(circle at 80% 70%, rgba(243, 139, 4, 0.1)  25%, transparent 25%),
+        /* Cercle intermédiaire en bas à gauche */
+        radial-gradient(circle at 30% 80%, rgba(243, 139, 4, 0.1)  20%, transparent 20%);
+      background-repeat: no-repeat;
+    }
+
+    .errorlist{
+        list-style-type: none !important;
+    }
+
+    .right-section h2 { 
+        text-align: center;
+        font-size: 36px;
+        font-weight: bolder;
+    }
+
+    .login-form {
+        width: 80%;  
+    }
+
+    .login-form h2 { 
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .login-form p { 
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+
+    .auth-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px; 
+        padding-left: 20px;
+        outline: none;   
+    }
+
+    .auth-input:focus{ 
+        border: 2px solid #F38B04;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .signup__custom_phone:focus {
+        outline: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .login-form .btn-primary {
+        width: 100%;
+    }
+
+    .login-form .signup-link {
+        text-align: center;
+    }
+
+    .signin-link{
+        background-color: #F38B04;
+        color:white;
+        border-radius: 5px;
+    }
+
+    .login-link{
+        background-color: white;
+        color:black;
+        font-weight: 600;
+        border-radius: 30px;
+        padding: 8px 25px;
+        border:none;
+    }
+
+    .login-link:focus{
+        outline: none !important;
+        box-shadow: none;
+    }
+
+    .signin-link:hover{
+        color: white;
+    }
+
+    .signin-link:focus {
+        outline: none !important;
+        box-shadow: none;
+    }
+    
+    #msg {
+        position:absolute;
+        top:20px;
+        left: 22%;
+        width: 500px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      text-align: left;
+      opacity: 1;
+    }
+
+    .signup__custom_phone{ 
+        border: 2px solid var(--secondary) !important;
+        border-radius: 5px !important;
+        outline: none !important;
+        box-shadow: none !important; 
+        margin:0;
+    }
+
+    ::v-deep .vti__input {
+        padding: 9px !important; 
+    } 
+</style>
   
