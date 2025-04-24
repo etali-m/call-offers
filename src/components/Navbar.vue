@@ -35,7 +35,7 @@ import { useAuth } from '@/composables/useAuth';
 export default { 
     setup () {
         const { getUser, logout } = useAuth();
-        const user = getUser()
+        const user = getUser() // on récupère l'utilisateur connecté
         const router = useRouter()
 
         const handleLogout = async() => {

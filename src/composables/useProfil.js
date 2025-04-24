@@ -11,7 +11,7 @@ export function useProfil(){
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
-                })
+                }) 
                 return response.data
             } catch(error){
                 console.log("Erreur lors de la récupération des informations")

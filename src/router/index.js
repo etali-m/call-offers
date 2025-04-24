@@ -6,6 +6,7 @@ import Signup from '@/views/auth/Signup.vue'
 import Layout from '@/components/Layout.vue'
 import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
+import Create from '@/views/Create.vue'
 
 const routes = [
   {
@@ -42,9 +43,14 @@ const routes = [
         path: '/profil',
         name: 'profil',
         component: Profil
+      },
+      {
+        path: '/create/:str',
+        name: 'create',
+        component: Create
       }
     ]
-  },
+  }, 
 ]
 
 const router = createRouter({
