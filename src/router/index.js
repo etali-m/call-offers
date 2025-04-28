@@ -8,6 +8,7 @@ import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
 import Create from '@/views/Create.vue'
 import Home_travaux from '@/views/app_travaux/Home_travaux.vue'
+import Piece1 from '@/views/app_travaux/Piece1.vue'
 
 const routes = [
   {
@@ -50,11 +51,17 @@ const routes = [
         name: 'create',
         component: Create
       },
+      //ON va organiser en fonction du type de maché
       {
-        path: 'edit/:project_id',
+        path: '/edit/travaux/:project_id',
         name: 'home_travaux',
-        component: Home_travaux
-      }
+        component: Home_travaux,  
+      }, 
+      {
+        path: '/edit/travaux/:project_id/piece1',
+        name: 'piece1_travaux',
+        component: Piece1,
+      },
     ]
   }, 
 ]

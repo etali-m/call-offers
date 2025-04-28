@@ -8,10 +8,7 @@
     </div>
     <br>
     <div class="row g-2">
-
-        <div class="col-md-3" v-for="card in cards" :key="card.id">
-            <Card :titre="card.title" :numero="card.id"/>
-        </div> 
+        <Card v-for="card in cards" :key="card.id" :titre="card.title" :numero="card.id"/> 
     </div>
 </template>
 
