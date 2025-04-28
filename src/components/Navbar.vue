@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-light bg-white mb-4" style="padding: 15px;"> 
+<nav class="navbar navbar-light bg-white mb-4"> 
     <a class="navbar-brand d-flex flex-column" style="font-size: 12px;">
         <span>
             Système Informatique de Gestion
@@ -60,8 +60,9 @@ export default {
     width: calc(100% - 130px);
     background-color: #333;
     color: white;
-    z-index: 999;
-    padding: 10px;
+    z-index: 999; 
+    padding:10px;
+    padding-left: 15px;
 }
 
 .navbar-icon{

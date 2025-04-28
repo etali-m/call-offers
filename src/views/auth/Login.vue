@@ -27,12 +27,15 @@
                             <div class="col-12">
                                 <input type="password" v-model="password" class="form-control auth-input" placeholder="Mot de passe" required> 
                             </div> 
-                            <div class="col-12 text-start">
+                            <div class="col-12 d-flex justify-content-between">
                                 <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Rester connecté
-                                </label>
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Rester connecté
+                                    </label>
+                                </div>
+                                <div>
+                                    <a href="#">mot de passe oublié ?</a>
                                 </div>
                             </div>
                             <div class="d-grid gap-2 mt-2">

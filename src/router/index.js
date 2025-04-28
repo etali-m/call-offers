@@ -7,6 +7,7 @@ import Layout from '@/components/Layout.vue'
 import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
 import Create from '@/views/Create.vue'
+import Home_travaux from '@/views/app_travaux/Home_travaux.vue'
 
 const routes = [
   {
@@ -45,9 +46,14 @@ const routes = [
         component: Profil
       },
       {
-        path: '/create/:str',
+        path: '/create/:slug',
         name: 'create',
         component: Create
+      },
+      {
+        path: 'edit/:project_id',
+        name: 'home_travaux',
+        component: Home_travaux
       }
     ]
   }, 

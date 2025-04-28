@@ -6,7 +6,7 @@
       <!-- Debut de la boucle -->
           <div v-for="type in typesMarche" :key="type.id" class="col-md-3 template-box">
               <div class="template-card">   
-                  <router-link :to="{ name: 'create', params: { str: type.nom } }">
+                  <router-link :to="{ name: 'create', params: { slug: type.slug } }">
                     <img :src="getImageUrl(type.image_garde)" :alt="type.nom">
                     <p class="template-title">{{ type.nom }}</p>
                   </router-link>
@@ -47,6 +47,7 @@
 import axios from 'axios'
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { utils } from '@/composables/utils';
 
 export default {
     name: 'HomeView',
@@ -56,8 +57,11 @@ export default {
         const API_URL = 'http://localhost:8000/api'
         const typesMarche = ref([])
 
+        //recupération de la fonctio pour le chemin image
+        const { getImageUrl } = utils()
 
-        //fonction pour récuperer les types de marché
+
+        //fonction pour récuperer tout les types de marché
         const getTypesMarche = async() => {
             const token = localStorage.getItem('access_token')
             if (token) {
@@ -73,12 +77,6 @@ export default {
                     console.log("Erreur lors de la récupération des informations: ", error)
                 }
             }
-        }
-
-        //fonction pour obtenir le chemin url
-        const getImageUrl = (imagePath) => {
-            //on va ajouter l'adresse du backent au chemin de l'image enregistrée.
-            return imagePath ? `http://localhost:8000${imagePath}` : ''
         }
 
         onMounted(() => {
@@ -115,7 +113,7 @@ export default {
 }
 
 .template-card img:hover {
-    border: 2px solid #f38b04;
+    border: 1px solid #f38b04;
     margin-bottom:1px;
 }
 

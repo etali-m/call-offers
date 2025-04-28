@@ -9,7 +9,7 @@
     <footer>
         <div class="row">
             <div class="col-md-12 bg-white d-flex justify-content-center p-3">
-                <span>copyright &copy;2025 <a href="">OGIVE solution-experts</a> </span>
+                <span>copyright &copy;2025 <a class="copyright" href="">OGIVE solution-experts</a> </span>
             </div>
         </div>
     </footer>
@@ -29,5 +29,9 @@ export default {
         margin-left: 130px; 
         margin-right: 0;
         padding-top: 100px;
+    }
+    .copyright {
+        text-decoration: none;
+        color: var(--main);
     }
 </style>
