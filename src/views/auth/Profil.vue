@@ -10,7 +10,7 @@
         <div class="card shadow-custom mb-4 mt-4">
             <div class="card-body text-center">
                 <img class="img-profile rounded-circle"
-            src="@/assets/img/undraw_profile_1.svg">
+            src="@/assets/img/undraw_profile_1.svg" width="100" height="100">
                 <span><b>{{ email }}</b></span>
             </div> 
             <ul class="list-group list-group-flush">
@@ -19,47 +19,52 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-9 card shadow-custom p-4 mb-2 mt-4"> 
-        <h3>Paramètres utilisateur</h3>
-        <div class="card-body mt-1">
-            <form @submit.prevent="handleSubmit"> 
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="label-custom" for=""><b>Nom</b></label>
-                        <input class="input-custom" type="text" v-model="first_name" placeholder="Etali">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="label-custom" for=""><b>Prénom</b></label>
-                        <input class="input-custom" type="text" v-model="last_name" placeholder="Mathias">
-                    </div>
-                    <div class="col-md-6">
-                        <label class="label-custom" for=""><b>Téléphone</b></label>
-                        <vue-tel-input
-                            v-model="phone_number"
-                            defaultCountry="CM"
-                            mode="international"
-                            :autoFormat="true"
-                            :inputOptions="{ placeholder: 'Votre numéro de téléphone' }"
-                            styleClasses="custom_phone"
-                            @validate="validatePhoneNumber"
-                        /> 
-                        <small v-if="phoneError" class="text-danger">{{ phoneError }}</small>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="label-custom" for=""><b>Entreprise</b></label>
-                        <input class="input-custom" type="text" v-model="company" placeholder="OCTAL GROUP">
-                    </div>
-                </div> 
-                <div class="d-grid gap-2 mt-5">
-                  <button class="btn-custom" type="submit" :disabled="isLoading">
-                    <span v-if="isLoading">
-                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Chargement...
-                    </span>
-                    <span v-else>Enregistrer</span>
-                  </button>
-                </div> 
-            </form>
+    <div class="col-md-9"> 
+        <div class="shadow-custom p-3 mb-2 mt-4 d-flex align-items-center justify-content-start" style="height: 90px;">
+            <h4 style="color: var(--second)"><b>Paramètres utilisateur</b></h4>
+        </div>
+
+        <div class="shadow-custom p-3 mb-2 mt-2">
+            <div class="card-body mt-1">
+                <form @submit.prevent="handleSubmit"> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label-custom" for=""><b>Nom</b></label>
+                            <input class="input-custom" type="text" v-model="first_name" placeholder="Etali">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label-custom" for=""><b>Prénom</b></label>
+                            <input class="input-custom" type="text" v-model="last_name" placeholder="Mathias">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label-custom" for=""><b>Téléphone</b></label>
+                            <vue-tel-input
+                                v-model="phone_number"
+                                defaultCountry="CM"
+                                mode="international"
+                                :autoFormat="true"
+                                :inputOptions="{ placeholder: 'Votre numéro de téléphone' }"
+                                styleClasses="custom_phone"
+                                @validate="validatePhoneNumber"
+                            /> 
+                            <small v-if="phoneError" class="text-danger">{{ phoneError }}</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="label-custom" for=""><b>Entreprise</b></label>
+                            <input class="input-custom" type="text" v-model="company" placeholder="OCTAL GROUP">
+                        </div>
+                    </div> 
+                    <div class="d-grid gap-2 mt-4">
+                    <button class="btn-custom" type="submit" :disabled="isLoading">
+                        <span v-if="isLoading">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Chargement...
+                        </span>
+                        <span v-else>Enregistrer</span>
+                    </button>
+                    </div> 
+                </form>
+            </div>
         </div>
     </div> 
 </div>

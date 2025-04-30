@@ -5,7 +5,7 @@
                 <img :src="getImageUrl(marche.image_garde)" alt="Image"> 
             </div>  
         </div>
-        <div class="col-md-8 card shadow-custom">
+        <div class="col-md-8 card shadow-custom p-4">
             <form @submit.prevent="handleSubmit">
                 <h4 class="fw-bold">Nouveau dossier d'appel d'offre</h4>
                 <div class="d-flex justify-content-between">
