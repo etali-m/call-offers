@@ -4,6 +4,7 @@
       v-for="n in totalSteps" 
       :key="n" 
       :class="{ active: currentStep === n - 1 }"
+      @click="handleStep(n)"
     >
       <span>{{ n }}</span>
     </li>
@@ -30,6 +31,10 @@ const props = defineProps({
 })
 
 const currentStep = ref(0)
+
+const handleStep = (n) => {
+  currentStep.value = n-1
+}
 
 const nextStep = () => {
   if (currentStep.value < props.totalSteps - 1) {
@@ -61,6 +66,7 @@ const isLastStep = computed(() => currentStep.value === props.totalSteps - 1)
   position: relative;
   flex: 1;
   text-align: center;
+  cursor: pointer;
 }
 
 .timeline li::before {

@@ -49,6 +49,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   margin: 10px auto; 
+  background-color: var(--secondary);
 }
 
 .select-custom {
@@ -57,7 +58,6 @@ body {
 
 .input-custom:focus, .textarea-custom:focus {  
   border-bottom: 2px solid #f38b04;
-  background-color: var(--secondary);
 }
 
 .input-custom[type="file"] {
