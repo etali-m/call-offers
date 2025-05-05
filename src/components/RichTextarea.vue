@@ -31,6 +31,7 @@ import { ListIcon, ListOrderedIcon, BoldIcon, ItalicIcon, EraserIcon } from 'luc
 const props = defineProps({
   modelValue: String
 })
+
 const emit = defineEmits(['update:modelValue'])
 
 const editor = new Editor({
