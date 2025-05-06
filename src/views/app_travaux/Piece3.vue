@@ -335,6 +335,16 @@
               </div> 
           </div>
 
+          <div v-else-if="currentStep === 8"> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">29.1 </h5>
+                  <div class="col-md-12">   
+                      <label for="consistence_travaux">Qualification du soumissionnaire :</label>
+                      <RichTextarea v-model="qualification_soumissionaire" />
+                  </div>
+              </div> 
+          </div>
+
 
 
           <!-- Navigation -->
@@ -421,6 +431,54 @@ const ouverture_plis = ref(`
     dont une copie sera remise à tous les soumissionnaires.
   </li>
 </ul>
+`)
+
+const qualification_soumissionaire = ref(` 
+<p>L’évaluation des offres se fera sur la base des critères ci-après pour chaque lot retenu par le soumissionnaire :</p>
+<p><em>(Étant entendu qu’un critère ne peut être à la fois éliminatoire et essentiel.)</em></p>
+
+<h6>Critères éliminatoires</h6>
+<p>Les <b>critères éliminatoires</b> fixent les conditions minimales à remplir pour être admis à l’évaluation selon les critères essentiels. Ils ne doivent pas faire l’objet de notation. Le non-respect de ces critères entraîne le rejet de l’offre du soumissionnaire. Il s'agit notamment de :</p>
+<ul>
+  <li>L’absence du cautionnement de soumission à l’ouverture des plis ;</li>
+  <li>La non-production, au-delà du délai de 48 h après l’ouverture des plis, d’une pièce du dossier administratif jugée non conforme ou absente ;</li>
+  <li>Les fausses déclarations, manœuvres frauduleuses ou pièces falsifiées ;</li>
+  <li>Le non-respect de X critères essentiels (X renvoyant au seuil de qualification des offres techniques) ;</li>
+  <li>L’absence de la déclaration sur l’honneur de non abandon des chantiers au cours des trois dernières années ;</li>
+  <li>Le non-respect du format de fichier des offres ;</li>
+  <li>L’absence d’un prix unitaire quantifié dans l’offre financière ;</li>
+  <li>L’absence de prospectus accompagné des fiches techniques du fabricant, le cas échéant ;</li>
+  <li>L’absence de l’agrément ou de l’autorisation du fabricant, le cas échéant ;</li>
+  <li>L’absence de possession d’un matériel minimum (liste à préciser par le Maître d’Ouvrage et à déterminer en propre ou en location) ;</li>
+  <li>L’absence de la charte d’intégrité ;</li>
+  <li>L’absence de la déclaration d’engagement au respect des clauses sociales et environnementales.</li>
+</ul>
+<p><strong>NB :</strong> En fonction de la spécificité de la prestation, d’autres critères pertinents pourront être ajoutés lors de l’élaboration des DAO.</p>
+
+<h6>Critères essentiels</h6>
+<p>Les <b>critères dits essentiels</b> (primordiaux ou clés) attestent de la capacité technico-financière des candidats à exécuter les prestations, objet de l’appel d’offres. Ceux-ci doivent être déterminés en fonction de la nature et de la consistance des prestations à réaliser.</p>
+<p>Il convient de préciser formellement les modalités de validation d’un critère à partir du nombre de sous-critères respectés.</p>
+
+<p>Les critères essentiels à la qualification des soumissionnaires porteront à titre indicatif sur :</p>
+<ul>
+  <li>La présentation de l’offre ;</li>
+  <li>Les références du soumissionnaire ;</li>
+  <li>Le service après-vente (disponibilité des pièces de rechange, atelier de réparation, personnel technique), le cas échéant ;</li>
+  <li>La capacité financière (accès à une ligne de crédit ou autres ressources financières, chiffre d’affaires, attestation de solvabilité financière) ;</li>
+  <li>La qualification et l’expérience du personnel ;</li>
+  <li>Les moyens logistiques ;</li>
+  <li>La méthodologie ;</li>
+  <li>Les preuves d’acceptation des conditions du marché.</li>
+</ul>
+
+<p><strong>NB :</strong> Indiquer les principaux critères de qualification qui montrent que le soumissionnaire dispose des capacités techniques et des ressources requises pour mener à bien l’exécution du marché.</p>
+<p><strong>Important :</strong> Le système de notation des offres par attribution de points est proscrit au profit du mode binaire (<em>oui ou non</em>).</p>
+
+<strong>Le système de notation des offres par attribution des points est proscrit au profit du mode
+binaire (oui ou non)</strong>
+
+<h5>Critères et Sous critères pour l’évaluation détaillée des offres</h5>
+
 `)
 
 const formData = reactive({
