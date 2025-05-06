@@ -130,16 +130,96 @@
                 <p>
                   Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à [service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail] ou en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm, ou tout autres moyens de communication électronique indiqué par le Maître d’Ouvrage.
                 </p>
-              </div>
-          </div>
-
-          <div v-else-if="currentStep === 3">
+              </div> <br>
               <h5 class="fw-bold mb-4">12. </h5>
               <div class="row">
                   <div class="col-md-12">   
-                      <label for="consistence_travaux">La langue de soumission est l'Anglais ou le Français</label>
-                      <textarea class="textarea-custom" placeholder="Description succinte des travaux à exécuter"></textarea>
+                      <label for="consistence_travaux">La langue de soumission est l'Anglais ou le Français</label> 
                   </div>
+              </div> 
+          </div>
+
+          <div v-else-if="currentStep === 3">
+              <h5 class="fw-bold mb-4">13.1 </h5>
+              <div class="row">
+                <div class="col-12">
+                    <label class="form-label fw-bold">Le soumissionnaire devra produire une offre regroupée en trois volumes et présentée comme suit :</label>
+
+                    <!-- Volume I -->
+                    <div class="mt-4">
+                      <h6 class="fw-bold">A - Volume I : Pièces administratives</h6>
+
+                      <div class="mt-2">
+                        <p class="mb-1">A.1 - Pour les soumissionnaires installés au Cameroun :</p>
+                        <RichTextarea v-model="piecesAdminLocales" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">A.2 - Pour les soumissionnaires non installés au Cameroun :</p>
+                        <RichTextarea v-model="piecesAdminEtrangeres" />
+                      </div>
+                    </div>
+
+                    <!-- Volume II -->
+                    <div class="mt-5">
+                      <h6 class="fw-bold">B - Volume II : Offre technique</h6>
+
+                      <div class="mt-2">
+                        <p class="mb-1">b.1 - La lettre de soumission de la proposition technique :</p>
+                        <p class="mb-1">b.2 - Références du soumissionnaire :</p>
+                        <RichTextarea v-model="offreTechLocale" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.3 - Personnel :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.4 - Matériels à mobiliser pour l'exécution des travaux :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.5 - Organisation et méthodologie :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.6 - Respect du formaulaire proposé dans le DAO :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.7 - Les preuves d'accepation des conditions du marché :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.8 - Commentaires CCAP et CCTP :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.9 - La capacité financière :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                      <div class="mt-3">
+                        <p class="mb-1">b.10 - L'attestation de non abandon de chantier au cours des trois dernières années :</p>
+                        <RichTextarea v-model="offreTechEtrangere" />
+                      </div>
+
+                    </div>
+
+                    <!-- Volume III (à compléter si nécessaire) -->
+                    <div class="mt-5">
+                      <h6 class="fw-bold">C - Volume III : Offre financière</h6>
+                      <p class="mb-1">C.1 - Description de l’offre financière :</p>
+                      <RichTextarea v-model="offreFinanciere" />
+                    </div>
+                </div>
+
               </div> 
           </div>
 
