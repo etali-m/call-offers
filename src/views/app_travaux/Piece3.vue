@@ -340,7 +340,7 @@
                   <h5 class="fw-bold mb-2">29.1 </h5>
                   <div class="col-md-12">   
                       <label for="consistence_travaux">Qualification du soumissionnaire :</label>
-                      <RichTextarea v-model="qualification_soumissionaire" />
+                      <RichTextarea v-model="qualification_soumissionaire"/>
                   </div>
               </div> 
           </div>

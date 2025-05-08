@@ -84,7 +84,12 @@
       </div>
 
     </div>
-    <EditorContent :editor="editor" class="editor" />
+    <EditorContent
+      :editor="editor"
+      class="editor"
+      :style="{ maxHeight: height, overflowY: 'auto' }"
+    />
+
   </div>
 </template>
 
@@ -99,7 +104,11 @@ import { onBeforeUnmount, watch, ref } from 'vue'
 import { ListIcon, ListOrderedIcon, BoldIcon, ItalicIcon, EraserIcon } from 'lucide-vue-next'
 
 const props = defineProps({
-  modelValue: String
+  modelValue: String,
+  height: {
+    type: String,
+    default: '600px', // hauteur par défaut
+  }
 })
 
 const showTable = ref(false)
