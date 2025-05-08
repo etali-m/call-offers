@@ -3,7 +3,7 @@
 
   <div class="form-container">  
       <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-        <StepperForm :totalSteps="20" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+        <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
           <div v-if="currentStep === 0">
             <h5 class="fw-bold mb-4">1.1 Définition des travaux</h5>
             <div class="row">
@@ -345,7 +345,90 @@
               </div> 
           </div>
 
+          <div v-else-if="currentStep === 9"> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">29.1 </h5>
+                  <h5><strong>Critères et Sous critères pour l'évaluation détaillée des offres.</strong></h5>
+                  <div class="col-md-12">   
+                      <label for="consistence_travaux"><strong>Critères éliminatoires</strong></label>
+                      <RichTextarea v-model="criteres_eliminatoires"/>
+                  </div>
+              </div> 
+          </div>
 
+          <div v-else-if="currentStep === 10"> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">29.1 </h5>
+                  <h5><strong>Critères et Sous critères pour l'évaluation détaillée des offres.</strong></h5>
+                  <div class="col-md-12">   
+                      <label for="consistence_travaux"><strong>Critères essentiels</strong></label>
+                      <RichTextarea v-model="criteres_essentiels"/>
+                  </div>
+              </div> 
+          </div>
+
+          <div v-else-if="currentStep === 11"> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">31.2 </h5>
+                  <div class="col-md-12">   
+                      <label for="consistence_travaux">Monnaie retenue</label>
+                      <RichTextarea v-model="monnaie_retenu"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">32.2(b) </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="mode_evaluation"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">32.2(e) </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref_32_2_e"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">32.2(g) </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref_32_2_g"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">33.1 </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref33_1"/>
+                  </div>
+              </div> 
+          </div>
+
+          <div v-else-if="currentStep === 12"> 
+              <h5><strong>ATTRIBUTION</strong></h5>
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">34.1 </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref_34_1"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">34.2 </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref_34_2"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">39.2 </h5>
+                  <div class="col-md-12">    
+                      <RichTextarea v-model="ref_39_2"/>
+                  </div>
+              </div> 
+              <div class="mt-3">
+                  <h5 class="fw-bold mb-2">40 </h5>
+                  <div class="col-md-12">  
+                      <label for="">Principe Ethiques</label>  
+                      <RichTextarea v-model="ref_40"/>
+                  </div>
+              </div>  
+          </div>
 
           <!-- Navigation -->
           <div class="buttons mt-4 text-center">
@@ -480,6 +563,91 @@ binaire (oui ou non)</strong>
 <h5>Critères et Sous critères pour l’évaluation détaillée des offres</h5>
 
 `)
+
+const criteres_eliminatoires = ref(`
+<h5>Critères éliminatoires</h5>
+<p>Les critères éliminatoires seront à titre indicatifs évalués en fonction des sous critères ci-après:</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Rubrique</th>
+      <th>Oui/Non</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3"><strong>I- Critères éliminatoires relatifs au dossier administratif</strong></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>
+         
+      </td>
+      <td>Oui/Non</td>
+    </tr> 
+    <tr>
+      <td colspan="3"><strong>II- Critères éliminatoires relatifs à l’offre technique</strong></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr> 
+    <tr>
+      <td colspan="3"><strong>III- Critères éliminatoires relatifs à l’offre financière</strong></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>IV- Critères éliminatoires d’ordre général</strong></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr>  
+  </tbody>
+</table>
+`)
+
+const criteres_essentiels = ref(`
+  <p>L'évalution des critères essentiels ou relatifs à la qualification des soumissionaires portera à titre indicatif sur : </p>
+`)
+
+const monnaie_retenu =  ref(`
+  <p>La monnaie retenue pour la conversion en une seule monnaie est le franc CFA, la source du taux de change étant la Banque des Etats de l’Afrique Centrale (BEAC).</p>
+  <p>La date du taux d'échange est: </p>
+`)
+
+const mode_evaluation = ref(`<p>Le mode d’évaluation des travaux en régie à chiffrer de façon compétitive est défini comme suit : [à préciser le cas échéant] et le pourcentage desdits travaux devra être précisé </p>`)
+
+const ref33_1 = ref(`<p>Les soumissionnaires nationaux [bénéficient ou ne bénéficient pas] d’une marge de préférence nationale au cours de l’évaluation.</p>`)
+
+const ref_32_2_e = ref(`<p>Le délai d’exécution sera évalué comme suit:(à préciser le cas échéant)</p>`)
+const ref_32_2_g = ref(`<p>La méthode d’évaluation des variantes techniques est la suivante:</p>`)
+
+const ref_34_1 = ref(`<p>Le Maitre d’Ouvrage ou le Maitre d’Ouvrage Délégué attribue le marché au soumissionnaire dont l’offre a été reconnue conforme pour l’essentiel au Dossier d’Appel d’offres et qui dispose des capacités techniques et financières requises pour exécuter le marché de façon satisfaisante et dont l’offre a été évaluée la moins disante après application des remises proposées le cas échéant.</p>`)
+
+const ref_34_2 = ref(`<p>La combinaison à appliquer en cas d’attribution simultanée de plusieurs lots est la suivante le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué tiendra compte des rabais proposés et se basera sur la combinaison qui lui est la plus avantageuse économiquement afin d’arrêter la liste d’attributaires par lot: ans le cas contraire, [préciser le cas échéant, un autre mode que celui le plus économiquement avantageux pour le Maître d’Ouvrage ou Maître d’Ouvrage Délégué]</p>`)
+
+const ref_39_2 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ [à préciser (entre 2 et 5%)] du montant toutes taxes comprises du marché</p>
+<p>Dans un délai de vingt (20) jours à compter de la date de notification du marché par le Maître d’ouvrage,le cocontractant fournira un cautionnement définitif suivant le modèle joint au Dossier d’appel d’offres. La non production dudit cautionnement dans les délais et conditions de l’article 28 du CCAP expose le soumissionnaire aux sanctions prévues par l’article 37 dudit CCAP</p>
+`)
+
+const ref_40 = ref(`<p>Les Présidents et Membres de commission, les Soumissionnaires et les autres intervenants de la procédure doivent observer en tout temps, les règles d’éthique professionnelle les plus strictes. Ils doivent notamment s’interdire toute corruption ou toute autre forme de manœuvres frauduleuses. En vertu de ce principe, les expressions sont définies de la façon suivante </p>
+<p>(i) Est coupable de “<strong>corruption</strong>” quiconque offre, donne, sollicite ou accepte directement ou indirectement un quelconque avantage en vue d’influencer l’action d’un agent public au cours de l’attribution ou de l’exécution d’un marché ou d’une lettre commande, et</p>
+
+<p>(ii) est coupable de “<strong>corruption</strong>” quiconque fournit, sollicite ou accepte plusieurs offres émises par le même soumissionnaire sous des noms des sociétés différentes et/ou sur
+des numéros d’enregistrement différents </p>
+
+<p>(iii) se livre à des “manœuvres frauduleuses” quiconque déforme ou dénature des faits afin
+d’influencer l’attribution ou l’exécution d’un marché ou d’une lettre commande de manière préjudiciable au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué. Les “Manœuvres frauduleuses” comprennent notamment toute entente ou manœuvre collusoire des soumissionnaires (avant ou après la remise de l’offre) visant à maintenir artificiellement les prix des cotations à des niveaux ne correspondant pas à ceux qui résulteraient du jeu d’une concurrence libre et ouverte, et à priver ainsi le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué des avantages de cette dernière.</p>
+`)
+
 
 const formData = reactive({
   nom: '',
