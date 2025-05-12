@@ -8,9 +8,10 @@ import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
 import Create from '@/views/Create.vue'
 import Home_travaux from '@/views/app_travaux/Home_travaux.vue'
-import Piece1_app_travaux from '@/views/app_travaux/Piece1.vue'
-import Piece2_app_travaux from '@/views/app_travaux/Piece2.vue'
-import Piece3_app_travaux from '@/views/app_travaux/Piece3.vue'
+import Piece1 from '@/views/app_travaux/Piece1.vue'
+import Piece2 from '@/views/app_travaux/Piece2.vue'
+import Piece3 from '@/views/app_travaux/Piece3.vue'
+import Piece4 from '@/views/app_travaux/Piece4.vue'
 
 const routes = [
   {
@@ -63,17 +64,22 @@ const routes = [
       {
         path: '/edit/marche-travaux/:project_id/piece1',
         name: 'piece1_travaux',
-        component: Piece1_app_travaux,
+        component: Piece1,
       },
       {
         path: '/edit/marche-travaux/:project_id/piece2',
         name: 'piece2_travaux',
-        component: Piece2_app_travaux,
+        component: Piece2,
       },
       {
         path: '/edit/marche-travaux/:project_id/piece3',
         name: 'piece3_travaux',
-        component: Piece3_app_travaux,
+        component: Piece3,
+      },
+      {
+        path: '/edit/marche-travaux/:project_id/piece4',
+        name: 'piece4_travaux',
+        component: Piece4,
       }
     ]
   }, 
