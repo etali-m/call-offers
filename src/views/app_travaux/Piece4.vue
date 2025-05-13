@@ -11,6 +11,7 @@
                         <RichTextarea v-model="objet_marche"/>
                   </div>
             </div>  
+            
             <div class="mt-3">
                   <h5 class="fw-bold mb-2">2. Procédure de passation du marché </h5>
                   <div class="col-md-12">    
@@ -596,43 +597,23 @@ const art_42 = ref(`
 `)
 
 const art_45 = ref(` <p>
-    Le titulaire du marché ne sera pas tenu responsable des retards imputables à un cas de force majeure.
-    Dans un tel cas, il devra avertir par écrit le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué dans un délai de 
-    <strong>[à préciser, ex. : 5 jours]</strong> suivant l’apparition du cas de force majeure, en fournissant une estimation
-    des retards susceptibles d’en résulter.
+    Le titulaire du marché ne sera pas tenu responsable des retards imputables à un cas de force majeure. Dans un tel cas, le titulaire du marché avertira le Maître d’ouvrage ou le Maître d’ouvrage Délégué par écrit, dans les [préciser nombre de jours] suivant l’apparition du cas de force majeure et il donnera une estimation des retards en résultant. Chaque fois qu’un cas de force majeure provoquera un retard, le titulaire du marché aura droit, si le Maître d’ouvrage le juge réel, à une prorogation des délais
   </p>
 
   <p>
-    Chaque fois qu’un cas de force majeure provoquera un retard, le titulaire du marché aura droit, si le Maître
-    d’Ouvrage reconnaît la réalité du cas invoqué, à une prorogation des délais d’exécution.
-  </p>
+    Aux fins du présent marché, la « force majeure » désigne [Préciser les dispositions du CCAG et certaines situations particulières le cas échéant].
+  </p>  
 
   <p>
-    Aux fins du présent marché, la <strong>force majeure</strong> désigne les circonstances prévues par les dispositions du 
-    <strong>CCAG</strong> en vigueur, ainsi que les situations particulières suivantes le cas échéant :
-  </p>
+    Les cas de force majeure seront constatés conformément aux dispositions du CCAG. Il appartient au Maître d’Ouvrage d’apprécier le caractère de force majeure et les justificatifs fournis.
+  </p> 
+
+  <p>Dans le cas où le cocontractant invoquerait le cas de force majeure relevant des conditions météorologiques, les seuils en deçà desquels aucune réclamation ne sera admise sont :</p>
 
   <ul>
-    <li>Les catastrophes naturelles imprévisibles et irrésistibles (séismes, inondations majeures, etc.) ;</li>
-    <li>Les conflits armés, guerres civiles ou insurrections ;</li>
-    <li>Les pandémies et épidémies reconnues par les autorités compétentes ;</li>
-    <li>Les décisions administratives ou juridiques de portée générale empêchant l’exécution du contrat.</li>
-  </ul>
-
-  <p>
-    Les cas de force majeure seront constatés conformément aux dispositions du CCAG. Il appartient au Maître
-    d’Ouvrage d’apprécier le caractère de force majeure ainsi que la pertinence des justificatifs fournis par le
-    titulaire.
-  </p>
-
-  <h3>Seuils minimaux pour les conditions météorologiques</h3>
-
-  <p>Lorsqu’un cas de force majeure est invoqué au titre des conditions météorologiques, aucune réclamation ne sera admise en deçà des seuils suivants :</p>
-
-  <ul>
-    <li><strong>Pluie :</strong> 200 millimètres en 24 heures ;</li>
-    <li><strong>Vent :</strong> 40 mètres par seconde ;</li>
-    <li><strong>Crue :</strong> Crue de fréquence décennale.</li>
+    <li><em>Pluie :</em> 200 millimètres en 24 heures ;</li>
+    <li><em>Vent :</em> 40 mètres par seconde ;</li>
+    <li><em>Crue :</em> Crue de fréquence décennale.</li>
   </ul>
 `)
 

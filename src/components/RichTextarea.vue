@@ -2,6 +2,9 @@
   <div>
     <div class="toolbar">
       <!-- Boutons existants -->
+      <button type="button" @click="toggleBlock('heading', { level: 1 })" :class="{ active: editor.isActive('heading', { level: 1 }) }">H1</button>
+      <button type="button" @click="toggleBlock('heading', { level: 2 })" :class="{ active: editor.isActive('heading', { level: 2 }) }">H2</button>
+      <button type="button" @click="toggleBlock('heading', { level: 3 })" :class="{ active: editor.isActive('heading', { level: 3 }) }">H3</button> 
       <button type="button" @click="toggle('bulletList')" :class="{ active: editor.isActive('bulletList') }">
         <ListIcon />
       </button>
@@ -86,7 +89,7 @@
     </div>
     <EditorContent
       :editor="editor"
-      class="editor"
+      class="editor editor-field"
       :style="{ maxHeight: height, overflowY: 'auto' }"
     />
 
@@ -181,6 +184,19 @@ const toggle = (action) => {
   editor.chain().focus()[`toggle${capitalize(action)}`]().run()
 }
 
+const toggleBlock = (type, options = {}) => {
+  const isActive = editor.isActive(type, options)
+
+  if (isActive) {
+    // Si le heading est actif, on redevient un paragraphe
+    editor.chain().focus().setParagraph().run()
+  } else {
+    // Sinon, on applique le heading demandé
+    editor.chain().focus()[`toggle${capitalize(type)}`](options).run()
+  }
+}
+
+
 const clearFormatting = () => {
   editor.chain().focus().clearNodes().unsetAllMarks().run()
 }
@@ -239,10 +255,54 @@ watch(() => props.modelValue, (value) => {
   border-radius: 0 0 5px 5px;
   background-color: #fff;
 }
-</style>
+
+.ProseMirror:focus {
+    outline: none !important;
+  }
+
+
+/* Heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+  .editor-field::v-deep(.ProseMirror) {
+    outline: none;
+  }
+</style> 
 
 <style>
-/* Styles pour les tableaux */
+  /* Styles pour les tableaux */
 .tiptap table {
   border-collapse: collapse;
   margin: 0;
