@@ -3,7 +3,7 @@
 
       <div class="form-container">  
       <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-        <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+        <StepperForm :totalSteps="12" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
           <div v-if="currentStep === 0">
             <div class="mt-3">
                   <h5 class="fw-bold mb-2">1. Objet du marché </h5>
@@ -175,6 +175,143 @@
                   </div> 
           </div>
 
+          <div v-else-if="currentStep === 6">
+                  <div class="mt-3"> 
+                        <div class="row">
+                              <h5 class="fw-bold mb-4">Article 20. Laboratoire de chantier et essais </h5>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="labo_chantier" />
+                              </div>
+                        </div> 
+                  </div> 
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
+                        <div class="row">
+                              <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="reunion_chantier" />
+                              </div>
+                        </div> 
+                  </div>  
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
+                        <div class="row">
+                              <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="reunion_chantier" />
+                              </div>
+                        </div> 
+                  </div>
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 22. Utilisation des explosifs </h5>
+                        <div class="row">
+                              <span class="fw-bold mb-4">Utilisation des explosifs</span>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="utilisation_explosifs" />
+                              </div>
+                        </div> 
+                  </div>
+          </div>
+
+            <div v-else-if="currentStep === 7">
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 24. Laboratoire de chantier et essais </h5>
+                        <div class="row"> 
+                              <h6 class="fw-bold mb-4">24.5 Début de la période de garantie </h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="periode_garantie" />
+                              </div>
+                        </div> 
+                  </div>
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 25. Laboratoire de chantier et essais </h5>
+                        <div class="row">  
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="documente_a_fournir" />
+                              </div>
+                        </div> 
+                  </div>
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 26. Garantie contractuelle / Entretien pendant la période de garantie</h5>
+                        <div class="row">  
+                              <h6 class="fw-bold mb-4">26.1 Délai de garantie</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="delai_garantie" />
+                              </div>
+                        </div> 
+                  </div>
+            </div>
+
+            <div v-else-if="currentStep === 8">
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 27. Réception définitive </h5>
+                        <div class="row">  
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="art_27" />
+                              </div>
+                        </div> 
+                  </div>
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 37. Avances </h5>
+                        <div class="row">  
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="art_37" />
+                              </div>
+                        </div> 
+                  </div>
+            </div>
+
+            <div v-else-if="currentStep === 9">
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 38. Règlement des travaux </h5>
+                        <div class="row">  
+                              <h6 class="fw-bold mb-4">Décompte provisoir</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="decompte_provisoir" />
+                              </div>
+                        </div> 
+                  </div> 
+                  <div class="mt-3">
+                        <div class="row">  
+                              <h6 class="fw-bold mb-4">Décompte final</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="decompte_final" />
+                              </div>
+                        </div> 
+                  </div>
+                  <div class="mt-3">
+                        <div class="row">  
+                              <h6 class="fw-bold mb-4">Décompte général et définitif</h6>
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="decompte_defintif" />
+                              </div>
+                        </div> 
+                  </div>
+            </div>
+
+
+            <div v-else-if="currentStep === 10">
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 42. Régime fiscal et douanier </h5>
+                        <div class="row">   
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="art_42" />
+                              </div>
+                        </div> 
+                  </div> 
+            </div>
+
+            <div v-else-if="currentStep === 11">
+                  <div class="mt-3"> 
+                        <h5 class="fw-bold mb-4">Article 45. Cas de force majeure </h5>
+                        <div class="row">   
+                              <div class="col-md-12">   
+                                    <RichTextarea v-model="art_45" />
+                              </div>
+                        </div> 
+                  </div> 
+            </div>
+
 
           <!-- Navigation -->
           <div class="buttons mt-4 text-center">
@@ -317,5 +454,186 @@ const projet_execution = ref(`<p><strong>a.</strong> Dans un délai maximum de [
   <p>Le cocontractant tiendra constamment à jour sur le chantier un planning actualisé des travaux qui tiendra compte de l’avancement réel du chantier.</p>
 
   <p>En cas d’inobservation des délais d’approbation des documents ci-dessus par l’Administration, ceux-ci sont réputés approuvés.</p>`)
+
+const labo_chantier = ref(`<p>
+    Le cocontractant est tenu d’avoir sur le chantier son propre laboratoire permettant d’exécuter tous les essais
+    d’identification et/ou d’étude des matériaux définis dans le CCTP. Le personnel et le matériel de ce laboratoire
+    doivent recevoir l’agrément du Maître d’œuvre du marché ou de l’Ingénieur dans un délai de [à préciser].
+  </p>
+
+  <p><strong>20.1.</strong> Les essais, le cas échéant, prévus dans le cadre du présent marché comprennent : [à préciser].</p>
+
+  <p><strong>20.2.</strong> Les équipements et matériels de laboratoire nécessaires sont : [à préciser].</p>
+
+  <p><strong>20.3.</strong> Les modalités de mise en œuvre de ces essais sont : [à préciser].</p>
+
+  <p>Les frais inhérents à ces essais et contrôles sont à la charge du Cocontractant.</p>`)
+
+
+const reunion_chantier = ref(`<p>Outre les réunions régulières de chantier à l’initiative du maître d’œuvre, des réunions périodiques devront être
+tenues en présence du Chef de service du marché et de l’Ingénieur du marché ou leur représentant. [Préciser
+la fréquence].</p>
+<p>Les réunions de chantier feront l’objet d’un procès-verbal signé par tous les participants.</p>
+`)
+
+const utilisation_explosifs = ref('')
+
+const periode_garantie = ref('')
+
+const documente_a_fournir = ref(`<p>Le Cocontractant remettra à la Maitrise d’Œuvre le cas échéant ou à l’ingénieur du marché dans les trente jours suivants la date de réception provisoire de l’ensemble des travaux, le plan de récolement.</p>
+<p>25.1. [Indiquer la liste des autres documents à fournir dans un délai de 30 jours après la réception provisoire].</p>
+<p>25.2. [Indiquer le montant à retenir sur la caution en termes de pénalité pour non-fourniture desdits documents].</p>
+`)
+
+const delai_garantie = ref(`<p>La durée de garantie est de [A préciser] à compter de la date de réception provisoire des travaux ou de la réception partielle le cas échéant (à préciser). 
+Le Cocontractant garantit que les équipements livrés (le cas échéant) en exécution du marché sont neufs et que les travaux sont exécutés dans les règles de l’art et les normes requises.</p>`)
+
+const art_27 = ref(`<p><strong>27.1.</strong> La réception définitive s’effectuera dans un délai maximal [de quinze (15) jours] à compter de l’expiration du délai de garantie.</p>
+
+  <p><strong>27.2.</strong> Le Maître d’Œuvre [sera ou ne sera pas] membre de la commission.</p>
+
+  <p><strong>27.3.</strong> La composition et la procédure de réception définitive sont la même que celles de la réception provisoire.</p>
+
+  <p><strong>27.4.</strong> Le marché est clôturé définitivement dans les conditions fixées à l’article 38 alinéa 4 du présent CCAP concernant le Décompte général et définitif.</p>`)
+
+const art_37 = ref(`<p><strong>37.1.</strong> Le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué [accordera ou n’accordera pas] une avance de démarrage [n’excédant pas 20% du montant TTC du marché].</p>
+
+  <p><strong>37.2.</strong> L’avance de démarrage peut être obtenue par le co-contractant de l’administration sur simple demande adressée au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué sans justificatif. Cette avance commence à être remboursée par déduction d’un pourcentage : [A préciser] sur chaque décompte dès lors que le cumul des travaux atteint 40% du montant du marché. Le versement de l'avance de démarrage intervient postérieurement à la mise en place des cautions exigibles, conformément aux dispositions du code des marchés publics.</p>
+
+  <p><strong>37.3.</strong> La totalité de l’avance doit être remboursée au plus tard dès le moment où la valeur en prix de base des prestations réalisées atteint quatre-vingt pour cent (80%) du montant du marché.</p>
+
+  <p><strong>37.4.</strong> Au fur et à mesure du remboursement des avances, le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué donnera la mainlevée de la partie de la caution correspondante, sur demande expresse du cocontractant de l’administration.</p>
+
+  <p><strong>37.5.</strong> Le cocontractant de l’administration utilisera exclusivement l’avance de démarrage pour les acquisitions de Matériels, d’équipements, de matériaux et les dépenses de mobilisation spécialement nécessaires pour les besoins de l’exécution du Marché spécifiés dans sa demande..</p>`)
+
+const decompte_provisoir =  ref(`<p>Les décomptes provisoires doivent être établis en sept exemplaires à une fréquence de : [À préciser comprise entre un (01) et trois (3) mois].</p>
+
+  <p>Le Maître d’œuvre ou l’Ingénieur dispose d’un délai de : [À préciser (un délai de zéro (0) à sept (7) jours ouvrables maxi)] pour transmettre au Chef de service du marché, le projet de décompte qu’il a approuvé.</p>
+
+  <p>Le Chef de service quant à lui dispose d’un délai de : [À préciser (de zéro (0) à vingt-et-un (21) jours ouvrables maxi)] pour procéder à la liquidation et à sa transmission au comptable chargé du paiement, avec copie à l’organisme chargé du contrôle externe.</p>
+
+  <p>Les copies des décomptes provisoires doivent être transmises au Ministère en charge des marchés publics et à l’organisme chargé de la régulation des marchés publics.</p>
+
+  <p>Le délai maximum accordé au comptable assignataire pour le règlement des acomptes est fixé à quatre-vingt-dix (90) jours à compter de la date de réception des décomptes transmis par le Chef de service du marché.</p>
+
+  <p>Le montant HTVA de l’acompte à payer au cocontractant de l’administration sera mandaté comme suit :</p>
+  <ul>
+    <li>HTVA - [AIR ou TSR] versé directement au compte du cocontractant de l’administration ;</li>
+    <li>TVA au taux en vigueur ;</li>
+    <li>[AIR ou TSR] versé au Trésor public au titre de l’AIR ou de la TSR dû par le cocontractant.</li>
+  </ul>
+`)
+
+const decompte_final = ref(`
+<p>Après achèvement des travaux et dans un délai maximum de [A préciser] jours après la date de réception provisoire, le cocontractant établira à partir des constats contradictoires, le projet de décompte final des travaux effectivement réalisés qui récapitule le montant total des sommes auxquelles il peut prétendre du fait de l’exécution du marché dans son ensemble.</p>
+<p>Ce projet de décompte final, une fois rectifié par le Maître d’œuvre ou l’ingénieur et accepté par le Chef de service du marché devient final. Il sert à l’établissement de l’acompte pour solde du marché, établi dans les mêmes conditions que celles définies pour l’établissement des décomptes mensuels.</p>
+
+<p><strong>Article 38.3.2</strong> [Indiquer le délai dont dispose le Chef de service pour notifier le projet rectifié et accepté au Maître d’Œuvre, (1 mois maximum)]</p>
+
+<p><strong>Article 38.3.4</strong> Le cocontractant de l’administration doit, dans un délai maximal d’un mois suivant la date de cette notification, renvoyer le décompte final revêtu de sa signature sans ou avec réserves, ou faire connaître les raisons pour lesquelles il refuse de signer.</p>
+
+<p>Dans le cas où le cocontractant signe avec réserve ou ne signe pas le décompte final, les motifs de ce refus ou de ces réserves doivent être exposés par le cocontractant dans un mémoire récapitulatif de toutes les réclamations dont il revendique le paiement, accompagné des justificatifs nécessaires, et transmis au Maître d’œuvre dans le même délai que ci-dessus, sous peine de forclusion.</p>
+
+<p>Le règlement du différend intervient alors selon les dispositions du code des marchés publics en vigueur et du CCAG applicable.</p>
+`)
+
+const decompte_defintif = ref(`
+  <p>
+    <strong>38.4.1</strong>
+    [Indiquer le délai dont dispose le Chef de service ou le Maître d’Œuvre pour établir le décompte général
+    et définitif au cocontractant de l’administration après la réception définitive (1 mois maximum)]
+  </p>
+
+  <p>
+    À la fin de la période de garantie qui donne lieu à la réception définitive des travaux, le Chef de service dresse
+    le décompte général et définitif du marché qu’il fait signer contradictoirement par le cocontractant et le Maître
+    d’Ouvrage ou le Maître d’Ouvrage Délégué. Ce décompte comprend :
+  </p>
+  <ul>
+    <li>Le décompte final ;</li>
+    <li>Le solde ;</li>
+    <li>La récapitulation des acomptes mensuels.</li>
+  </ul>
+
+  <strong>
+    La signature du décompte général et définitif sans réserve par le cocontractant lie définitivement les
+    parties et met fin au marché, et libère le cocontractant et le Maître d’Ouvrage ou le Maître d’Ouvrage
+    Délégué de toutes leurs obligations, sauf en ce qui concerne les intérêts moratoires.
+  </strong>
+
+  <p>
+    <strong>38.4.2</strong>
+    [Indiquer le délai dont dispose le cocontractant pour renvoyer le décompte général et définitif revêtu de
+    sa signature (1 mois maximum)]
+  </p>
+
+  <p>
+    La transmission du décompte général et définitif à l’Organisme payeur en vue du paiement est subordonnée au
+    visa préalable du MINMAP. Pour cela, une copie de l’attachement correspondant et tous les décomptes
+    provisoires devront lui être antérieurement transmis ou remis à son représentant sur le site, le cas échéant.
+  </p>
+
+  <p>
+    Les délais et les modalités de signature ainsi que de gestion des désaccords sont les mêmes que ceux du
+    décompte final.
+  </p>`)
+
+const art_42 = ref(`
+<p>Le marché est soumis au régime fiscal et douanier en vigueur en République du Cameroun. Le marché est conclu tout taxes comprises, conformément à la loi n°…………… du …. Portant loi de finances de la République du Cameroun pour l’exercice ……et au Code Général des Impôts qui définissent les modalités de mise en œuvre du régime fiscal des Marchés Publics</p>
+<p>La fiscalité applicable au présent marché comporte notamment :</p>
+<ul>
+    <li>Des impôts et taxes relatifs aux bénéfices industriels et commerciaux, y compris l’AIR qui constitue un précompte sur l’impôt des sociétés ;</li>
+    <li>Des droits d’enregistrement calculés conformément aux stipulations du code des impôts ;</li>
+    <li>Des droits et taxes attachés à la réalisation des prestations prévues par le marché, notamment :</li>
+    <ul>
+      <li>Des droits et taxes d’entrée sur le territoire camerounais (droits de douane, TVA, taxe informatique) ;</li>
+      <li>Des droits et taxes communaux ;</li>
+      <li>Des droits et taxes relatifs aux prélèvements des matériaux et d’eau.</li>
+    </ul>
+  </ul>
+<p>Ces éléments doivent être intégrés dans les charges que le cocontractant impute sur ses coûts d’intervention et constituer l’un des éléments des sous-détails des prix hors taxes. Le prix TTC s’entend TVA incluse. </p>
+<p>Sauf mention spécifique contraire figurant au Marché, le cocontractant devra supporter et payer tous droits, taxes, impôts et charges lui incombant ainsi qu’à ses sous-traitants.</p>
+`)
+
+const art_45 = ref(` <p>
+    Le titulaire du marché ne sera pas tenu responsable des retards imputables à un cas de force majeure.
+    Dans un tel cas, il devra avertir par écrit le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué dans un délai de 
+    <strong>[à préciser, ex. : 5 jours]</strong> suivant l’apparition du cas de force majeure, en fournissant une estimation
+    des retards susceptibles d’en résulter.
+  </p>
+
+  <p>
+    Chaque fois qu’un cas de force majeure provoquera un retard, le titulaire du marché aura droit, si le Maître
+    d’Ouvrage reconnaît la réalité du cas invoqué, à une prorogation des délais d’exécution.
+  </p>
+
+  <p>
+    Aux fins du présent marché, la <strong>force majeure</strong> désigne les circonstances prévues par les dispositions du 
+    <strong>CCAG</strong> en vigueur, ainsi que les situations particulières suivantes le cas échéant :
+  </p>
+
+  <ul>
+    <li>Les catastrophes naturelles imprévisibles et irrésistibles (séismes, inondations majeures, etc.) ;</li>
+    <li>Les conflits armés, guerres civiles ou insurrections ;</li>
+    <li>Les pandémies et épidémies reconnues par les autorités compétentes ;</li>
+    <li>Les décisions administratives ou juridiques de portée générale empêchant l’exécution du contrat.</li>
+  </ul>
+
+  <p>
+    Les cas de force majeure seront constatés conformément aux dispositions du CCAG. Il appartient au Maître
+    d’Ouvrage d’apprécier le caractère de force majeure ainsi que la pertinence des justificatifs fournis par le
+    titulaire.
+  </p>
+
+  <h3>Seuils minimaux pour les conditions météorologiques</h3>
+
+  <p>Lorsqu’un cas de force majeure est invoqué au titre des conditions météorologiques, aucune réclamation ne sera admise en deçà des seuils suivants :</p>
+
+  <ul>
+    <li><strong>Pluie :</strong> 200 millimètres en 24 heures ;</li>
+    <li><strong>Vent :</strong> 40 mètres par seconde ;</li>
+    <li><strong>Crue :</strong> Crue de fréquence décennale.</li>
+  </ul>
+`)
 
 </script>
