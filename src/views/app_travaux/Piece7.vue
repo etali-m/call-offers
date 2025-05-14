@@ -47,6 +47,9 @@ const dqe = ref(`
   </thead>
   <tbody>
     <tr>
+      <td colspan="6"></td> 
+    </tr>
+    <tr>
       <td></td>
       <td></td>
       <td></td>
@@ -54,9 +57,33 @@ const dqe = ref(`
       <td></td>
       <td></td>
     </tr>
+    <tr>
+      <td colspan="4"><strong>MONTANT HTVA</strong></td> 
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>TVA(19.25%)</strong></td> 
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>AIR</strong></td> 
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>TOTAL GÉNÉRAL (FCFA/TTC)</strong></td> 
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>NET À MANDATER</strong></td> 
+      <td></td>
+      <td></td>
+    </tr>
   </tbody>
-</table>
-
+</table> 
 `)
 
 </script>
