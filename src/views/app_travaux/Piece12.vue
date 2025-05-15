@@ -3,7 +3,7 @@
 
     <div class="form-container">  
         <div style="padding:0px 100px;">
-                <PDF src="/modeles_pieces/CHARTE_INTEGRITE_TRAVAUX.pdf" />
+                <PDF src="/modeles_pieces/CLAUSE_ENVIRONNEMENTAL_TRAVAUX.pdf" />
         </div>
     </div>
 </template>

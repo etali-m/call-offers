@@ -19,6 +19,9 @@ import Piece8 from '@/views/app_travaux/Piece8.vue'
 import Piece9 from '@/views/app_travaux/Piece9.vue'
 import Piece10 from '@/views/app_travaux/Piece10.vue'
 import Piece11 from '@/views/app_travaux/Piece11.vue'
+import Piece12 from '@/views/app_travaux/Piece12.vue'
+import Piece13 from '@/views/app_travaux/Piece13.vue'
+import Piece14 from '@/views/app_travaux/Piece14.vue'
 
 const routes = [
   {
@@ -122,6 +125,21 @@ const routes = [
         path: '/edit/marche-travaux/:project_id/piece11',
         name: 'piece11_travaux',
         component: Piece11,
+      },
+      {
+        path: '/edit/marche-travaux/:project_id/piece12',
+        name: 'piece12_travaux',
+        component: Piece12,
+      },
+      {
+        path: '/edit/marche-travaux/:project_id/piece13',
+        name: 'piece13_travaux',
+        component: Piece13,
+      },
+      {
+        path: '/edit/marche-travaux/:project_id/piece14',
+        name: 'piece14_travaux',
+        component: Piece14,
       }
     ]
   }, 
