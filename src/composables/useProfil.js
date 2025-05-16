@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:8000/api';
 export function useProfil(){ 
     const getProfil = async() => {
         const token = localStorage.getItem('access_token')
+        console.log(token);
         if (token) {
             try{
                 const response = await axios.get(`${API_URL}/profil`, {

@@ -61,6 +61,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useAuth } from '@/composables/useAuth';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     setup() {
@@ -87,6 +89,10 @@ export default {
                 };
                 const response = await login(userData)
                 //rediriger vers la page d'acceuil
+                toast.success("Connexion réussie", {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
                 router.push({ name:'home'});
             } catch (err) {  
 

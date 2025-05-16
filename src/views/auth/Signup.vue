@@ -79,6 +79,8 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useAuth } from '@/composables/useAuth';
+  import { toast } from 'vue3-toastify';
+  import 'vue3-toastify/dist/index.css';
   
   export default {
     components: {
@@ -141,11 +143,21 @@
           const response = await register(userData);
           
           message.value = response.message ;
+
+          //toast pour informer l'utilisateur
+          toast.success(message, {
+            theme: 'colored',
+            autoClose: 1000,
+          });
+
           setTimeout(() => {
             router.push({ name: 'otp-verification', query: { email: userData.email} });
           }, 3000);
-        } catch (err) {
-          console.log(err);  
+        } catch (err) { 
+          toast.error(err, {
+              theme: 'colored',
+              autoClose: 2000,
+          });
           errors.value = err;
         }finally {
           isLoading.value = false; //

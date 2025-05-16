@@ -78,24 +78,25 @@
                         <input type="number" v-model="exercice_budgetaire" min="2024" class="input-custom" placeholder="2024" required>
                     </div>
                     <div class="col">
-                        <label class="label-custom" for="dossier">Date de signature de l'avis d'appel d'offre</label>
-                        <input type="date" v-model="date" class="input-custom" required>
+                        <label class="label-custom" for="dossier">Financement</label>
+                        <input type="text" v-model="financement" class="input-custom" placeholder="source du financement" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
-                        <label class="label-custom" for="dossier">Financement</label>
-                        <input type="text" v-model="financement" class="input-custom" placeholder="source du financement" required>
-                    </div>
-                    <div class="col">
                         <label class="label-custom" for="dossier">Imputation</label>
                         <input type="text" v-model="imputation" class="input-custom" required placeholder="Détails de l'imputation budgétaire">
                     </div>
-                </div>
-                
-                
-                <button type="submit" class="btn-custom mt-3">Créer le dossier</button>
+                </div> 
+
+                <button type="submit" class="btn-custom mt-3">
+                    <span v-if="isLoading">
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Chargement...
+                    </span>
+                    <span v-else>Créer le dossier</span>
+                </button>
             </form>
         </div>
     </div>
@@ -106,6 +107,9 @@ import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { utils } from '@/composables/utils'
+import { useAppelOffre } from '@/composables/useAppelOffre'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     setup() {
@@ -114,8 +118,22 @@ export default {
         const slug = route.params.slug 
         const API_URL = 'http://localhost:8000/api'
 
-        const { getImageUrl } = utils()
+        const message = ref(''); //message d'inscription réussi
+        const isLoading = ref(false);
+        const errors = ref({});
+        const objet = ref('')
+        const moa = ref('')
+        const denomination = ref('')
+        const commission = ref('')
+        const type_dao = ref('')
+        const numero_dossier = ref('')
+        const exercice_budgetaire = ref('')
+        const financement = ref('')
+        const imputation = ref('')
 
+
+        const { getImageUrl } = utils() //fontion pour réguperer l'image
+        const { create_callOffer } = useAppelOffre()
         //fonction pour récuperer le type de marché choisi
         const getMarche = async() => {
             const token = localStorage.getItem('access_token') 
@@ -139,9 +157,63 @@ export default {
             getMarche()
         })
 
+        //enregistrement d'un DAO
+        const handleSubmit = async () => {
+            errors.value = {}
+            isLoading.value = true; 
+
+            try {
+                const callOfferData = {
+                    type_marche: marche.value.id,
+                    objet_appel: objet.value,  
+                    maitre_ouvrage: moa.value,
+                    denomination: denomination.value,
+                    commission_marche: commission.value,
+                    type_dossier: type_dao.value,
+                    numero_dossier: numero_dossier.value,
+                    exercice_budgetaire: exercice_budgetaire.value,
+                    financement: financement.value,
+                    imputation: imputation.value
+                };
+                console.log(callOfferData);
+                const response = await create_callOffer(callOfferData);
+                
+                message.value = response.message ;
+                //toast pour informer l'utilisateur
+                toast.success(message, {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+                //rediriger vers la page de gestion du dossier d'appel d'offre
+                setTimeout(() => {
+                    //router.push({ name: 'otp-verification', query: { email: userData.email} });
+                }, 3000);
+            } catch (err) { 
+                toast.error(err, {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+                errors.value = err;
+            }finally {
+                isLoading.value = false; //
+            }
+      };
+
         return {
             marche,
-            getImageUrl
+            getImageUrl,
+            objet,
+            moa,
+            denomination,
+            commission,
+            type_dao,
+            numero_dossier,
+            exercice_budgetaire,
+            financement,
+            imputation, 
+            errors,
+            isLoading,
+            handleSubmit,
         }
     }
 }
