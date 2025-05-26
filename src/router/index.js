@@ -7,7 +7,7 @@ import Layout from '@/components/Layout.vue'
 import Profil from '@/views/auth/Profil.vue'
 import otpVerification from '@/views/auth/otpVerification.vue'
 import Create from '@/views/Create.vue'
-import Home_travaux from '@/views/app_travaux/Home_travaux.vue'
+import Edit from '@/views/Edit.vue'
 import Piece1 from '@/views/app_travaux/Piece1.vue'
 import Piece2 from '@/views/app_travaux/Piece2.vue'
 import Piece3 from '@/views/app_travaux/Piece3.vue'
@@ -67,77 +67,77 @@ const routes = [
       //ON va organiser en fonction du type de maché
       //Marche de travaux
       {
-        path: '/edit/marche-travaux/:project_id',
-        name: 'home_travaux',
-        component: Home_travaux,  
+        path: '/edit/:project_id',
+        name: 'edit',
+        component: Edit,  
       }, 
       {
-        path: '/edit/marche-travaux/:project_id/piece1',
+        path: '/edit/marche-de-travaux/:project_id/piece1',
         name: 'piece1_travaux',
         component: Piece1,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece2',
+        path: '/edit/marche-de-travaux/:project_id/piece2',
         name: 'piece2_travaux',
         component: Piece2,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece3',
+        path: '/edit/marche-de-travaux/:project_id/piece3',
         name: 'piece3_travaux',
         component: Piece3,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece4',
+        path: '/edit/marche-de-travaux/:project_id/piece4',
         name: 'piece4_travaux',
         component: Piece4,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece5',
+        path: '/edit/marche-de-travaux/:project_id/piece5',
         name: 'piece5_travaux',
         component: Piece5,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece6',
+        path: '/edit/marche-de-travaux/:project_id/piece6',
         name: 'piece6_travaux',
         component: Piece6,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece7',
+        path: '/edit/marche-de-travaux/:project_id/piece7',
         name: 'piece7_travaux',
         component: Piece7,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece8',
+        path: '/edit/marche-de-travaux/:project_id/piece8',
         name: 'piece8_travaux',
         component: Piece8,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece9',
+        path: '/edit/marche-de-travaux/:project_id/piece9',
         name: 'piece9_travaux',
         component: Piece9,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece10',
+        path: '/edit/marche-de-travaux/:project_id/piece10',
         name: 'piece10_travaux',
         component: Piece10,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece11',
+        path: '/edit/marche-de-travaux/:project_id/piece11',
         name: 'piece11_travaux',
         component: Piece11,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece12',
+        path: '/edit/marche-de-travaux/:project_id/piece12',
         name: 'piece12_travaux',
         component: Piece12,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece13',
+        path: '/edit/marche-de-travaux/:project_id/piece13',
         name: 'piece13_travaux',
         component: Piece13,
       },
       {
-        path: '/edit/marche-travaux/:project_id/piece14',
+        path: '/edit/marche-de-travaux/:project_id/piece14',
         name: 'piece14_travaux',
         component: Piece14,
       }

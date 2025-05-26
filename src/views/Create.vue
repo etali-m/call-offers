@@ -105,7 +105,7 @@
 <script>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { utils } from '@/composables/utils'
 import { useAppelOffre } from '@/composables/useAppelOffre'
 import { toast } from 'vue3-toastify';
@@ -114,7 +114,8 @@ import 'vue3-toastify/dist/index.css';
 export default {
     setup() {
         const marche = ref({})
-        const route = useRoute()
+        const route = useRoute() //pour récupérer les paramètres de routes
+        const router = useRouter() //Router pour redirection
         const slug = route.params.slug 
         const API_URL = 'http://localhost:8000/api'
 
@@ -177,17 +178,24 @@ export default {
                 };
                 console.log(callOfferData);
                 const response = await create_callOffer(callOfferData);
-                
-                message.value = response.message ;
+
+                // Récupération des données renvoyées par l'API
+                const projectId = response.data.id; 
+
+                //Définition du message
+                message.value = response.message
+
                 //toast pour informer l'utilisateur
                 toast.success(message, {
                     theme: 'colored',
                     autoClose: 2000,
                 });
+
                 //rediriger vers la page de gestion du dossier d'appel d'offre
                 setTimeout(() => {
-                    //router.push({ name: 'otp-verification', query: { email: userData.email} });
+                    router.push({ name: 'edit', params: { project_id: projectId } }); 
                 }, 3000);
+                
             } catch (err) { 
                 toast.error(err, {
                     theme: 'colored',
