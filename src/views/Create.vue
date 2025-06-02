@@ -61,8 +61,13 @@
                         <label class="label-custom" for="dossier">Type de dossier d'appel d'offre</label>
                         <select v-model="type_dao" class="select-custom" id="dossier">
                             <option value="national" selected>National</option>
-                            <option value="international">International</option>
-                            <option value="ouver">Ouvert</option>
+                            <option value="international">International</option> 
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="label-custom" for="mode_passation">Mode de passation</label>
+                        <select v-model="mode_dao" class="select-custom" id="mode_passation"> 
+                            <option value="ouvert">Ouvert</option>
                             <option value="restreint">Restreint</option>
                         </select>
                     </div>
@@ -127,6 +132,7 @@ export default {
         const denomination = ref('')
         const commission = ref('')
         const type_dao = ref('')
+        const mode_dao = ref('')
         const numero_dossier = ref('')
         const exercice_budgetaire = ref('')
         const financement = ref('')
@@ -135,6 +141,7 @@ export default {
 
         const { getImageUrl } = utils() //fontion pour réguperer l'image
         const { create_callOffer } = useAppelOffre()
+
         //fonction pour récuperer le type de marché choisi
         const getMarche = async() => {
             const token = localStorage.getItem('access_token') 
@@ -171,6 +178,7 @@ export default {
                     denomination: denomination.value,
                     commission_marche: commission.value,
                     type_dossier: type_dao.value,
+                    mode_passation: mode_dao.value,
                     numero_dossier: numero_dossier.value,
                     exercice_budgetaire: exercice_budgetaire.value,
                     financement: financement.value,
@@ -215,6 +223,7 @@ export default {
             denomination,
             commission,
             type_dao,
+            mode_dao,
             numero_dossier,
             exercice_budgetaire,
             financement,

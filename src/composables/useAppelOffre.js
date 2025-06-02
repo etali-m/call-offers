@@ -28,6 +28,29 @@ export function useAppelOffre() {
         }
     }
 
+    //fonction pour récupérer les informations sur le projet
+    const getDAO = async(dossier) => {
+        const token = localStorage.getItem('access_token') 
+        //Si l'utilisateur est connecté
+        if (token) {
+            try{
+                const response = await axios.get(`${API_URL}/appel-offre?dossier=${dossier}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                })
+                //renvoyer une erreur 404 si il n'y pas de projet correspondant à l'ID
+                return response.data;  
+            } catch(error){
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     //créer un dossier d'appel d'offre
     const create_callOffer = async (callOfferData) => {
         const token = localStorage.getItem('access_token')
@@ -54,6 +77,7 @@ export function useAppelOffre() {
 
     return {
         create_callOffer,
-        get_callOffers
+        get_callOffers,
+        getDAO
     };
 }

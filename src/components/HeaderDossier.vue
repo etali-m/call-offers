@@ -1,7 +1,7 @@
 <template>
 <div class="header-box w-100">
     <div class="d-flex flex-column w-80">
-        <h4 class="header-box-title mb-0">{{ titre_dossier }}</h4>
+        <h4 class="header-box-title text-uppercase mb-0">Dossier d'Appel d'Offre {{ type_dossier }} {{ passation }}</h4>
         <h4 class="header-box-title mb-0">N˚{{ numero_dossier }}</h4>
         <span style="color:#8a4e009c">{{ ministere }}</span>
         <span>POUR: {{ description_travaux }}</span>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props: ['titre_dossier', 'numero_dossier', 'ministere', 'description_travaux', 'financement', 'imputation'],
+    props: ['type_dossier', 'passation', 'numero_dossier', 'ministere', 'description_travaux', 'financement', 'imputation'],
 }
 </script>
 
