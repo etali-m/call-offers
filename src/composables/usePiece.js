@@ -9,7 +9,7 @@ export function usePiece() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/pieces/${id}`,
+                const response = await axios.get(`${API_URL}/statutpieces/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

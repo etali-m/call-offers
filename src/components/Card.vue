@@ -12,14 +12,14 @@
     <router-link :to="lien" class="btn btn-custom btn-sm me-2">
       <i class="bi bi-pencil-square me-1"></i> Editer
     </router-link>
-    <i class="bi bi-check-circle-fill text-success" title="Pièce remplie" style="font-size: 1.2rem;"></i>
+    <i v-if="statut" class="bi bi-check-circle-fill text-warning"  title="Pièce remplie" style="font-size: 1.2rem;"></i> 
   </div>
 </li>
 </template>
 
 <script>
 export default {
-    props: ['titre', 'numero', 'lien'],
+    props: ['titre', 'numero', 'lien', 'statut'],
 }
 </script>
 
