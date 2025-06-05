@@ -1,7 +1,6 @@
 <template>
 <div class="header-box w-100">
-    <div class="d-flex flex-column w-75">
-        <h4 class="header-box-title mb-2">PIECE N°{{ numero_piece }} : {{ nom_piece }}</h4>
+    <div class="d-flex flex-column w-75"> 
         <h4 class="header-box-title mb-0">Dossier d'Appel d'Offre N˚{{ numero_dossier }}</h4>
         <span style="color:#8a4e009c">{{ moe }}</span>
         <span>POUR: {{ description_travaux }}</span> 
@@ -12,7 +11,7 @@
 
 <script>
 export default {
-    props: ['numero_piece', 'nom_piece', 'numero_dossier', 'moe', 'description_travaux']
+    props: ['numero_dossier', 'moe', 'description_travaux']
 }
 
 </script>

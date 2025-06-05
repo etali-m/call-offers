@@ -1,11 +1,12 @@
 <template>
     <Loader v-if="isLoading" />
     <div v-else>
-      <div class="row">
-        <div class="col-md-9">
+      <div class="row mb-3">
+        <div class="col-12">
           <HeaderDossier :type_dossier="dao.type_dossier" :passation="dao.mode_passation" :numero_dossier="dao.numero_appel_offre" :ministere="dao.maitre_ouvrage" :description_travaux="dao.objet_appel" :financement="dao.financement" :imputation="dao.imputation"/>
-        </div>
-        <div class="col-md-3 d-flex align-items-center">
+        </div> 
+
+        <div class="col-12">
           <ProgressBar :percentage="progression" />
         </div>
       </div> 
@@ -29,7 +30,7 @@ import { useRoute, useRouter } from 'vue-router'
 import HeaderDossier from '@/components/HeaderDossier.vue';
 import Card from '@/components/Card.vue';
 import Loader from '@/components/Loader.vue';
-import ProgressBar from '@/components/ProgressBar.vue';
+import ProgressBar from '@/components/ProgressBar.vue'; 
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
 
@@ -45,12 +46,11 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const dossier = route.params.project_id      //recuperation de l'identifiant du projet
-    const dao = ref({})
-    const pieces = ref([])
-    const numero = ref('')
+    const dao = ref({}) //INformation sur le DAO encours d'édition
+    const pieces = ref([]) //Liste des pieces à editer pour le type de DAO
     const isLoading = ref(true)
     const progression = ref(0) //taux d'éditino du dossier d'appel d'offre
-    const piece_remplie = ref(0)
+    const piece_remplie = ref(0) //nombre de pièce avec le statut is_complete à true
 
     const { getDAO } = useAppelOffre()
     const { get_pieces } =  usePiece()
@@ -68,18 +68,13 @@ export default {
         const completed = pieces.value.filter(p => p.is_complete).length;
 
         piece_remplie.value = completed;
-        progression.value = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-        console.log('Taux de complétion :', progression.value + '%');
+        progression.value = total > 0 ? Math.round((completed / total) * 100) : 0; 
       } catch (error) {
         console.error("Erreur lors de la récupération du DAO :", error) 
       } finally{
         isLoading.value = false;
       }
     }) 
- 
-    console.log(dossier)
-    console.log('Taux de complétion :', progression.value + '%');
     return {
       isLoading, 
       dao,

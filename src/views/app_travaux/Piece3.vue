@@ -442,7 +442,7 @@
 </template>
 
 <script setup> 
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import RichTextarea from '@/components/RichTextarea.vue'
 import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue' 

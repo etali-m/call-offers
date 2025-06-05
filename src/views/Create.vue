@@ -60,15 +60,15 @@
                     <div class="col">
                         <label class="label-custom" for="dossier">Type de dossier d'appel d'offre</label>
                         <select v-model="type_dao" class="select-custom" id="dossier">
-                            <option value="national" selected>National</option>
-                            <option value="international">International</option> 
+                            <option value="National" selected>National</option>
+                            <option value="International">International</option> 
                         </select>
                     </div>
                     <div class="col">
                         <label class="label-custom" for="mode_passation">Mode de passation</label>
                         <select v-model="mode_dao" class="select-custom" id="mode_passation"> 
-                            <option value="ouvert">Ouvert</option>
-                            <option value="restreint">Restreint</option>
+                            <option value="Ouvert">Ouvert</option>
+                            <option value="Restreint">Restreint</option>
                         </select>
                     </div>
                     <div class="col">
