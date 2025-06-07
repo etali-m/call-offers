@@ -1,159 +1,150 @@
 <template>
     <Loader v-if="isLoading" />
     <div v-else>
-        <HeaderPiece numero_piece="1" nom_piece="AVIS D'APPEL D'OFFRE" :numero_dossier="dao.numero_appel_offre" :moe="dao.maitre_ouvrage" :description_travaux="dao.objet_appel"/>
+        <HeaderPiece numero_piece="1" :numero_dossier="dao.numero_appel_offre" :moe="dao.maitre_ouvrage" :description_travaux="dao.objet_appel"/>
   
-        <PieceNavigator
-            :pieces="pieces"
+        <PieceNavigator 
             :project-id="dao.id"
             :current-piece-name="$route.name"
             />
 
         <div class="form-container">  
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-                <StepperForm :totalSteps="20" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+                <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
                 <div v-if="currentStep === 0"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-2">{{ currentStep + 1 }}. Objet de l'appel d'offre</h5>
+                        <h5 class="fw-bold mb-2">1. Objet de l'appel d'offre</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="objet_appel"/>
                         </div>
                     </div>
-                </div>
 
-                <div v-else-if="currentStep === 1"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Consistence des travaux</h5>
+                        <h5 class="fw-bold mb-4">2. Consistence des travaux</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="constence_travaux"/>
                         </div>
                     </div>
-                </div>
 
-                <div v-else-if="currentStep === 2"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Tranches/Allotissement</h5>
+                        <h5 class="fw-bold mb-4">3. Tranches/Allotissement</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="tranches"/>
                         </div>
                     </div>
-                </div>
+                </div> 
 
-                <div v-else-if="currentStep === 3"> 
+                <div v-else-if="currentStep === 1"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Coût prévisionnel</h5>
+                        <h5 class="fw-bold mb-4">4. Coût prévisionnel</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="cout_previsionnel"/>
                         </div>
                     </div>
-                </div>
 
-                <div v-else-if="currentStep === 4"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Délai prévisionnel d’exécution</h5>
+                        <h5 class="fw-bold mb-4">5. Délai prévisionnel d’exécution</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="delai_previsionnel"/>
                         </div>
                     </div>
-                </div>
+                </div> 
 
-                <div v-else-if="currentStep === 5"> 
+                <div v-else-if="currentStep === 2"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Participation et origine</h5>
+                        <h5 class="fw-bold mb-4">6. Participation et origine</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="participation_origine"/>
                         </div>
                     </div>
-                </div>
 
-                <div v-else-if="currentStep === 6"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Financement</h5>
+                        <h5 class="fw-bold mb-4">7. Financement</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="financement"/>
                         </div>
                     </div>
-                </div>
+                </div> 
 
-                <div v-else-if="currentStep === 7">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Mode de soumission</h5>
-                    <div class="row">
-                        <div class="col-md-12">   
-                            <label for="consistence_travaux">Le mode de soumission retenu pour cette consultation est </label>
-                            <select class="select-custom">
-                                <option value="en ligne">En ligne</option>
-                                <option value="hors ligne">Hors ligne</option>
-                                <option value="en ligne ou hors ligne">En ligne ou hors ligne</option>
-                            </select>  
-                        </div>
-                    </div> 
-                </div>
-
-                <div v-else-if="currentStep === 8"> 
+                <div v-else-if="currentStep === 3">
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Cautionnement de soumission</h5>
+                        <h5 class="fw-bold mb-4">8. Mode de soumission</h5>
+                        <div class="row">
+                            <div class="col-md-12">   
+                                <label for="consistence_travaux">Le mode de soumission retenu pour cette consultation est </label>
+                                <select class="select-custom">
+                                    <option value="en ligne">En ligne</option>
+                                    <option value="hors ligne">Hors ligne</option>
+                                    <option value="en ligne ou hors ligne">En ligne ou hors ligne</option>
+                                </select>  
+                            </div>
+                        </div> 
+                    </div> 
+
+                    <div class="mt-3">
+                        <h5 class="fw-bold mb-4">9. Cautionnement de soumission</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="cautionnement"/>
                         </div>
                     </div> 
-                </div>
+                </div> 
 
-                <div v-else-if="currentStep === 9"> 
+                <div v-else-if="currentStep === 4"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Consultation du Dossier d'Appel d'Offres</h5>
+                        <h5 class="fw-bold mb-4">10. Consultation du Dossier d'Appel d'Offres</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="consultation"/>
                         </div>
                     </div>  
                 </div>
 
-                <div v-else-if="currentStep === 10"> 
+                <div v-else-if="currentStep === 5"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Acquisition du Dossier d'Appel d'Offres</h5>
+                        <h5 class="fw-bold mb-4">11. Acquisition du Dossier d'Appel d'Offres</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="acquisition_dao"/>
                         </div>
                     </div>  
                 </div>
 
-                <div v-else-if="currentStep === 11">
+                <div v-else-if="currentStep === 6">
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Remise des offres</h5>
+                        <h5 class="fw-bold mb-4">12. Remise des offres</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="remise_offre"/>
                         </div>
                     </div>   
                 </div>
 
-                <div v-else-if="currentStep === 12"> 
+                <div v-else-if="currentStep === 7"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Recevabilité des plis</h5>
+                        <h5 class="fw-bold mb-4">13. Recevabilité des plis</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="recevabilite_plis"/>
                         </div>
                     </div>   
                 </div>
 
-                <div v-else-if="currentStep === 13"> 
+                <div v-else-if="currentStep === 8"> 
                     <div class="mt-3">
-                        <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Ouverture des plis</h5>
+                        <h5 class="fw-bold mb-4">14. Ouverture des plis</h5>
                         <div class="col-md-12">    
                             <RichTextarea v-model="ouverture_plis"/>
                         </div>
                     </div>   
                 </div>
 
-                <div v-else-if="currentStep === 14">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Critères d’évaluation</h5>
+                <div v-else-if="currentStep === 9">
+                    <h5 class="fw-bold mb-4">15. Critères d’évaluation</h5>
                     <div class="row">
                         <div class="col-md-12">   
-                            <h6 class="fw-bold mb-2">{{ currentStep + 1 }}.1 Critères éliminatoires</h6> 
+                            <h6 class="fw-bold mb-2">15.1 Critères éliminatoires</h6> 
                             <div class="col-md-12">    
                                 <RichTextarea v-model="critere_eliminatoire"/>
                             </div>
                         </div> <br>
                         <div class="col-md-12 mt-4">
-                            <h6 class="fw-bold mb-2">{{ currentStep + 1 }}.2 Critères essentielles</h6>
+                            <h6 class="fw-bold mb-2">15.2 Critères essentielles</h6>
                             <div class="col-md-12">    
                                 <RichTextarea v-model="critere_essentiels"/>
                             </div>
@@ -161,65 +152,51 @@
                     </div> 
                 </div>
 
-                <div v-else-if="currentStep === 15">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Attributions</h5>
-                    <div class="row">
-                        <div class="col-md-12">   
-                            <label for="consistence_travaux">À qui sera attribué le marché</label>
-                            <textarea class="textarea-custom" value="Le Maitre d’Ouvrage ou le Maitre d’Ouvrage Délégué attribue le marché au soumissionnaire ayant présenté une offre remplissant les critères de qualification technique et financière requises et dont l’offre est évaluée la moins disante en incluant le cas échéant les remises proposées."></textarea>
-                            <p>
-                                (En cas d’allotissement, indiquer le nombre maximum de lots dont le candidat peut être attributaire)
-                            </p>
+                <div v-else-if="currentStep === 10"> 
+                    <div class="col-md-12 mt-4">
+                        <h5 class="fw-bold mb-4">16. Attributions</h5>
+                         <div class="col-md-12">    
+                            <RichTextarea v-model="attributions"/>
                         </div>
                     </div> 
                 </div>
 
-                <div v-else-if="currentStep === 16">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Nombre maximum de lots</h5>
-                    <div class="row">
+                <div v-else-if="currentStep === 11"> 
+                    <div class="mt-3">
+                        <h5 class="fw-bold mb-4">17. Nombre maximum de lots</h5>
                         <div class="col-md-12">   
                             <label for="consistence_travaux">Nombre de lots maximum</label>
-                            <input type="number" class="input-custom" placeholder="2">
-                            <p>
-                                (En cas d’allotissement, indiquer le nombre maximum de lots dont le candidat peut être attributaire)
-                            </p>
+                            <input type="number" class="input-custom" placeholder="2"> 
                         </div>
                     </div> 
-                </div>
-
-                <div v-else-if="currentStep === 17">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Durée de validité des offres</h5>
-                    <div class="row">
+                    
+                    <div class="mt-3">
+                        <h5 class="fw-bold mb-4">18. Durée de validité des offres</h5>
                         <div class="col-md-12">   
                             <label for="consistence_travaux">Durée d'engagement en jours</label>
-                            <input type="number" class="input-custom" placeholder="90">
-                            <p>
-                                à partir de la date limite initiale fixée pour la remise des offres.
-                            </p>
+                            <input type="number" class="input-custom" placeholder="90"> 
                         </div>
-                    </div> 
-                </div>
+                    </div>  
+                </div> 
 
-                <div v-else-if="currentStep === 18">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Renseignements complémentaires</h5>
-                    <div class="row">
-                        <div class="col-md-12">    
-                            <p>
-                                Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à [service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail] ou en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm, ou tout autres moyens de communication électronique indiqué par le Maître d’Ouvrage.
-                            </p>
+                <div v-else-if="currentStep === 12">
+                    <div class="mt-3">
+                        <h5 class="fw-bold mb-4">19. Renseignements complémentaires</h5>
+                         <div class="col-md-12">    
+                            <RichTextarea v-model="renseignements"/>
                         </div>
                     </div> 
-                </div>
 
-                <div v-else-if="currentStep === 19">
-                    <h5 class="fw-bold mb-4">{{ currentStep + 1 }}. Lutte contre la corruption et les mauvaises pratiques</h5>
-                    <div class="row">
-                        <div class="col-md-12">   
-                            <p for="consistence_travaux">Pour toute dénonciation pour des pratiques, faits ou actes de corruption ou faits de mauvaises pratiques, bien vouloir appeler la CONAC au numéro 1517, l’Autorité chargée des Marchés Publics (MINMAP) (SMS ou appel) aux numéros : (+237) 673 20 57 25 et 699 37 07 48, l’ARMP au numéro</p>
-                            <label for="">Numéro maître d'ouvrage ou maître d'ouvrage délégué</label>
-                            <input type="number" class="input-custom" placeholder="678 45 14 35"> 
-                        </div>
-                    </div> 
+                    <div class="mt-3">
+                        <h5 class="fw-bold mb-4">20. Lutte contre la corruption et les mauvaises pratiques</h5>
+                        <div class="row">
+                            <div class="col-md-12">   
+                                <p for="consistence_travaux">Pour toute dénonciation pour des pratiques, faits ou actes de corruption ou faits de mauvaises pratiques, bien vouloir appeler la CONAC au numéro 1517, l’Autorité chargée des Marchés Publics (MINMAP) (SMS ou appel) aux numéros : (+237) 673 20 57 25 et 699 37 07 48, l’ARMP au numéro</p>
+                                <label for="">Numéro maître d'ouvrage ou maître d'ouvrage délégué</label>
+                                <input type="number" class="input-custom" placeholder="678 45 14 35"> 
+                            </div>
+                        </div> 
+                    </div>
                 </div>
 
                 <!-- Navigation -->

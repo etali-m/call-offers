@@ -25,17 +25,17 @@
           <tr>
               <th>Nom</th>
               <th>Type de marché</th>
-              <th>Dernière modification</th>
+              <th>Date de création</th>
           </tr>
       </thead>
       <tbody>
-          <tr>
+          <tr v-for="projet in projets" :key="projet.id">
               <td>
-                  <span class="text-primary" style="cursor:pointer;">Construction de la route AYOS - AWAE</span> <br>
-                  <small>descirption du dossier d'appel d'offre</small>
+                  <span class="text-primary" style="cursor:pointer;"> <router-link :to="{ name: 'edit', params: { project_id: projet.id } }"> {{ projet.objet_appel }} </router-link> </span> <br>
+                  <small>{{ projet.maitre_ouvrage }}</small>
               </td>
-              <td>Travaux</td>
-              <td>13-08-2024</td>
+              <td>{{ projet.type_marche_nom }}</td>
+              <td>{{ projet.date_creation }}</td>
           </tr>
       </tbody>
   </table>
@@ -48,6 +48,7 @@ import axios from 'axios'
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { utils } from '@/composables/utils';
+import { useAppelOffre } from '@/composables/useAppelOffre';
 
 export default {
     name: 'HomeView',
@@ -55,10 +56,13 @@ export default {
         const email = ref('')
         const route = useRoute()
         const API_URL = 'http://localhost:8000/api'
-        const typesMarche = ref([])
+        const typesMarche = ref([]);
+        const projets = ref([]);
+        const isLoading = ref(false);
 
         //recupération de la fonctio pour le chemin image
         const { getImageUrl } = utils()
+        const { get_callOffers } = useAppelOffre()
 
 
         //fonction pour récuperer tout les types de marché
@@ -79,14 +83,26 @@ export default {
             }
         }
 
-        onMounted(() => {
+        onMounted(async() => {
             email.value = route.query.email;
             getTypesMarche()
+            
+            try {
+                isLoading.value = true;
+                const responseDAO = await get_callOffers()
+                projets.value = responseDAO;    
+            } catch (error) {
+                console.error("Erreur lors de la récupération du DAO :", error) 
+            } finally{
+                isLoading.value = false;
+            }
         })
+        console.log(projets);
 
         return {
             email,
             typesMarche, 
+            projets,
             getImageUrl
         }
     }

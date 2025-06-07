@@ -1,337 +1,371 @@
 <template>
-      <HeaderPiece numero_piece="4" nom_piece="CAHIER DES CLAUSES ADMINISTRATIVES PARTICULIERES" numero_dossier="0089/AONO/MINEE/CIPM/2024" moe="Ministère de l'eau et de l'energie" description_travaux="TRAVAUX DE CONSTRUCTION DES CANIVEAUX BETONNES DANS LA COMMUNE DE YAOUNDE 4"/>
+      <Loader v-if="isLoading" />
+      <div v-else>
+            <HeaderPiece numero_piece="1" :numero_dossier="dao.numero_appel_offre" :moe="dao.maitre_ouvrage" :description_travaux="dao.objet_appel"/>
 
-      <div class="form-container">  
-      <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-        <StepperForm :totalSteps="12" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
-          <div v-if="currentStep === 0">
-            <div class="mt-3">
-                  <h5 class="fw-bold mb-2">1. Objet du marché </h5>
-                  <div class="col-md-12">    
-                        <RichTextarea v-model="objet_marche"/>
-                  </div>
-            </div>  
-            
-            <div class="mt-3">
-                  <h5 class="fw-bold mb-2">2. Procédure de passation du marché </h5>
-                  <div class="col-md-12">    
-                        <RichTextarea v-model="procedure_passation_marche"/>
-                  </div>
-            </div>
-            <div class="mt-3">
-                  <h5 class="fw-bold mb-2">3. Attribution et nantissement </h5>
-                  <div class="col-md-12">    
-                        <h6>3.1 Définitions générales</h6> 
-                        <div class="row">
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">Le maître d'ouvrage est :</label>
-                                    <input type="text" v-model="moa" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div> 
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">Le Chef de service du marché est : </label>
-                                    <input type="text" v-model="chef_service_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div> 
-                              <div class="col-md-12">
-                                    <label class="label-custom" for="dossier">L'ingénieur du marché est :</label>
-                                    <input type="text" v-model="ing_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div> 
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">L’organisme chargé du contrôle externe des marchés publics est: </label>
-                                    <input type="text" v-model="control_externe" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div>
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">Le cocontractant de l'Administration ou le titulaire du marché : </label>
-                                    <input type="text" v-model="cocontractant" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div>
+            <PieceNavigator 
+              :project-id="dao.id"
+              :current-piece-name="$route.name"
+              />
+
+              <div class="form-container">  
+            <form @submit.prevent="handleSubmit" style="padding-left:10px;">
+            <StepperForm :totalSteps="12" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+            <div v-if="currentStep === 0">
+                  <div class="mt-3">
+                        <h5 class="fw-bold mb-2">1. Objet du marché </h5>
+                        <div class="col-md-12">    
+                              <RichTextarea v-model="objet_marche"/>
                         </div>
-                        <br>
-                        <h6>3.2 Nantissement</h6> 
-                        <div class="row">
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">L’autorité chargée de l’ordonnancement des paiements est :</label>
-                                    <input type="text" v-model="autorite_ordonnancement" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div> 
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">L’autorité chargée de la liquidation des dépenses est : </label>
-                                    <input type="text" v-model="auorite_liquidation" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div>  
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">L’organisme ou le responsable chargé du paiement est : </label>
-                                    <input type="text" v-model="organisme_paiment" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div>
-                              <div class="col-md-6">
-                                    <label class="label-custom" for="dossier">Le responsable compétent pour fournir les renseignements au titre de l’exécution du présent marché est : </label>
-                                    <input type="text" v-model="responsable_renseignement" class="input-custom" placeholder="Le ministères de marchés publics" required>
-                              </div>
+                  </div>  
+                  
+                  <div class="mt-3">
+                        <h5 class="fw-bold mb-2">2. Procédure de passation du marché </h5>
+                        <div class="col-md-12">    
+                              <RichTextarea v-model="procedure_passation_marche"/>
                         </div>
                   </div>
+                  <div class="mt-3">
+                        <h5 class="fw-bold mb-2">3. Attribution et nantissement </h5>
+                        <div class="col-md-12">    
+                              <h6>3.1 Définitions générales</h6> 
+                              <div class="row">
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">Le maître d'ouvrage est :</label>
+                                          <input type="text" v-model="moa" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div> 
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">Le Chef de service du marché est : </label>
+                                          <input type="text" v-model="chef_service_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div> 
+                                    <div class="col-md-12">
+                                          <label class="label-custom" for="dossier">L'ingénieur du marché est :</label>
+                                          <input type="text" v-model="ing_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div> 
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">L’organisme chargé du contrôle externe des marchés publics est: </label>
+                                          <input type="text" v-model="control_externe" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">Le cocontractant de l'Administration ou le titulaire du marché : </label>
+                                          <input type="text" v-model="cocontractant" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div>
+                              </div>
+                              <br>
+                              <h6>3.2 Nantissement</h6> 
+                              <div class="row">
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">L’autorité chargée de l’ordonnancement des paiements est :</label>
+                                          <input type="text" v-model="autorite_ordonnancement" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div> 
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">L’autorité chargée de la liquidation des dépenses est : </label>
+                                          <input type="text" v-model="auorite_liquidation" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div>  
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">L’organisme ou le responsable chargé du paiement est : </label>
+                                          <input type="text" v-model="organisme_paiment" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                          <label class="label-custom" for="dossier">Le responsable compétent pour fournir les renseignements au titre de l’exécution du présent marché est : </label>
+                                          <input type="text" v-model="responsable_renseignement" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                    </div>
+                              </div>
+                        </div>
+                  </div>
             </div>
-          </div>
 
-          <div v-else-if="currentStep === 1">
-            <div class="mt-3">
-                  <h5 class="fw-bold mb-4">Article 5. Pièces constitutives du marché</h5>
-                  <div class="row">
+            <div v-else-if="currentStep === 1">
+                  <div class="mt-3">
+                        <h5 class="fw-bold mb-4">Article 5. Pièces constitutives du marché</h5>
+                        <div class="row">
+                              <div class="col-md-12">   
+                              <label for="consistence_travaux">Les pièces contractuelles constitutives du présent marché sont complémentaires. Elles sont par ordre de priorité :</label>
+                              <RichTextarea v-model="pieces_constitutive_marche" />
+                              </div>
+                        </div>
+                  </div>
+                  
+                  <div class="mt-5">
+                        <h5 class="fw-bold mb-4">Article 6. Textes généraux applicables au marché </h5>
+                        <div class="row">
                         <div class="col-md-12">   
-                        <label for="consistence_travaux">Les pièces contractuelles constitutives du présent marché sont complémentaires. Elles sont par ordre de priorité :</label>
-                        <RichTextarea v-model="pieces_constitutive_marche" />
+                              <label for="consistence_travaux">Le présent marché est soumis aux textes généraux ci-après :</label>
+                              <RichTextarea v-model="textes_applicables" />
+                        </div>
+                        </div>
+                  </div> 
+            </div>
+
+            <div v-else-if="currentStep === 2">
+                        <div class="mt-3">
+                              <h5 class="fw-bold mb-4">Article 8. Communication </h5>
+                              <div class="row">
+                                    <div class="col-md-12">   
+                                    <RichTextarea v-model="communication" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3">
+                              <h5 class="fw-bold mb-4">Article 9. Consistance des prestations </h5>
+                              <div class="row">
+                                    <div class="col-md-12">   
+                                    <RichTextarea v-model="consistance_prestation" />
+                                    </div>
+                              </div> 
+                        </div>
+            </div>
+
+            <div v-else-if="currentStep === 3">
+                        <div class="mt-3">
+                              <h5 class="fw-bold mb-4">Article 10. Délais d’exécution du marché </h5>
+                              <div class="row">
+                                    <div class="col-md-12">   
+                                    <RichTextarea v-model="delai_execution" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3">
+                              <h5 class="fw-bold mb-4">Article 14. Marchés à tranches conditionnelles </h5>
+                              <div class="row">
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="marche_a_tranche" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3">
+                              <h5 class="fw-bold mb-4">Article 15. Personnel et Matériel du cocontractant </h5>
+                              <div class="row">
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="personnel_entreprise" />
+                                    </div>
+                              </div> 
+                        </div> 
+            </div>
+
+            <div v-else-if="currentStep === 4">
+                        <h5 class="fw-bold mb-4">Article 15. Personnel et Matériel du cocontractant </h5>
+                        <div class="mt-3"> 
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">15.1 Personnel de l’entreprise </h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="personnel_entreprise" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3"> 
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">15.2 Remplacement du personnel clé</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="replacement_personnel" />
+                                    </div>
+                              </div> 
+                        </div>   
+            </div>
+
+            <div v-else-if="currentStep === 5">
+                        <h5 class="fw-bold mb-4">Article 16. Personnel et Matériel du cocontractant </h5>
+                        <div class="mt-3"> 
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">16.1 Programme des travaux, Plan d’assurance qualité et autres</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="programme_travaux" />
+                                    </div>
+                              </div> 
+                        </div>  
+                        <div class="mt-3"> 
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">16.2 Projet d’exécution</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="projet_execution" />
+                                    </div>
+                              </div> 
+                        </div> 
+            </div>
+
+            <div v-else-if="currentStep === 6">
+                        <div class="mt-3"> 
+                              <div class="row">
+                                    <h5 class="fw-bold mb-4">Article 20. Laboratoire de chantier et essais </h5>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="labo_chantier" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="reunion_chantier" />
+                                    </div>
+                              </div> 
+                        </div>  
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
+                              <div class="row">
+                                    <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="reunion_chantier" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 22. Utilisation des explosifs </h5>
+                              <div class="row">
+                                    <span class="fw-bold mb-4">Utilisation des explosifs</span>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="utilisation_explosifs" />
+                                    </div>
+                              </div> 
+                        </div>
+            </div>
+
+                  <div v-else-if="currentStep === 7">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 24. Laboratoire de chantier et essais </h5>
+                              <div class="row"> 
+                                    <h6 class="fw-bold mb-4">24.5 Début de la période de garantie </h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="periode_garantie" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 25. Laboratoire de chantier et essais </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="documente_a_fournir" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 26. Garantie contractuelle / Entretien pendant la période de garantie</h5>
+                              <div class="row">  
+                                    <h6 class="fw-bold mb-4">26.1 Délai de garantie</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="delai_garantie" />
+                                    </div>
+                              </div> 
                         </div>
                   </div>
+
+                  <div v-else-if="currentStep === 8">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 27. Réception définitive </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="art_27" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 37. Avances </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="art_37" />
+                                    </div>
+                              </div> 
+                        </div>
+                  </div>
+
+                  <div v-else-if="currentStep === 9">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 38. Règlement des travaux </h5>
+                              <div class="row">  
+                                    <h6 class="fw-bold mb-4">Décompte provisoir</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="decompte_provisoir" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3">
+                              <div class="row">  
+                                    <h6 class="fw-bold mb-4">Décompte final</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="decompte_final" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3">
+                              <div class="row">  
+                                    <h6 class="fw-bold mb-4">Décompte général et définitif</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="decompte_defintif" />
+                                    </div>
+                              </div> 
+                        </div>
+                  </div>
+
+
+                  <div v-else-if="currentStep === 10">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 42. Régime fiscal et douanier </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="art_42" />
+                                    </div>
+                              </div> 
+                        </div> 
+                  </div>
+
+                  <div v-else-if="currentStep === 11">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 45. Cas de force majeure </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="art_45" />
+                                    </div>
+                              </div> 
+                        </div> 
+                  </div>
+
+
+            <!-- Navigation -->
+            <div class="buttons mt-4 text-center">
+                  <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
+                  <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
+                  <button class="btn-custom" type="submit" v-else>Enregister</button>
             </div>
-            
-            <div class="mt-5">
-                  <h5 class="fw-bold mb-4">Article 6. Textes généraux applicables au marché </h5>
-                  <div class="row">
-                  <div class="col-md-12">   
-                        <label for="consistence_travaux">Le présent marché est soumis aux textes généraux ci-après :</label>
-                        <RichTextarea v-model="textes_applicables" />
-                  </div>
-                  </div>
-            </div> 
-          </div>
-
-          <div v-else-if="currentStep === 2">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 8. Communication </h5>
-                        <div class="row">
-                              <div class="col-md-12">   
-                              <RichTextarea v-model="communication" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 9. Consistance des prestations </h5>
-                        <div class="row">
-                              <div class="col-md-12">   
-                              <RichTextarea v-model="consistance_prestation" />
-                              </div>
-                        </div> 
-                  </div>
-          </div>
-
-          <div v-else-if="currentStep === 3">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 10. Délais d’exécution du marché </h5>
-                        <div class="row">
-                              <div class="col-md-12">   
-                              <RichTextarea v-model="delai_execution" />
-                              </div>
-                        </div> 
-                  </div> 
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 14. Marchés à tranches conditionnelles </h5>
-                        <div class="row">
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="marche_a_tranche" />
-                              </div>
-                        </div> 
-                  </div> 
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 15. Personnel et Matériel du cocontractant </h5>
-                        <div class="row">
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="personnel_entreprise" />
-                              </div>
-                        </div> 
-                  </div> 
-          </div>
-
-          <div v-else-if="currentStep === 4">
-                  <h5 class="fw-bold mb-4">Article 15. Personnel et Matériel du cocontractant </h5>
-                  <div class="mt-3"> 
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">15.1 Personnel de l’entreprise </h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="personnel_entreprise" />
-                              </div>
-                        </div> 
-                  </div> 
-                  <div class="mt-3"> 
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">15.2 Remplacement du personnel clé</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="replacement_personnel" />
-                              </div>
-                        </div> 
-                  </div>   
-          </div>
-
-          <div v-else-if="currentStep === 5">
-                  <h5 class="fw-bold mb-4">Article 16. Personnel et Matériel du cocontractant </h5>
-                  <div class="mt-3"> 
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">16.1 Programme des travaux, Plan d’assurance qualité et autres</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="programme_travaux" />
-                              </div>
-                        </div> 
-                  </div>  
-                  <div class="mt-3"> 
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">16.2 Projet d’exécution</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="projet_execution" />
-                              </div>
-                        </div> 
-                  </div> 
-          </div>
-
-          <div v-else-if="currentStep === 6">
-                  <div class="mt-3"> 
-                        <div class="row">
-                              <h5 class="fw-bold mb-4">Article 20. Laboratoire de chantier et essais </h5>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="labo_chantier" />
-                              </div>
-                        </div> 
-                  </div> 
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="reunion_chantier" />
-                              </div>
-                        </div> 
-                  </div>  
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
-                        <div class="row">
-                              <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="reunion_chantier" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 22. Utilisation des explosifs </h5>
-                        <div class="row">
-                              <span class="fw-bold mb-4">Utilisation des explosifs</span>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="utilisation_explosifs" />
-                              </div>
-                        </div> 
-                  </div>
-          </div>
-
-            <div v-else-if="currentStep === 7">
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 24. Laboratoire de chantier et essais </h5>
-                        <div class="row"> 
-                              <h6 class="fw-bold mb-4">24.5 Début de la période de garantie </h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="periode_garantie" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 25. Laboratoire de chantier et essais </h5>
-                        <div class="row">  
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="documente_a_fournir" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 26. Garantie contractuelle / Entretien pendant la période de garantie</h5>
-                        <div class="row">  
-                              <h6 class="fw-bold mb-4">26.1 Délai de garantie</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="delai_garantie" />
-                              </div>
-                        </div> 
-                  </div>
-            </div>
-
-            <div v-else-if="currentStep === 8">
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 27. Réception définitive </h5>
-                        <div class="row">  
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="art_27" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 37. Avances </h5>
-                        <div class="row">  
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="art_37" />
-                              </div>
-                        </div> 
-                  </div>
-            </div>
-
-            <div v-else-if="currentStep === 9">
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 38. Règlement des travaux </h5>
-                        <div class="row">  
-                              <h6 class="fw-bold mb-4">Décompte provisoir</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="decompte_provisoir" />
-                              </div>
-                        </div> 
-                  </div> 
-                  <div class="mt-3">
-                        <div class="row">  
-                              <h6 class="fw-bold mb-4">Décompte final</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="decompte_final" />
-                              </div>
-                        </div> 
-                  </div>
-                  <div class="mt-3">
-                        <div class="row">  
-                              <h6 class="fw-bold mb-4">Décompte général et définitif</h6>
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="decompte_defintif" />
-                              </div>
-                        </div> 
-                  </div>
-            </div>
-
-
-            <div v-else-if="currentStep === 10">
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 42. Régime fiscal et douanier </h5>
-                        <div class="row">   
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="art_42" />
-                              </div>
-                        </div> 
-                  </div> 
-            </div>
-
-            <div v-else-if="currentStep === 11">
-                  <div class="mt-3"> 
-                        <h5 class="fw-bold mb-4">Article 45. Cas de force majeure </h5>
-                        <div class="row">   
-                              <div class="col-md-12">   
-                                    <RichTextarea v-model="art_45" />
-                              </div>
-                        </div> 
-                  </div> 
-            </div>
-
-
-          <!-- Navigation -->
-          <div class="buttons mt-4 text-center">
-            <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
-            <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
-            <button class="btn-custom" type="submit" v-else>Enregister</button>
-          </div>
-        </StepperForm>
-      </form> 
-  </div>
+            </StepperForm>
+            </form> 
+      </div>
+      </div>  
       
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import RichTextarea from '@/components/RichTextarea.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue' 
 
+import { useRoute, useRouter } from 'vue-router';
+import PieceNavigator from "@/components/PieceNavigator.vue";
+import Loader from "@/components/Loader.vue";
+import { useAppelOffre } from '@/composables/useAppelOffre';
+
+const route = useRoute();
+const router = useRouter();
+const dossier = route.params.project_id      //recuperation de l'identifiant du projet
+const dao = ref({}); 
+const isLoading = ref(true);
+
+const { getDAO } = useAppelOffre() 
+ 
+
+onMounted(async () => {
+    try {
+        isLoading.value = true;
+        const responseDAO = await getDAO(dossier)
+        dao.value = responseDAO[0];    
+ 
+    } catch (error) {
+        console.error("Erreur lors de la récupération du DAO :", error) 
+    } finally{
+        isLoading.value = false;
+    }
+})
 
 const communication = ref(`<p>Toutes les communications au titre du présent marché sont écrites et les notifications faites aux adresses ci-après</p>
 <p> a) Dans le cas où le cocontractant est le destinataire : 
