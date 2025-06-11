@@ -1,7 +1,7 @@
 <template>
 <div class="header-box w-100">
     <div class="d-flex flex-column w-75"> 
-        <h4 class="header-box-title mb-0">Dossier d'Appel d'Offre N˚ <router-link :to="{ name:'edit', params:{ project_id: id } }">{{ numero_dossier }}</router-link> </h4>
+        <h4 class="header-box-title mb-0">Dossier d'Appel d'Offre N˚<router-link :to="{ name:'edit', params:{ project_id: id } }">{{ numero_dossier }}</router-link> </h4>
         <span style="color:#8a4e009c">{{ moe }}</span>
         <span>POUR: {{ description_travaux }}</span> 
     </div>

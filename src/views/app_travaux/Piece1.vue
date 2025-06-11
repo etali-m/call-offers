@@ -221,6 +221,8 @@ import PieceNavigator from '@/components/PieceNavigator';
 import RichTextarea from '@/components/RichTextarea.vue';
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
+
+import { useTravaux } from '@/composables/useTravaux';
     
 export default {
     components: {
@@ -240,11 +242,36 @@ export default {
         const pieces = ref([]) 
         const isLoading = ref(true) 
 
+        const message = ref(''); //message d'inscription réussi
+        const load_data = ref(false);
+        const errors = ref({});
+
         const { getDAO } = useAppelOffre()
         const { get_pieces } =  usePiece()
+        const { get_aao, create_aao } = useTravaux()
 
         const objet_appel = ref('')
-        const constence_travaux = ref('')
+        const consistence_travaux = ref('')
+        const tranches = ref('')
+        const cout_previsionnel = ref('')
+        const delai_previsionnel = ref('')
+        const participation_origine = ref('')
+        const financement = ref('')
+        const mode_soumission = ref('')
+        const cautionnement = ref('')
+        const consultation = ref('')
+        const acquisition_dao = ref('')
+        const remise_offre = ref('')
+        const recevabilite_plis = ref('')
+        const ouverture_plis = ref('')
+        const critere_eliminatoire = ref('')
+        const critere_essentiels = ref('')
+        const attributions = ref('')
+        const nombre_lots = ref()
+        const duree = ref()
+        const renseignements = ref('')
+        const numero_moa = ref('')
+
 
         onMounted(async () => {
             try {
@@ -266,10 +293,42 @@ export default {
         }) 
 
 
-        const handleSubmit = () => {
-            console.log("Formulaire soumis :", formData)
-            alert('Formulaire soumis !')
-            // Appel à une API si besoin
+        const handleSubmit = async () => {
+            errors.value = {}
+            isLoading.value = true; 
+
+            try {
+                const aaoData = {};
+
+                console.log(aaoData);
+                const response = await create_callOffer(aaoData);
+
+                // Récupération des données renvoyées par l'API
+                const projectId = response.data.id; 
+
+                //Définition du message
+                message.value = response.message
+
+                //toast pour informer l'utilisateur
+                toast.success(message, {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+            
+                //rediriger vers la page de gestion du dossier d'appel d'offre
+                setTimeout(() => {
+                    router.push({ name: 'edit', params: { project_id: projectId } }); 
+                }, 3000);
+                
+            } catch (err) { 
+                toast.error(err, {
+                    theme: 'colored',
+                    autoClose: 2000,
+                });
+                errors.value = err;
+            }finally {
+                isLoading.value = false; //
+            }
         }
 
         return {
