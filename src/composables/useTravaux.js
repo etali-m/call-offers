@@ -28,6 +28,7 @@ export function useTravaux() {
         }
     }
 
+    //créer un avis d'appel d'offre
     const create_aao = async (id_projet, aaoData) => {
         const token = localStorage.getItem('access_token')
         if (token) {
@@ -50,8 +51,32 @@ export function useTravaux() {
         }
     }
 
+    //mettre à jour un avis d'appel d'offre
+    const update_aao = async (id_aao, aaoData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.put(`${API_URL}/${id_aao}/aao`, aaoData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     return {
         get_aao,
         create_aao,
+        update_aao,
     }
 }

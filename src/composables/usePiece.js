@@ -27,7 +27,31 @@ export function usePiece() {
         }
     }
 
+    // Mettre à jour le champ is_complete d'une pièce
+    const update_piece = async (pieceId, isComplete) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.patch(`${API_URL}/statutpieces/${pieceId}/update`, {
+                    is_complete: isComplete
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     return {
         get_pieces,
+        update_piece
     }
 }
