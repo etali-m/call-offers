@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const API_URL = 'http://localhost:8000/api'; 
 
 export function usePiece() {
-    //Récuperer toutes les pièces d'un type d'appel d'offre
+    //Récuperer toutes les pièces d'un projet
     const get_pieces = async (id) => {
         const token = localStorage.getItem('access_token')
         if (token) {

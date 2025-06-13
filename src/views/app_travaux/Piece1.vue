@@ -15,14 +15,14 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-2">1. Objet de l'appel d'offre</h5>
                         <div class="col-md-12">    
-                            <RichTextarea v-model="objet_appel"/>
+                            <RichTextarea v-model="objet_appel"/> 
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">2. Consistence des travaux</h5>
                         <div class="col-md-12">    
-                            <RichTextarea v-model="constence_travaux"/>
+                            <RichTextarea v-model="consistence_travaux"/>
                         </div>
                     </div>
 
@@ -72,7 +72,7 @@
                         <div class="row">
                             <div class="col-md-12">   
                                 <label for="consistence_travaux">Le mode de soumission retenu pour cette consultation est </label>
-                                <select class="select-custom">
+                                <select class="select-custom" v-model="mode_soumission">
                                     <option value="en ligne">En ligne</option>
                                     <option value="hors ligne">Hors ligne</option>
                                     <option value="en ligne ou hors ligne">En ligne ou hors ligne</option>
@@ -166,7 +166,7 @@
                         <h5 class="fw-bold mb-4">17. Nombre maximum de lots</h5>
                         <div class="col-md-12">   
                             <label for="consistence_travaux">Nombre de lots maximum</label>
-                            <input type="number" class="input-custom" placeholder="2"> 
+                            <input type="number" class="input-custom" v-model="nombre_lots" placeholder="2"> 
                         </div>
                     </div> 
                     
@@ -174,7 +174,7 @@
                         <h5 class="fw-bold mb-4">18. Durée de validité des offres</h5>
                         <div class="col-md-12">   
                             <label for="consistence_travaux">Durée d'engagement en jours</label>
-                            <input type="number" class="input-custom" placeholder="90"> 
+                            <input type="number" class="input-custom" v-model="duree_engagement" placeholder="90"> 
                         </div>
                     </div>  
                 </div> 
@@ -193,7 +193,7 @@
                             <div class="col-md-12">   
                                 <p for="consistence_travaux">Pour toute dénonciation pour des pratiques, faits ou actes de corruption ou faits de mauvaises pratiques, bien vouloir appeler la CONAC au numéro 1517, l’Autorité chargée des Marchés Publics (MINMAP) (SMS ou appel) aux numéros : (+237) 673 20 57 25 et 699 37 07 48, l’ARMP au numéro</p>
                                 <label for="">Numéro maître d'ouvrage ou maître d'ouvrage délégué</label>
-                                <input type="number" class="input-custom" placeholder="678 45 14 35"> 
+                                <input type="number" class="input-custom" v-model="numero_moa" placeholder="678 45 14 35"> 
                             </div>
                         </div> 
                     </div>
@@ -219,6 +219,8 @@ import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue'
 import PieceNavigator from '@/components/PieceNavigator';
 import RichTextarea from '@/components/RichTextarea.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
 
@@ -241,9 +243,9 @@ export default {
         const dao = ref({})
         const pieces = ref([]) 
         const isLoading = ref(true) 
+        const current_piece = route.name
 
-        const message = ref(''); //message d'inscription réussi
-        const load_data = ref(false);
+        const message = ref(''); //message d'inscription réussi 
         const errors = ref({});
 
         const { getDAO } = useAppelOffre()
@@ -268,10 +270,9 @@ export default {
         const critere_essentiels = ref('')
         const attributions = ref('')
         const nombre_lots = ref()
-        const duree = ref()
+        const duree_engagement = ref()
         const renseignements = ref('')
-        const numero_moa = ref('')
-
+        const numero_moa = ref()
 
         onMounted(async () => {
             try {
@@ -281,10 +282,40 @@ export default {
                 const responsePiece = await get_pieces(dossier)
                 pieces.value = responsePiece  
 
-                // VARIABLE POUR LE TRAITEMENT DES DONNÉES POUR LA PIÈCE
+                // Une fois les pièces chargées, on met à jour l’index courant
+                const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
+                console.log(current_piece); 
+                console.log(index)
+                
+                // RECUPERER les infromations sur l'avis d'appel d'offre
+                const responseAAO = await get_aao(dossier) 
+                if(responseAAO){
+                    objet_appel.value = responseAAO[0].objet_appel;
+                    consistence_travaux.value = responseAAO[0].consistence_travaux;
+                    tranches.value = responseAAO[0].tranches;
+                    cout_previsionnel.value = responseAAO[0].cout_previsionnel;
+                    delai_previsionnel.value = responseAAO[0].delai_previsionnel;
+                    participation_origine.value = responseAAO[0].participation;
+                    financement.value = responseAAO[0].financement;
+                    mode_soumission.value = responseAAO[0].mode_soumission;
+                    cautionnement.value = responseAAO[0].caution_soumission;
+                    consultation.value = responseAAO[0].consultation_dossier;
+                    acquisition_dao.value = responseAAO[0].acquisition_dao;
+                    remise_offre.value = responseAAO[0].remise_offre;
+                    recevabilite_plis.value = responseAAO[0].recevabilite_plis;
+                    ouverture_plis.value = responseAAO[0].ouverture_plis;
+                    critere_eliminatoire.value = responseAAO[0].critere_eliminatoire;
+                    critere_essentiels.value = responseAAO[0].critere_essentielles;
+                    attributions.value = responseAAO[0].attribution;
+                    nombre_lots.value = responseAAO[0].nombre_max_lots;
+                    duree_engagement.value = responseAAO[0].duree_validite;
+                    renseignements.value = responseAAO[0].renseignement_complementaires;
+                    numero_moa.value = responseAAO[0].numero_moa;
+                }
+
                 objet_appel.value = `<p>Dans le cadre de........................ , le ${dao.value.maitre_ouvrage}, lance un Appel d'Offres ${dao.value.type_dossier} ${dao.value.mode_passation} pour ${dao.value.objet_appel}</p> `;
 
-                constence_travaux.value = `<p>Les travaux comprennent notamment :</p>`;
+                consistence_travaux.value = `<p>Les travaux comprennent notamment :</p>`;
             } catch (error) {
                 console.error("Erreur lors de la récupération du DAO :", error) 
             } finally{
@@ -292,17 +323,40 @@ export default {
             }
         }) 
 
+        
 
         const handleSubmit = async () => {
             errors.value = {}
             isLoading.value = true; 
 
             try {
-                const aaoData = {};
+                const aaoData = { 
+                    objet_appel: objet_appel.value,
+                    consistence_travaux: consistence_travaux.value,
+                    tranches: tranches.value,
+                    cout_previsionnel: cout_previsionnel.value,
+                    delai_previsionnel: delai_previsionnel.value,
+                    participation: participation_origine.value,
+                    financement: financement.value,
+                    mode_soumission: mode_soumission.value,
+                    caution_soumission: cautionnement.value,
+                    consultation_dossier: consultation.value,
+                    acquisition_dao: acquisition_dao.value,
+                    remise_offre: remise_offre.value,
+                    recevabilite_plis: recevabilite_plis.value,
+                    ouverture_plis: ouverture_plis.value,
+                    critere_eliminatoire: critere_eliminatoire.value,
+                    critere_essentielles: critere_essentiels.value,
+                    attribution: attributions.value,
+                    nombre_max_lots: nombre_lots.value,
+                    duree_validite: duree_engagement.value,
+                    renseignement_complementaires: renseignements.value,
+                    numero_moa: numero_moa.value,
+                };
 
                 console.log(aaoData);
-                const response = await create_callOffer(aaoData);
-
+                const response = await create_aao(dossier, aaoData);
+                console.log(response.data);
                 // Récupération des données renvoyées par l'API
                 const projectId = response.data.id; 
 
@@ -318,7 +372,7 @@ export default {
                 //rediriger vers la page de gestion du dossier d'appel d'offre
                 setTimeout(() => {
                     router.push({ name: 'edit', params: { project_id: projectId } }); 
-                }, 3000);
+                }, 5000);
                 
             } catch (err) { 
                 toast.error(err, {
@@ -326,8 +380,9 @@ export default {
                     autoClose: 2000,
                 });
                 errors.value = err;
+                console.log(err)
             }finally {
-                isLoading.value = false; //
+                isLoading.value = false; 
             }
         }
 
@@ -337,7 +392,26 @@ export default {
             pieces,
             isLoading,
             objet_appel,
-            constence_travaux,
+            consistence_travaux,
+            tranches,
+            cout_previsionnel,
+            delai_previsionnel,
+            participation_origine,
+            financement,
+            mode_soumission,
+            cautionnement,
+            consultation,
+            acquisition_dao,
+            remise_offre,
+            recevabilite_plis,
+            ouverture_plis,
+            critere_eliminatoire,
+            critere_essentiels,
+            attributions,
+            nombre_lots,
+            duree_engagement,
+            renseignements,
+            numero_moa
         }
     }
 }

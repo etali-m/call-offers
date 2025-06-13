@@ -6,11 +6,11 @@ const user = ref(null);
 
 export function useTravaux() {
     // fonction pour récupérer les données d'un avis d'appel d'offre
-    const get_aao = async () => {
+    const get_aao = async (id_projet) => {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/aao`,
+                const response = await axios.get(`${API_URL}/${id_projet}/aao`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -28,11 +28,11 @@ export function useTravaux() {
         }
     }
 
-    const create_aao = async (aaoData) => {
+    const create_aao = async (id_projet, aaoData) => {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/aao`, aaoData,
+                const response = await axios.post(`${API_URL}/${id_projet}/aao`, aaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
