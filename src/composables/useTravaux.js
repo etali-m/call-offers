@@ -52,11 +52,11 @@ export function useTravaux() {
     }
 
     //mettre à jour un avis d'appel d'offre
-    const update_aao = async (id_aao, aaoData) => {
+    const update_aao = async (id_projet, aaoData) => {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_aao}/aao`, aaoData,
+                const response = await axios.put(`${API_URL}/${id_projet}/aao`, aaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

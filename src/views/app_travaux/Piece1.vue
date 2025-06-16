@@ -245,13 +245,14 @@ export default {
         const isLoading = ref(true) 
         const current_piece = route.name
         const id_piece = ref()
+        const trouve = ref(false) //permet de savoir si le dossier est trouvé
 
         const message = ref(''); //message d'inscription réussi 
         const errors = ref({});
 
         const { getDAO } = useAppelOffre()
         const { get_pieces, update_piece } =  usePiece()
-        const { get_aao, create_aao } = useTravaux()
+        const { get_aao, create_aao, update_aao } = useTravaux()
 
         const objet_appel = ref('')
         const consistence_travaux = ref('')
@@ -291,6 +292,7 @@ export default {
                 // RECUPERER les infromations sur l'avis d'appel d'offre
                 const responseAAO = await get_aao(dossier) 
                 if(responseAAO && responseAAO.length > 0){
+                    trouve.value = true
                     objet_appel.value = responseAAO[0].objet_appel;
                     consistence_travaux.value = responseAAO[0].consistence_travaux;
                     tranches.value = responseAAO[0].tranches;
@@ -355,23 +357,25 @@ export default {
                     numero_moa: numero_moa.value,
                 };
 
-                console.log(aaoData);
-                const response = await create_aao(dossier, aaoData);
+                if(trouve){
+                    const response = await update_aao(dossier, aaoData)
+                    message.value = response.message
+                }else {
+                    const response = await create_aao(dossier, aaoData)
+                    //mise à jour du statut de la piece
+                    const update = await update_piece(id_piece.value, true);
+
+                    //Définition du message
+                    message.value = response.message 
+                }
                  
-                // Récupération des données renvoyées par l'API
-                //const projectId = response.data.id; 
-
-                //mise à jour du statut de la piece
-                const update = await update_piece(id_piece.value, true);
-
-                //Définition du message
-                message.value = response.message
-
                 //toast pour informer l'utilisateur
                 toast.success(message, {
                     theme: 'colored',
                     autoClose: 2000,
                 });
+
+                
             
                 //rediriger vers la page de gestion du dossier d'appel d'offre
                 /*setTimeout(() => {
