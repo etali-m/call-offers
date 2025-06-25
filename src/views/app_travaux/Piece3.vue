@@ -12,22 +12,19 @@
         <form @submit.prevent="handleSubmit" style="padding-left:10px;">
           <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
-              <h5 class="fw-bold mb-4">1.1 Définition des travaux</h5>
-              <div class="row">
-                  <div class="col-md-12">  
-                      <label for="objet_appel">Les travaux consistent à :</label>
-                  </div>
+              <h5 class="fw-bold mb-4">Reférence 1.1</h5>
+              <div class="row"> 
                   <RichTextarea v-model="consistenceTravaux" />
                   <!-- <div v-html="consistenceTravaux"></div> -->
               </div> <br>
-              <h5 class="fw-bold mb-4">1.2 Délai d'exécution des travaux: </h5>
+              <h5 class="fw-bold mb-4">Reférence 1.2 (*)</h5>
               <div class="row">
                   <div class="col-md-12">  
                       <label for="objet_appel">Le délai prévisionnel d'exécution des travaux est de : </label>
                       <textarea class="textarea-custom" placeholder="6 mois"></textarea> 
                   </div> 
               </div> <br>
-              <h5 class="fw-bold mb-4">1.4  </h5>
+              <h5 class="fw-bold mb-4">Reférence 1.4 (*)  </h5>
               <div class="row g-3">
                 <!-- Nom et objet des travaux -->
                 <div class="col-12">
@@ -66,7 +63,7 @@
                 </div>
               </div> <br>
 
-              <h5 class="fw-bold mb-4">2.Source(s) de financement: </h5>
+              <h5 class="fw-bold mb-4">Reférence 2 (*) .Source(s) de financement: </h5>
               <div class="row g-3">
                 <!-- Nom et objet des travaux -->
                 <div class="col-12">
@@ -76,23 +73,23 @@
             </div>
 
             <div v-else-if="currentStep === 1">
-                <h5 class="fw-bold mb-4">4. </h5>
+                <h5 class="fw-bold mb-4">Reférence 4.2 </h5>
                 <div class="row">
                     <div class="col-md-12">   
-                        <label for="consistence_travaux">Les travaux comprennent notamment :</label>
-                        <textarea class="textarea-custom" placeholder="Description succinte des travaux à exécuter"></textarea>
+                        <label for="consistence_travaux">Liste des candidats pré-qualifiés :</label>
+                        <RichTextarea v-model="liste_prequalifie" />
                     </div>
                 </div> 
 
-                <h5 class="fw-bold mb-4">5.1 </h5>
+                <h5 class="fw-bold mb-4">Reférence 5.1 </h5>
                 <div class="row">
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Provenance des matériels et founitures d'équipement et services :</label>
-                        <textarea class="textarea-custom" placeholder="description de la provenance des matériaux"></textarea>
+                        <RichTextarea v-model="provenance_materiaux" />
                     </div>
                 </div> 
 
-                <h5 class="fw-bold mb-4">6.2 </h5>
+                <h5 class="fw-bold mb-4">Reférence 6.2 </h5>
                 <div class="row">
                     <div class="col-md-12">    
                         <p>
@@ -102,18 +99,18 @@
                     </div>
                 </div> 
 
-                <h5 class="fw-bold mb-4">6.4 </h5>
+                <h5 class="fw-bold mb-4">Reférence 6.4 </h5>
                 <div class="row">
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Renseignements nécessaires à produire</label>
-                        <textarea class="textarea-custom" placeholder="Description à produire"></textarea>
+                        <RichTextarea v-model="renseignements_necessaires" />
                     </div>
                 </div>
             </div>
 
             <div v-else-if="currentStep === 2">
-                <h5 class="fw-bold mb-4">7.3</h5>
-                <span>Aux fins de la visite du site des travaux à organiser au plus [date à insérer, le cas échéant] après la publication de l’Avis d’Appel d’Offres, le service du Maître d’Ouvrage ou Maître d’ouvrage Délégué à contacter est le suivant</span>
+                <h5 class="fw-bold mb-4">Reférence 7.3</h5>
+                <RichTextarea v-model="visite_travaux" /> 
                 <div class="row">
                     <div class="col-md-3">
                         <label class="label-custom" for="">Boite postal</label>
@@ -132,22 +129,21 @@
                         <input v-model="denomination" type="email" class="input-custom" required placeholder="MINTP">
                     </div>
                 </div> <br>
-                <h5 class="fw-bold mb-4">7.4</h5>
+                <h5 class="fw-bold mb-4">Reférence 9</h5>
                 <div class="row">
-                  <p>
-                    Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à [service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail] ou en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm, ou tout autres moyens de communication électronique indiqué par le Maître d’Ouvrage.
-                  </p>
+                  <RichTextarea v-model="renseignements_complementaires" /> 
                 </div> <br>
-                <h5 class="fw-bold mb-4">12. </h5>
+                <h5 class="fw-bold mb-4">Reférence 12. </h5>
                 <div class="row">
                     <div class="col-md-12">   
-                        <label for="consistence_travaux">La langue de soumission est l'Anglais ou le Français</label> 
+                        <label for="consistence_travaux">Langue de soumission : </label> 
+                        <RichTextarea v-model="langue_soumission" />
                     </div>
                 </div> 
             </div>
 
             <div v-else-if="currentStep === 3">
-                <h5 class="fw-bold mb-4">13.1 </h5>
+                <h5 class="fw-bold mb-4">Reférence 13.1 </h5>
                 <div class="row">
                   <div class="col-12">
                       <label class="form-label fw-bold">Le soumissionnaire devra produire une offre regroupée en trois volumes et présentée comme suit :</label>
@@ -174,99 +170,97 @@
                         <div class="mt-2">
                           <p class="mb-1">b.1 - La lettre de soumission de la proposition technique :</p>
                           <p class="mb-1">b.2 - Références du soumissionnaire :</p>
-                          <RichTextarea v-model="offreTechLocale" />
+                          <RichTextarea v-model="refSoumissionnaire" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.3 - Personnel :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="personnel" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.4 - Matériels à mobiliser pour l'exécution des travaux :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="materiels" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.5 - Organisation et méthodologie :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="organisation_methodologie" />
                         </div>
 
                         <div class="mt-3">
-                          <p class="mb-1">b.6 - Respect du formaulaire proposé dans le DAO :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <p class="mb-1">b.6 - Respect du formulaire proposé dans le DAO :</p>
+                          <RichTextarea v-model="respect_formulaire" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.7 - Les preuves d'accepation des conditions du marché :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="preuve_acceptation" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.8 - Commentaires CCAP et CCTP :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="commentaire_ccap" />
                         </div>
 
                         <div class="mt-3">
                           <p class="mb-1">b.9 - La capacité financière :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
+                          <RichTextarea v-model="capacite_financiere" />
                         </div>
 
-                        <div class="mt-3">
-                          <p class="mb-1">b.10 - L'attestation de non abandon de chantier au cours des trois dernières années :</p>
-                          <RichTextarea v-model="offreTechEtrangere" />
-                        </div>
-
-                      </div>
-
-                      <!-- Volume III (à compléter si nécessaire) -->
-                      <div class="mt-5">
-                        <h6 class="fw-bold">C - Volume III : Offre financière</h6>
-                        <p class="mb-1">C.1 - Description de l’offre financière :</p>
-                        <RichTextarea v-model="offreFinanciere" />
-                      </div>
+                      </div> 
                   </div>
 
                 </div> 
             </div>
 
             <div v-else-if="currentStep === 4">
+              <!-- Volume III (à compléter si nécessaire) -->
+              <div class="mt-5">
+                  <h6 class="fw-bold">C - Volume III : Offre financière</h6>
+                  <p class="mb-1">C.1 - Description de l’offre financière :</p>
+                  <RichTextarea v-model="offreFinanciere" />
+              </div>
+            </div>
+
+            <div v-else-if="currentStep === 5"> 
+
                 <div class="row">
-                    <h5 class="fw-bold mb-4">14.3 </h5>
+                    <h5 class="fw-bold mb-4">Reférence 14.3 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Impôts et taxes :</label>
-                        <textarea class="textarea-custom" value="Les prix proposés doivent être libellés Toutes taxes comprises"></textarea>
+                        <RichTextarea v-model="impots_taxes" />
                     </div>
                 </div> 
 
-                <div class="row">
-                    <h5 class="fw-bold mb-4">14.4 </h5>
+                <div class="row mt-3">
+                    <h5 class="fw-bold mb-4">Reférence 14.4 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Prix :</label>
-                        <textarea class="textarea-custom" value="Les prix du marché ne seront pas révisables."></textarea>
+                        <RichTextarea v-model="prix_marche" />
                     </div>
                 </div>
 
-                <div class="row">
-                    <h5 class="fw-bold mb-4">15.1 </h5>
+                <div class="row mt-3">
+                    <h5 class="fw-bold mb-4">Reférence 15.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Monnaies de soumission et règlement :</label>
-                        <textarea class="textarea-custom" value="Dans le cadre de la présente consultation, la(les) monnaie(s) de l’offre est (sont) définie(s) suivant.l’option A (monnaie locale uniquement) ou l’option B (Monnaies locale et étrangères) de l’article 15.1 du RGAO"></textarea>
+                        <RichTextarea v-model="monnaies_soumission" /> 
                     </div>
                 </div>
 
-                <div class="row">
-                    <h5 class="fw-bold mb-4">15.2 </h5>
+                <div class="row mt-3">
+                    <h5 class="fw-bold mb-4">Reférence 15.2 </h5>
                     <div class="col-md-12">   
-                        <label for="consistence_travaux">Taux d'échange :</label>
-                        <RichTextarea v-model="taux_change" />
+                        <label for="taux_change">Taux d'échange :</label>
+                        <RichTextarea id="taux_change" v-model="taux_change" />
                     </div>
                 </div>
             </div>
             
-            <div v-else-if="currentStep === 5">
+            <div v-else-if="currentStep === 6">
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">16.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 16.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Validité des offres :</label>
                         <RichTextarea v-model="validite_offre" />
@@ -274,7 +268,7 @@
                 </div> 
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">17.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 17.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Montant du cautionnement :</label>
                         <RichTextarea v-model="montant_cautionnement" />
@@ -282,7 +276,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">18.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 18.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Evaluation des offres:</label>
                         <RichTextarea v-model="evaluation_offres" />
@@ -290,7 +284,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-4">18.3 </h5>
+                    <h5 class="fw-bold mb-4">Reférence 18.3 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Variante techniques :</label>
                         <RichTextarea v-model="variante_techniques" />
@@ -298,7 +292,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">19.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 19.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Réunion préparatoire :</label>
                         <RichTextarea v-model="reunion_preparatoire" />
@@ -306,9 +300,9 @@
                 </div>
             </div>
 
-            <div v-else-if="currentStep === 6"> 
+            <div v-else-if="currentStep === 7"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">20. </h5>
+                    <h5 class="fw-bold mb-2">Reférence 20. </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Soumission en ligne Forme :</label>
                         <RichTextarea v-model="soumission_en_ligne" />
@@ -316,7 +310,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">20.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 20.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Date et heure limites:</label>
                         <RichTextarea v-model="date_heure_limite" />
@@ -324,7 +318,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-4">22.2 </h5>
+                    <h5 class="fw-bold mb-4">Reférence 22.2 (*) </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">MODE DE SOUMISSION :</label>
                         <RichTextarea v-model="mode_soumission" />
@@ -332,9 +326,9 @@
                 </div>
             </div>
 
-            <div v-else-if="currentStep === 7"> 
+            <div v-else-if="currentStep === 8"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">25.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 25.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Ouverture de plis :</label>
                         <RichTextarea v-model="ouverture_plis" />
@@ -342,9 +336,9 @@
                 </div> 
             </div>
 
-            <div v-else-if="currentStep === 8"> 
+            <div v-else-if="currentStep === 9"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">29.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 29.1 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Qualification du soumissionnaire :</label>
                         <RichTextarea v-model="qualification_soumissionaire"/>
@@ -352,9 +346,9 @@
                 </div> 
             </div>
 
-            <div v-else-if="currentStep === 9"> 
+            <div v-else-if="currentStep === 10"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">29.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 29.1 </h5>
                     <h5><strong>Critères et Sous critères pour l'évaluation détaillée des offres.</strong></h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux"><strong>Critères éliminatoires</strong></label>
@@ -363,9 +357,9 @@
                 </div> 
             </div>
 
-            <div v-else-if="currentStep === 10"> 
+            <div v-else-if="currentStep === 11"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">29.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 29.1 </h5>
                     <h5><strong>Critères et Sous critères pour l'évaluation détaillée des offres.</strong></h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux"><strong>Critères essentiels</strong></label>
@@ -374,22 +368,22 @@
                 </div> 
             </div>
 
-            <div v-else-if="currentStep === 11"> 
+            <div v-else-if="currentStep === 12"> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">31.2 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 31.2 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">Monnaie retenue</label>
                         <RichTextarea v-model="monnaie_retenu"/>
                     </div>
                 </div> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">32.2(b) </h5>
+                    <h5 class="fw-bold mb-2">Reférence 32.2(b) </h5>
                     <div class="col-md-12">    
                         <RichTextarea v-model="mode_evaluation"/>
                     </div>
                 </div> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">32.2(e) </h5>
+                    <h5 class="fw-bold mb-2">Reférence 32.2(e) </h5>
                     <div class="col-md-12">    
                         <RichTextarea v-model="ref_32_2_e"/>
                     </div>
@@ -408,7 +402,7 @@
                 </div> 
             </div>
 
-            <div v-else-if="currentStep === 12"> 
+            <div v-else-if="currentStep === 13"> 
                 <h5><strong>ATTRIBUTION</strong></h5>
                 <div class="mt-3">
                     <h5 class="fw-bold mb-2">34.1 </h5>
@@ -484,10 +478,230 @@ onMounted(async () => {
 
 
 //VARIABLES QUI CONSTITUENT LES ELEMENTS DE LA PIECE
-const consistenceTravaux = ref('')
+const consistenceTravaux = ref(`<h5><b>Définition des travaux</b></h5>
+<p>Le présent Appel d'Offre a pour objet : </p>
+<p>Les travaux comprennent: </p>
+<p><b>Nom et adresse de l'autorité contractante : </b></p></p>
+`)
+
 const taux_change = ref("<p>Le taux de change pour convertir l'offre du soumissionaire en monnaie locale ainsi que pour convertir les futures décomptes en monnaies étrangère, sera celui du FCFA</p>")
-const variante_techniques = ref("<p>Les offres seront évaluées sur la base d’un délai prévisionnel d’exécution des travaux compris entre jours (ou mois) au minimum et_______ jours (ou mois) au maximum. La méthode d’évaluation figure à l’article 32.2(e) du RGAO..</p>")
-const reunion_preparatoire = ref("<p>La réunion préparatoire à l’établissement des offres se tiendra [préciser le Lieu, la date et l’heure]: [Indiquer l’adresse de la réunion, ou préciser qu’il n’y aura pas de réunion. La réunion doit avoir lieu au moins deux (2) semaines avant la date limite de dépôt des offres, et en même temps que la visite du site des travaux, si elle est prévue (Clause 7.3 du RGAO).]</p>")
+
+const visite_travaux = ref("<p>Aux fins de la visite du site des travaux à organiser au plus [date à insérer, le cas échéant] après la publication de l’Avis d’Appel d’Offres, le service du Maître d’Ouvrage ou Maître d’ouvrage Délégué à contacter est le suivant</p>")
+
+const renseignements_complementaires =  ref("<p>Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à [service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail] ou en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm, ou tout autres moyens de communication électronique indiqué par le Maître d’Ouvrage.</p>")
+
+const langue_soumission = ref("<p>La langue de soumission est l'Anglais ou le Français</p>")
+
+const piecesAdminLocales = ref(`<ol>
+  <li>La déclaration d’intention de soumissionner timbrée signée du représentant légal ou du mandataire dument désigné ;</li>
+  <li>Le cautionnement de soumission (suivant modèle joint) d’un montant de ____francs CFA et d’une durée de validité de ________mois, établi par une banque de premier ordre ou un organisme financier de première catégorie habilité par le Ministre en charge des Finances du Cameroun pour émettre des cautions dans le cadre des marchés publics ou toute autre forme prévue par la règlementation en vigueur (Chèque certifié, chèque banque, hypothèque légale), sauf dispositions contraires prévues par la convention de financement et relative à l’objet de l’appel d’offres concerné. Le délai de validité du cautionnement de soumission doit excéder de trente (30) jours celui des offres.</li>
+  <li>
+    L’accord de groupement -----------------------(préciser la forme du groupement notarié ou sousseing privé) et spécifiant le mandataire le cas échéant (le Maître d’Ouvrage devra privilégier les groupements solidaires);
+  </li>
+  <li>
+    Le pouvoir de signature, le cas échéant ;
+    </li> 
+    <li>L’attestation de non-redevance délivrée par l’administration fiscale;</li>
+    <li>Une attestation de non-faillite établie par le Tribunal de Première Instance ou tout autre document établi par l’institution compétente du pays de résidence du soumissionnaire étranger;</li>
+    <li>L’attestation de domiciliation bancaire du soumissionnaire, délivrée par un établissement bancaire ou organisme habilité par le Ministre en charge des Finances du Cameroun sauf dispositions contraires prévues par la convention de financement ;</li>
+    <li>La quittance d’achat du Dossier d’Appel d’Offres d’une somme non remboursable de…….............................…. francs CFA de …….............................….. francs CFA [insérer le montant en chiffres et en lettres ] payable à [Lieu de paiement des frais d’achat du DAO :[au Trésor Public pour les Administrations publiques et dans le Compte spécial CAS- ARMP pour les autres Maîtres d’Ouvrage sauf dérogation expresse] .</li>
+    <li>Une attestation de non-exclusion des marchés publics délivrée par l’organisme chargé de la régulation des marchés publics portant le numéro et l’objet de l’Appel d’Offres ;</li>
+    <li>Une attestation délivrée par la Caisse Nationale de Prévoyance Sociale certifiant que le soumissionnaire a satisfait à ses obligations sociales vis-à-vis de ladite caisse datant de moins de trois mois à compter de la date de signature de ladite attestation ;</li>
+    <li>L’attestation de catégorisation, le cas échéant ;</li>
+  </ol>`)
+
+const piecesAdminEtrangeres = ref(`<p> a) produire les documents attestant :</p>
+  <ul>
+    <li>qu’ils ne sont pas en état de liquidation judiciaire ou en faillite ;</li>
+    <li>qu’ils ne sont pas frappés de l'une des interdictions ou déchéances prévues par les lois et règlements en vigueur, aussi bien au plan national qu'international ;</li>
+    <li>qu’ils ont souscrit les déclarations prévues par les lois et règlements en vigueur.</li>
+  </ul>
+  <p>
+    b) En cas de production d’un cautionnement de soumission émis par un établissement financier étranger, ce dernier est acceptable sous réserve que cet établissement financier désigne un correspondant local habilité par le Ministre chargé des finances qui se porte garant en cas d’appel.
+  </p>
+  <p><strong>NB :</strong> Sous peine de rejet, les pièces du dossier administratif requises doivent être produites en originaux ou en copies certifiées conformes par le service émetteur ou l’autorité administrative compétente, conformément aux dispositions du Règlement Particulier de l’Appel d’Offres. Elles doivent être valides à la date limite originelle de dépôt des offres.</p>`)  ;
+
+const refSoumissionnaire = ref(`<div>
+  <ul>
+    <li>
+    La liste des marchés réalisés (Maître d’Ouvrage, Objet, Montant, Date de réception) par le
+    soumissionnaire en tant qu’entrepreneur principal (ou sous-traitant) au cours des 
+    <em>[à préciser]</em> dernières années.</li>
+  </ul>
+  
+  <p>Ces références devront être accompagnées des pièces justificatives, en l’occurrence :</p>
+  <ul>
+    <li>Copies des première, deuxième et dernière pages du contrat ;</li>
+    <li>PV de réception définitive ou provisoire, ou l’Attestation de bonne fin ;</li>
+    <li>Autres justificatifs le cas échéant et à préciser.</li>
+  </ul>
+
+  <p>
+    Dans le cadre de la passation des marchés relevant du seuil des lettres-commandes, et
+    lorsqu'il est expressément prévu par le dossier de consultation, les références du
+    promoteur ou d'un responsable technique d'une Petite et Moyenne Entreprise nationale
+    nouvellement constituée, se substituent à celles de la personne morale lorsque celle-ci
+    ne dispose pas encore du nombre d'années d'expérience ou des références requises.
+  </p>
+
+  <p>Ces références devront être accompagnées des pièces justificatives, en l’occurrence :</p>
+  <ol>
+    <li>CV ;</li>
+    <li>Contrats de travail ;</li>
+    <li>Divers actes de promotion intervenus dans la carrière ;</li>
+  </ol>
+</div>`);
+
+const personnel = ref(`<div>
+  <p>
+    Qualification et expérience du personnel affecté au projet.
+  </p> 
+  <table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Poste</th>
+      <th>Qualification</th>
+      <th>Expérience</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr> 
+  </tbody>
+  </table>
+  <p><strong>NB :</strong> Joindre, pour le personnel proposé, une copie du diplôme et les justificatifs de l’expérience, à savoir :</p>
+  <ul>
+    <li>Copie certifiée conforme du diplôme datant de moins de trois (03) mois ;</li>
+    <li>Attestation d’inscription aux ordres nationaux le cas échéant ;</li>
+    <li>Curriculum vitae signé et daté de l’expert ;</li>
+    <li>Attestation de disponibilité signée et datée de l’expert ;</li>
+    <li>Une attestation ou contrat de travail, ou journal de chantier justifiant l’expérience le cas échéant.</li>
+  </ul>
+
+  <p><strong>NB :</strong> Toutes les pièces citées ci-dessus devront être conformes, signées et datées de moins de trois mois pour compter de la date limite originelle de dépôt des offres.</p>
+
+</div>`);
+
+const materiels = ref(`
+<p>Le Candidat doit établir qu’il dispose en propriété ou en location les matériels ci-après :</p>
+<table border="1" cellspacing="0">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Type et caractéristiques du matériel</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01</td>
+      <td></td> 
+    </tr> 
+  </tbody>
+</table>`);
+
+const respect_formulaire = ref(`<ul>
+  <li>La charte d'intégrité</li>
+  <li>La déclaration d'engagement de respect des clauses sociales et environnementales</li>
+  </ul>`);
+
+const organisation_methodologie = ref(`
+  <p>Le soumissionnaire devra produire une note descriptive ou méthodologique présentant de manière détaillé les éléments constitutifs de sa proposition technique, notamment:</p>
+  <table border="1" cellpadding="8" cellspacing="0"> 
+  <tbody>
+    <tr> 
+      <td>Note méthodologique sur la compréhension, l’organisation et l’exécution
+        des travaux</td> 
+    </tr> 
+    <tr> 
+      <td>Planning d’exécution des travaux</td> 
+    </tr> 
+  </tbody>
+</table>
+`);
+
+const preuve_acceptation = ref(`
+<p>Le soumissionnaire remettra les copies dûment paraphées sur chaque page et signée à la dernière
+  précédée de la mention « lu et approuvé »., des documents ci-après :</p>
+<table border="1" cellpadding="8" cellspacing="0"> 
+  <tbody>
+    <tr> 
+      <td>Le Cahier des CLauses Administratives Particulières (CCAP) paraphé à chaque
+        page et signé à la dernière page.</td> 
+    </tr> 
+    <tr> 
+      <td>Les Cahiers de CLauses Techniques Particulières paraphé à chaque
+        page et signé à la dernière page.</td> 
+    </tr> 
+  </tbody>
+</table>`);
+
+const commentaire_ccap = ref("<p>Le soumissionnaire devra joindre la note d’observation sur les CCAP et/ou les CCTP, assortie d'éventuelles propositions.</p>")
+
+const capacite_financiere = ref(`
+<table border="1" cellspacing="0">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>DOCUMENT</th>
+      <th>OPERATION À REALISER</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01</td>
+      <td>Chiffre d’affaires (bilan comptable)</td>
+      <td>Bilan des trois (03) dernières
+      annéestd </td> 
+    </tr> 
+    <tr>
+      <td>02</td>
+      <td>Attestation de solvabilité</td>
+      <td>L'accès à une ligne de crédit ou autres ressources financières supérieure ou égale au tiers du montant prévisionnel.</td> 
+    </tr>
+  </tbody>
+</table>
+`);
+
+const offreFinanciere = ref(`<p>Cette enveloppe comprendra les documents ci-après: </p>    <p><strong>c.1.</strong> La soumission proprement dite, en original rédigée selon le modèle joint, timbré au tarif en vigueur, signée et datée ;</p>
+  <p><strong>c.2.</strong> Le Bordereau des prix unitaires et/ou forfaitaires dûment rempli ;</p>
+  <p><strong>c.3.</strong> Le Détail quantitatif et estimatif dûment rempli ;</p>
+  <p><strong>c.4.</strong> Le Sous-détail des prix unitaires et/ou la décomposition des prix forfaitaires ;</p> 
+  <p>Les soumissionnaires utiliseront à cet effet les pièces et modèles ou formulaires types prévus dans le Dossier d’Appel d’Offres.</p>
+
+  <h4>Evaluation des offres financières</h4>
+  <p>La sous-commission d’analyse vérifiera si les offres financières sont conformes et complètes. Elle procèdera en outre à la vérification des opérations de calculs et des erreurs éventuelles y afférentes.</p>
+
+  <p>Les offres financières des soumissionnaires seront vérifiées et éventuellement corrigées sur la base suivante :</p>
+
+  <ul>
+    <li>En cas de différence entre le montant en chiffres et le montant en lettres, c’est le montant en lettres qui fera foi ;</li>
+    <li>En cas d’omission d’un prix unitaire dans le bordereau des prix unitaires, cette offre sera purement et simplement éliminée ;</li>
+    <li>S’il y a une différence entre le prix du sous-détail et celui du bordereau des prix unitaires, celui du sous-détail fera foi ;</li>
+    <li>Lorsqu’il y a une incohérence entre le prix unitaire et le prix total obtenu en multipliant le prix unitaire par la quantité, le prix unitaire cité fera foi, à moins qu’il soit estimé qu’il s’agit d’une erreur grossière de virgule dans le prix unitaire, auquel cas le prix total tel qu’il est présenté fera foi et le prix unitaire corrigé ;</li>
+    <li>En ajustant de façon appropriée sur des bases techniques ou financières, toute autre modification, divergence ou réserve quantifiable ;</li>
+    <li>En prenant en considération les différents délais d’exécution proposés par les soumissionnaires, s’ils sont autorisés ;</li>
+    <li>L’offre dans laquelle il existe des postes du détail estimatif pour lesquels le soumissionnaire n’a pas indiqué de prix unitaires est purement rejetée.</li>
+  </ul>
+
+  <p>Le montant de la soumission sera alors corrigé. Si l’attributaire provisoire n’accepte pas cette correction, son offre sera rejetée et sa caution de soumission pourra être saisie dans ce cas.</p>
+
+  <p>L'offre la moins disante sera celle ayant obtenu la meilleure note globale et satisfaisant au meilleur rapport qualité-prix et aux règlements de la Commission Interne de Passation des Marchés.</p>
+
+  <p>L’Autorité Contractante se réserve le droit d’annuler la procédure d’Appel d’Offres et de rejeter toutes les offres, à tout moment avant attribution du marché, sans encourir de responsabilité à l’égard du ou des soumissionnaires affectés par sa décision, ni l’obligation de les informer des raisons de sa décision.</p>
+  `)
+
+const validite_offre =  ref(`<p>La période de validité des offres est _________________ [insérer la période en jours] à partir de la date limite de dépôt des offres.</p>`)
+
+const montant_cautionnement =  ref(`<p>Le montant de la caution de soumission est de : </p>`)
+
+const evaluation_offres = ref("<p>Les offres seront évaluées sur la base d’un délai prévisionnel d’exécution des travaux compris entre________jours (ou mois) au minimum et_______ jours (ou mois) au maximum. La méthode d’évaluation figure à l’article 32.2(e) du RGAO.</p>")
+
+const variante_techniques = ref("<p>Les variantes techniques sur la ou les parties des travaux spécifiés ci-dessous sont permises dans le cadre des spécifications techniques du présent appel d’offres.</p>")
+
+const reunion_preparatoire = ref("<p>La réunion préparatoire à l’établissement des offres se tiendra <i>[préciser le Lieu, la date et l’heure]: [Indiquer l’adresse de la réunion, ou préciser qu’il n’y aura pas de réunion. La réunion doit avoir lieu au moins deux (2) semaines avant la date limite de dépôt des offres, et en même temps que la visite du site des travaux, si elle est prévue (Clause 7.3 du RGAO).]</i></p>")
 
 const soumission_en_ligne = ref(`
   <h5 class="text-center fw-bold">Soumission en ligne <span class="fw-normal">FORME, <strong>FORMAT</strong> ET SIGNATURE DE L’OFFRE</span></h5>
@@ -512,7 +726,7 @@ const soumission_en_ligne = ref(`
   <h5 class="text-center fw-bold">Soumission hors ligne</h5>
   <p>Chaque offre rédigée en français ou en anglais en [indiquer le nombre d'exemplaire] exemplaires dont un original et [indiquer le nombre de copies et tenir compte de l’exemplaire à transmettre séance tenante après l’ouverture des offres au point focal désigné par l’organisme chargé de la régulation des marchés publics] de chaque proposition marquées comme tels, devra parvenir [Lieu d’enregistrement des offres], au plus tard le [Date limite de réception des offres] à [Heure limite] et devra porter la mention suivante sur les enveloppes fermées :</p>
 
-`)
+`);
 
 const date_heure_limite = ref(`<p>Date et heure limite de dépôt des offres le ________________ à 11 heures.</p>`)
 

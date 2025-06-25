@@ -219,6 +219,7 @@ import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue'
 import PieceNavigator from '@/components/PieceNavigator';
 import RichTextarea from '@/components/RichTextarea.vue';
+import { VueTelInput } from 'vue-tel-input';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { useAppelOffre } from '@/composables/useAppelOffre';
@@ -228,6 +229,7 @@ import { useTravaux } from '@/composables/useTravaux';
     
 export default {
     components: {
+        VueTelInput,
         HeaderPiece,
         StepperForm,
         RichTextarea,
@@ -289,6 +291,57 @@ export default {
                 const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
                 id_piece.value = pieces.value[index].id; 
                 
+                //Initialisation des champs de l'avis d'appel d'offre
+                objet_appel.value = `<p>Dans le cadre de........................ , le ${dao.value.maitre_ouvrage}, lance un Appel d'Offres ${dao.value.type_dossier} ${dao.value.mode_passation} pour ${dao.value.objet_appel}</p> `;
+
+                consistence_travaux.value = `<p>Les travaux comprennent notamment :</p>`;
+                cout_previsionnel.value = `<p>Le coût prévisionnel de l’opération à l’issue des études préalables est de</p>`;
+                delai_previsionnel.value = `<span>douze (12) mois</span>`;
+                participation_origine.value = `<p>La participation au présent appel d’offres est ouverte à <b>[préciser le cas échéant, la qualité des prestataires concernés le cas échéant]</b> ou est restreinte <b>[préciser la liste des candidats préqualifiés ou des entreprises retenues dans le cadre d’une catégorisation]</b>.</p>`;
+                financement.value = `<p>Les travaux objet du présen appel d'offres sont financés par <b>${dao.value.financement}</b>.</p>`;
+                consultation.value = `<p>Le dossier physique peut être consulté gratuitement dans les services du MO / MOD aux heures ouvrables à <b>[Lieu de consultation du DAO (service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail)] </b> dès publication du présent avis. Il peut également être consulté en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm sur le site internet de l'ARMP (www.armp.cm) ou sur tout autre moyen de communication électronique indiqué par le Maître d’Ouvrage (à préciser).</p>`;
+                acquisition_dao.value = `<p>La version physique du dossier d’appel d’offres peut être obtenue au <b>[Lieu de retrait du DAO (service, numérode porte, BP, téléphone, fax, e-mail)] </b> dès publication du présent avis, contre versement d’une somme non remboursable des frais d’achat du DAO de …….............................….. Francs CFA [En chiffres et en lettres] (7), payable à [Lieu de paiement au Trésor Public pour les Administrations publiques et dans le Compte spécial CAS- ARMP pour les autres Maîtres d’Ouvrage, sauf dérogation expresse].</p>`;
+
+                remise_offre.value = `<p>
+                    Pour la soumission hors ligne, l'offre en sept (07) exemplaires dont un (01) original et six (06) copies marqués comme tels, devra parvenir [Lieu d’enregistrement des offres], au plus tard le [Date limite de réception des offres] à [Heure limite] avec la mention 
+                    </p>
+                    <b>« ${dao.value.titre_complet} »</b>
+                    <p>
+                        Pour la soumission en ligne, l’offre devra être transmise par le soumissionnaire sur la plateforme COLEPS ou toute autre moyen de communication électronique officiel à préciser par le maître d’ouvrage au plus tard le [date limite de réception des offres] à [Heure limite]. Une copie de sauvegarde de l’offre enregistrée sur clé USB ou CD/DVD devra être transmise sous pli scellé avec l’indication claire et lisible « copie de sauvegarde », en plus de la mention ci-dessus dans les délais impartis.
+                    </p>
+                    `;
+
+                recevabilite_plis.value = `<p>
+Les pièces administratives, l'offre technique et l'offre financière doivent être placées dans des
+enveloppes différentes séparées et remises sous pli scellé.
+</p>
+
+<p>Seront irrecevables par le Maître d’Ouvrage :</p>
+<ul>
+<li>Les plis portant les indications sur l'identité du soumissionnaire ;</li>
+<li>Les plis parvenus postérieurement aux dates et heures limites de dépôt ;</li>
+<li>Les plis non-conformes au mode de soumission.</li>
+<li>Les plis sans indication de l’identité de l’Appel d’Offres ;</li>
+<li>Le non-respect du nombre d’exemplaires indiqué dans le RPAO ou offre uniquement en copies ;</li>
+</ul>
+
+<p>
+    Toute offre incomplète conformément aux prescriptions du Dossier d'Appel d'Offres sera déclarée
+    irrecevable. Notamment l'absence de la caution de soumission délivrée par un organisme ou une
+    institution financière agréée par le Ministre en charge des finances pour émettre les cautions dans
+    le domaine des marchés publics ou le non-respect des modèles des pièces du Dossier d'Appel
+    d'Offres, entraînera le rejet pur et simple de l'offre sans aucun recours.
+</p>
+
+<p>
+    Une caution de soumission produite mais n'ayant aucun rapport avec la consultation concernée est
+    considérée comme absente. La caution de soumission présentée par un soumissionnaire au cours de
+    la séance d’ouverture des plis est irrecevable.
+                </p>`;
+
+                ouverture_plis.value = `<p>L’ouverture des plis se fait en un temps et aura lieu le______ [à préciser] à________ [à préciser] heures par la Commission de Passation des Marchés du Maître d’Ouvrage ou du Maître d’Ouvrage Délégué dans la salle de______ [à préciser] sise à______ [à préciser]</p>`;
+                attributions.value = `<p>Le Maitre d’Ouvrage ou le Maitre d’Ouvrage Délégué attribue le marché au soumissionnaire ayant présenté une offre remplissant les critères de qualification technique et financière requises et dont l’offre est évaluée la moins disante en incluant le cas échéant les remises proposées.</p>`;
+
                 // RECUPERER les infromations sur l'avis d'appel d'offre
                 const responseAAO = await get_aao(dossier) 
                 if(responseAAO && responseAAO.length > 0){
@@ -316,9 +369,6 @@ export default {
                     numero_moa.value = responseAAO[0].numero_moa;
                 }
 
-                objet_appel.value = `<p>Dans le cadre de........................ , le ${dao.value.maitre_ouvrage}, lance un Appel d'Offres ${dao.value.type_dossier} ${dao.value.mode_passation} pour ${dao.value.objet_appel}</p> `;
-
-                consistence_travaux.value = `<p>Les travaux comprennent notamment :</p>`;
             } catch (error) {
                 console.error("Erreur lors de la récupération du DAO :", error) 
             } finally{
