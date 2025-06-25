@@ -342,7 +342,7 @@ enveloppes différentes séparées et remises sous pli scellé.
                 ouverture_plis.value = `<p>L’ouverture des plis se fait en un temps et aura lieu le______ [à préciser] à________ [à préciser] heures par la Commission de Passation des Marchés du Maître d’Ouvrage ou du Maître d’Ouvrage Délégué dans la salle de______ [à préciser] sise à______ [à préciser]</p>`;
                 attributions.value = `<p>Le Maitre d’Ouvrage ou le Maitre d’Ouvrage Délégué attribue le marché au soumissionnaire ayant présenté une offre remplissant les critères de qualification technique et financière requises et dont l’offre est évaluée la moins disante en incluant le cas échéant les remises proposées.</p>`;
 
-                // RECUPERER les infromations sur l'avis d'appel d'offre
+                // RECUPERER les informations sur l'avis d'appel d'offre
                 const responseAAO = await get_aao(dossier) 
                 if(responseAAO && responseAAO.length > 0){
                     trouve.value = true

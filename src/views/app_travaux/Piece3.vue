@@ -10,7 +10,7 @@
 
     <div class="form-container">  
         <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-          <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+          <StepperForm :totalSteps="14" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
               <h5 class="fw-bold mb-4">Reférence 1.1</h5>
               <div class="row"> 
@@ -405,25 +405,25 @@
             <div v-else-if="currentStep === 13"> 
                 <h5><strong>ATTRIBUTION</strong></h5>
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">34.1 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 34.1 </h5>
                     <div class="col-md-12">    
                         <RichTextarea v-model="ref_34_1"/>
                     </div>
                 </div> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">34.2 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 34.2 </h5>
                     <div class="col-md-12">    
                         <RichTextarea v-model="ref_34_2"/>
                     </div>
                 </div> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">39.2 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 39.2 </h5>
                     <div class="col-md-12">    
                         <RichTextarea v-model="ref_39_2"/>
                     </div>
                 </div> 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-2">40 </h5>
+                    <h5 class="fw-bold mb-2">Reférence 40 </h5>
                     <div class="col-md-12">  
                         <label for="">Principe Ethiques</label>  
                         <RichTextarea v-model="ref_40"/>
@@ -637,6 +637,10 @@ const preuve_acceptation = ref(`
     </tr> 
   </tbody>
 </table>`);
+
+const impots_taxes = ref(`<p>Les prix figurant au bordereau des prix unitaires sont réputés avoir été établis sur la base des conditions économiques en vigueur en République du Cameroun au mois précédant celui de la soumission</p>`)
+
+const prix_marche = ref(`<p>Les prix du marché sont éventuellement révisables et actualisables conformément aux dispositions du Code des Marchés Publics en vigueur.</p>`)
 
 const commentaire_ccap = ref("<p>Le soumissionnaire devra joindre la note d’observation sur les CCAP et/ou les CCTP, assortie d'éventuelles propositions.</p>")
 
