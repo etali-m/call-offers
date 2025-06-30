@@ -14,62 +14,9 @@
             <div v-if="currentStep === 0">
               <h5 class="fw-bold mb-4">Reférence 1.1</h5>
               <div class="row"> 
-                  <RichTextarea v-model="consistenceTravaux" />
+                  <RichTextarea v-model="consistenceTravaux"/>
                   <!-- <div v-html="consistenceTravaux"></div> -->
-              </div> <br>
-              <h5 class="fw-bold mb-4">Reférence 1.2 (*)</h5>
-              <div class="row">
-                  <div class="col-md-12">  
-                      <label for="objet_appel">Le délai prévisionnel d'exécution des travaux est de : </label>
-                      <textarea class="textarea-custom" placeholder="6 mois"></textarea> 
-                  </div> 
-              </div> <br>
-              <h5 class="fw-bold mb-4">Reférence 1.4 (*)  </h5>
-              <div class="row g-3">
-                <!-- Nom et objet des travaux -->
-                <div class="col-12">
-                  <label for="objet_appel" class="form-label fw-bold">Nom et objet des travaux :</label>
-                  <textarea id="objet_appel" class="textarea-custom" placeholder="TRAVAUX DE CONSTRUCTION DES CANIVEAUX BETONNES DANS LA COMMUNE DE YAOUNDE 4"></textarea>
-                </div>
-
-                <!-- Plusieurs phases -->
-                <div class="col-12">
-                  <label class="form-label fw-bold">Les travaux comportent-ils plusieurs phases :</label>
-                  <div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="phase" id="phaseOui" value="oui">
-                      <label class="form-check-label" for="phaseOui">Oui</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="phase" id="phaseNon" value="non">
-                      <label class="form-check-label" for="phaseNon">Non</label>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Conférence préalable -->
-                <div class="col-12">
-                  <label class="form-label fw-bold">Conférence préalable à l’établissement des propositions :</label>
-                  <div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="conference" id="confOui" value="oui">
-                      <label class="form-check-label" for="confOui">Oui</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="conference" id="confNon" value="non">
-                      <label class="form-check-label" for="confNon">Non</label>
-                    </div>
-                  </div>
-                </div>
-              </div> <br>
-
-              <h5 class="fw-bold mb-4">Reférence 2 (*) .Source(s) de financement: </h5>
-              <div class="row g-3">
-                <!-- Nom et objet des travaux -->
-                <div class="col-12">
-                  <p>Budget:................ Exxercice.......... Ligne ................</p>
-                </div> 
-              </div>
+              </div> <br>  
             </div>
 
             <div v-else-if="currentStep === 1">
@@ -89,16 +36,6 @@
                     </div>
                 </div> 
 
-                <h5 class="fw-bold mb-4">Reférence 6.2 </h5>
-                <div class="row">
-                    <div class="col-md-12">    
-                        <p>
-                          En cas de groupement d'entreprises, chaque membre du groupement doit présenter un dossier
-                          administratif complet, les pièces " L’attestation de domiciliation bancaire (sauf cas de cotraitance conjointe) , La quittance d’achat du DAO et le cautionnement de soumission" prévues au point 13.1 du RPAO étant uniquement présentés par le mandataire du groupement.
-                        </p>
-                    </div>
-                </div> 
-
                 <h5 class="fw-bold mb-4">Reférence 6.4 </h5>
                 <div class="row">
                     <div class="col-md-12">   
@@ -111,7 +48,7 @@
             <div v-else-if="currentStep === 2">
                 <h5 class="fw-bold mb-4">Reférence 7.3</h5>
                 <RichTextarea v-model="visite_travaux" /> 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-3">
                         <label class="label-custom" for="">Boite postal</label>
                         <input v-model="moa" type="text" class="input-custom" required placeholder="Ministère des travaux publics">
@@ -128,7 +65,7 @@
                         <label class="label-custom" for="">Email</label>
                         <input v-model="denomination" type="email" class="input-custom" required placeholder="MINTP">
                     </div>
-                </div> <br>
+                </div> --><br>
                 <h5 class="fw-bold mb-4">Reférence 9</h5>
                 <div class="row">
                   <RichTextarea v-model="renseignements_complementaires" /> 
@@ -318,7 +255,7 @@
                 </div>
 
                 <div class="mt-3">
-                    <h5 class="fw-bold mb-4">Reférence 22.2 (*) </h5>
+                    <h5 class="fw-bold mb-4">Reférence 22.2 </h5>
                     <div class="col-md-12">   
                         <label for="consistence_travaux">MODE DE SOUMISSION :</label>
                         <RichTextarea v-model="mode_soumission" />
@@ -448,45 +385,43 @@ import { ref, onMounted } from 'vue';
 import RichTextarea from '@/components/RichTextarea.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue';
 import StepperForm from '@/components/StepperForm.vue'; 
-
+import { toast } from 'vue3-toastify';
 import { useRoute, useRouter } from 'vue-router';
 import Loader from "@/components/Loader.vue";
 import PieceNavigator from "@/components/PieceNavigator.vue";
 import { useAppelOffre } from '@/composables/useAppelOffre';
+import { usePiece } from '@/composables/usePiece';
+
+import { useTravaux } from '@/composables/useTravaux';
 
 const route = useRoute();
 const router = useRouter();
 const dossier = route.params.project_id      //recuperation de l'identifiant du projet
-const dao = ref({}); 
+const dao = ref({});    //informations sur le dossier d'appel d'offre
+const aao = ref({});    //informations sur l'avis d'appel d'offre
 const isLoading = ref(true);
+const pieces = ref([])  
+const current_piece = route.name
+const id_piece = ref()
+const trouve = ref(false) //permet de savoir si le dossier est trouvé
+
+const message = ref(''); //message d'enregistrement reussi
+const errors = ref({});
 
 const { getDAO } = useAppelOffre() 
- 
+const { get_pieces, update_piece } =  usePiece()
+const { get_aao, get_rpao, create_rpao, update_rpao } = useTravaux() 
 
-onMounted(async () => {
-    try {
-        isLoading.value = true;
-        const responseDAO = await getDAO(dossier)
-        dao.value = responseDAO[0];    
- 
-    } catch (error) {
-        console.error("Erreur lors de la récupération du DAO :", error) 
-    } finally{
-        isLoading.value = false;
-    }
-}) 
-
-
-//VARIABLES QUI CONSTITUENT LES ELEMENTS DE LA PIECE
-const consistenceTravaux = ref(`<h5><b>Définition des travaux</b></h5>
-<p>Le présent Appel d'Offre a pour objet : </p>
-<p>Les travaux comprennent: </p>
-<p><b>Nom et adresse de l'autorité contractante : </b></p></p>
-`)
+const consistenceTravaux = ref('')
 
 const taux_change = ref("<p>Le taux de change pour convertir l'offre du soumissionaire en monnaie locale ainsi que pour convertir les futures décomptes en monnaies étrangère, sera celui du FCFA</p>")
 
 const visite_travaux = ref("<p>Aux fins de la visite du site des travaux à organiser au plus [date à insérer, le cas échéant] après la publication de l’Avis d’Appel d’Offres, le service du Maître d’Ouvrage ou Maître d’ouvrage Délégué à contacter est le suivant</p>")
+
+const liste_prequalifie = ref('')
+const provenance_materiaux = ref(`<p>Les matériaux, matériels et fournitures d’équipement et services doivent provenir du marché intérieur ou du marché international.</p>`)
+const monnaies_soumission = ref(`<p>le montant de la soumission est libellé entièrement en monnaie nationale</p>`)
+const renseignements_necessaires = ref('')
 
 const renseignements_complementaires =  ref("<p>Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à [service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail] ou en ligne sur la plateforme COLEPS aux adresses http://www.marchespublics.cm et http://www.publiccontracts.cm, ou tout autres moyens de communication électronique indiqué par le Maître d’Ouvrage.</p>")
 
@@ -697,8 +632,6 @@ const offreFinanciere = ref(`<p>Cette enveloppe comprendra les documents ci-apr�
   <p>L’Autorité Contractante se réserve le droit d’annuler la procédure d’Appel d’Offres et de rejeter toutes les offres, à tout moment avant attribution du marché, sans encourir de responsabilité à l’égard du ou des soumissionnaires affectés par sa décision, ni l’obligation de les informer des raisons de sa décision.</p>
   `)
 
-const validite_offre =  ref(`<p>La période de validité des offres est _________________ [insérer la période en jours] à partir de la date limite de dépôt des offres.</p>`)
-
 const montant_cautionnement =  ref(`<p>Le montant de la caution de soumission est de : </p>`)
 
 const evaluation_offres = ref("<p>Les offres seront évaluées sur la base d’un délai prévisionnel d’exécution des travaux compris entre________jours (ou mois) au minimum et_______ jours (ou mois) au maximum. La méthode d’évaluation figure à l’article 32.2(e) du RGAO.</p>")
@@ -734,10 +667,12 @@ const soumission_en_ligne = ref(`
 
 const date_heure_limite = ref(`<p>Date et heure limite de dépôt des offres le ________________ à 11 heures.</p>`)
 
-const mode_soumission = ref(`<p>e mode de soumission retenu pour cette consultation est [Indiquer l’un des trois modes de soumission ci-après : en ligne, hors ligne, en ligne et hors ligne].</p>`)
+const validite_offre = ref('');
+
+const mode_soumission = ref('')
 
 const ouverture_plis = ref(`
-  <p>L’ouverture des plis se fait en un temps et aura lieu le______ [à préciser] à________[à préciser] heures par la Commission de Passation des Marchés du Maître d’Ouvrage ou du Maître d’Ouvrage Délégué dans la salle de ______[à préciser] sise à ______ [à préciser]</p>
+  <p>L’ouverture des plis se fait en un temps et aura lieu le <b>_______</b>[à préciser] à <b>_______</b> [à préciser] heures par la Commission de Passation des Marchés du Maître d’Ouvrage ou du Maître d’Ouvrage Délégué dans la salle de ______[à préciser] sise à ______ [à préciser]</p>
 
   <p>Seuls les soumissionnaires peuvent assister à cette séance d'ouverture ou s'y faire représenter par une seule personne de leur choix dûment mandatée même en cas de groupement d’entreprises.<br/>
   Sous peine de rejet, les pièces du dossier administratif requises doivent être produites en originaux ou en copies certifiées conformes par le service émetteur ou autorité administrative compétente, conformément aux stipulations du Règlement Particulier de l’Appel d’Offres. Elles doivent être valide au moment du dépôt de l’Offre dater de moins de trois (03) mois à compter de la date limite originelle d’ouverture des offres ou avoir été établies postérieurement à la date de signature de l’avis d’appel d’offres. 
@@ -813,8 +748,6 @@ const qualification_soumissionaire = ref(`
 
 <strong>Le système de notation des offres par attribution des points est proscrit au profit du mode
 binaire (oui ou non)</strong>
-
-<h5>Critères et Sous critères pour l’évaluation détaillée des offres</h5>
 
 `)
 
@@ -901,6 +834,179 @@ des numéros d’enregistrement différents </p>
 <p>(iii) se livre à des “manœuvres frauduleuses” quiconque déforme ou dénature des faits afin
 d’influencer l’attribution ou l’exécution d’un marché ou d’une lettre commande de manière préjudiciable au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué. Les “Manœuvres frauduleuses” comprennent notamment toute entente ou manœuvre collusoire des soumissionnaires (avant ou après la remise de l’offre) visant à maintenir artificiellement les prix des cotations à des niveaux ne correspondant pas à ceux qui résulteraient du jeu d’une concurrence libre et ouverte, et à priver ainsi le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué des avantages de cette dernière.</p>
 `)
+
+
+onMounted(async () => {
+    try {
+        isLoading.value = true;
+        const responsePiece = await get_pieces(dossier)
+        pieces.value = responsePiece 
+        //récuperer les informations sur le dossier d'appel d'offre.
+        const responseDAO = await getDAO(dossier)
+        dao.value = responseDAO[0]; 
+        // RECUPERER les informations sur l'aao.
+        const responseAAO = await get_aao(dossier) 
+        aao.value = responseAAO[0] 
+
+        const responseRPAO = await get_rpao(dossier)
+
+        // Une fois les pièces chargées, on met à jour l’index courant
+        const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
+        id_piece.value = pieces.value[index].id; 
+
+        
+
+        consistenceTravaux.value = `<h5><b>Définition des travaux</b></h5><p>Le présent Appel d'Offre a pour objet : ${dao.value.objet_appel} </p> <p>${aao.value.consistence_travaux} </p> <p><b>Autorité contractante : </b> ${dao.value.maitre_ouvrage} </p><p><b>Références de l’Appel d’Offres : </b> « ${dao.value.titre_complet} » </p>`
+
+        validite_offre.value =  `<p>La période de validité des offres est <b>${aao.value.duree_validite} jours</b> à partir de la date limite de dépôt des offres.</p>`;
+
+        mode_soumission.value = `<p>Le mode de soumission retenu pour cette consultation est <b>${aao.value.mode_soumission}</b>.</p>`;
+
+        //Si le RPAO existe déja on récupère les valeur qu'on affecte aux différent champs du formulaire 
+        if(responseRPAO && responseRPAO.length > 0){
+          trouve.value = true
+          consistenceTravaux.value = responseRPAO[0].consistenceTravaux
+          taux_change.value = responseRPAO[0].taux_change
+          visite_travaux.value = responseRPAO[0].visite_travaux
+          liste_prequalifie = responseRPAO[0].liste_prequalifie
+          provenance_materiaux = responseRPAO[0].provenance_materiaux
+          monnaies_soumission = responseRPAO[0].monnaies_soumission
+          renseignements_necessaires = responseRPAO[0].renseignements_necessaires
+          renseignements_complementaires.value = responseRPAO[0].renseignements_complementaires
+          langue_soumission.value = responseRPAO[0].langue_soumission
+          piecesAdminLocales.value = responseRPAO[0].piecesAdminLocales
+          piecesAdminEtrangeres.value = responseRPAO[0].piecesAdminEtrangeres
+          refSoumissionnaire.value = responseRPAO[0].refSoumissionnaire
+          personnel.value = responseRPAO[0].personnel
+          materiels.value = responseRPAO[0].materiels
+          respect_formulaire.value = responseRPAO[0].respect_formulaire
+          organisation_methodologie.value = responseRPAO[0].organisation_methodologie
+          preuve_acceptation.value = responseRPAO[0].preuve_acceptation
+          impots_taxes.value = responseRPAO[0].impots_taxes
+          prix_marche.value = responseRPAO[0].prix_marche
+          commentaire_ccap.value = responseRPAO[0].commentaire_ccap
+          capacite_financiere.value = responseRPAO[0].capacite_financiere
+          offreFinanciere.value = responseRPAO[0].offreFinanciere
+          montant_cautionnement.value = responseRPAO[0].montant_cautionnement
+          evaluation_offres.value = responseRPAO[0].evaluation_offres
+          variante_techniques.value = responseRPAO[0].variante_techniques
+          reunion_preparatoire.value = responseRPAO[0].reunion_preparatoire
+          soumission_en_ligne.value = responseRPAO[0].soumission_en_ligne
+          date_heure_limite.value = responseRPAO[0].date_heure_limite
+          validite_offre.value = responseRPAO[0].validite_offre
+          mode_soumission.value = responseRPAO[0].mode_soumission
+          ouverture_plis.value = responseRPAO[0].ouverture_plis
+          qualification_soumissionaire.value = responseRPAO[0].qualification_soumissionaire
+          criteres_eliminatoires.value = responseRPAO[0].criteres_eliminatoires
+          criteres_essentiels.value = responseRPAO[0].criteres_essentiels
+          monnaie_retenu.value = responseRPAO[0].monnaie_retenu
+          mode_evaluation.value = responseRPAO[0].mode_evaluation
+          ref33_1.value = responseRPAO[0].ref33_1
+          ref_32_2_e.value = responseRPAO[0].ref_32_2_e
+          ref_32_2_g.value = responseRPAO[0].ref_32_2_g
+          ref_34_1.value = responseRPAO[0].ref_34_1
+          ref_34_2.value = responseRPAO[0].ref_34_2
+          ref_39_2.value = responseRPAO[0].ref_39_2
+          ref_40.value = responseRPAO[0].ref_40
+        }
+        console.log(trouve.value)
  
+    } catch (error) {
+        console.error("Erreur lors de la récupération du DAO :", error) 
+    } finally{
+        isLoading.value = false;
+    }
+}) 
+
+
+const handleSubmit = async () => {
+    errors.value = {}
+    isLoading.value = true; 
+
+    try {
+        const rpaoData = { 
+          consistenceTravaux : consistenceTravaux.value,
+          taux_change : taux_change.value,
+          visite_travaux : visite_travaux.value,
+          renseignements_complementaires : renseignements_complementaires.value,
+          langue_soumission : langue_soumission.value,
+          liste_prequalifie : liste_prequalifie.value,
+          provenance_materiaux : provenance_materiaux.value,
+          monnaies_soumission : monnaies_soumission.value,
+          renseignements_necessaires : renseignements_necessaires.value,
+          piecesAdminLocales : piecesAdminLocales.value,
+          piecesAdminEtrangeres : piecesAdminEtrangeres.value,
+          refSoumissionnaire : refSoumissionnaire.value,
+          personnel : personnel.value,
+          materiels : materiels.value,
+          respect_formulaire : respect_formulaire.value,
+          organisation_methodologie : organisation_methodologie.value,
+          preuve_acceptation : preuve_acceptation.value,
+          impots_taxes : impots_taxes.value,
+          prix_marche : prix_marche.value,
+          commentaire_ccap : commentaire_ccap.value,
+          capacite_financiere : capacite_financiere.value,
+          offreFinanciere : offreFinanciere.value,
+          montant_cautionnement : montant_cautionnement.value,
+          evaluation_offres : evaluation_offres.value,
+          variante_techniques : variante_techniques.value,
+          reunion_preparatoire : reunion_preparatoire.value,
+          soumission_en_ligne : soumission_en_ligne.value,
+          date_heure_limite : date_heure_limite.value,
+          validite_offre : validite_offre.value,
+          mode_soumission : mode_soumission.value,
+          ouverture_plis : ouverture_plis.value,
+          qualification_soumissionaire : qualification_soumissionaire.value,
+          criteres_eliminatoires : criteres_eliminatoires.value,
+          criteres_essentiels : criteres_essentiels.value,
+          monnaie_retenu : monnaie_retenu.value,
+          mode_evaluation : mode_evaluation.value,
+          ref33_1 : ref33_1.value,
+          ref_32_2_e : ref_32_2_e.value,
+          ref_32_2_g : ref_32_2_g.value,
+          ref_34_1 : ref_34_1.value,
+          ref_34_2 : ref_34_2.value,
+          ref_39_2 : ref_39_2.value,
+          ref_40 : ref_40.value,
+        }; 
+
+
+
+        if(trouve.value){
+            const response = await update_rpao(dossier, rpaoData)
+            message.value = response.message
+        }else {
+            const response = await create_rpao(dossier, rpaoData)
+            //mise à jour du statut de la piece
+            const update = await update_piece(id_piece.value, true);
+
+            //Définition du message
+            message.value = response.message 
+        }
+          
+        //toast pour informer l'utilisateur
+        toast.success(message, {
+            theme: 'colored',
+            autoClose: 2000,
+        });
+
+        
+    
+        //rediriger vers la page de gestion du dossier d'appel d'offre
+        /*setTimeout(() => {
+            router.push({ name: 'edit', params: { project_id: projectId } }); 
+        }, 5000);*/
+        
+    } catch (err) { 
+        toast.error(err, {
+            theme: 'colored',
+            autoClose: 2000,
+        });
+        errors.value = err;
+        console.log(err)
+    }finally {
+        isLoading.value = false; 
+    }
+}
 
 </script>

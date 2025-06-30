@@ -249,7 +249,7 @@ export default {
         const id_piece = ref()
         const trouve = ref(false) //permet de savoir si le dossier est trouvé
 
-        const message = ref(''); //message d'inscription réussi 
+        const message = ref(''); //message d'enregistrement reussi
         const errors = ref({});
 
         const { getDAO } = useAppelOffre()
