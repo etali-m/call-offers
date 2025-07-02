@@ -10,23 +10,11 @@
 
               <div class="form-container">  
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-            <StepperForm :totalSteps="12" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
-            <div v-if="currentStep === 0">
+            <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+            <div v-if="currentStep === 0"> 
+                  <h5 class="text-center">CHAPITRE I : GENERALITÉS</h5>
                   <div class="mt-3">
-                        <h5 class="fw-bold mb-2">1. Objet du marché </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="objet_marche"/>
-                        </div>
-                  </div>  
-                  
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">2. Procédure de passation du marché </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="procedure_passation_marche"/>
-                        </div>
-                  </div>
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">3. Attribution et nantissement </h5>
+                        <h5 class="fw-bold mb-2">Article 3. Attribution et nantissement </h5>
                         <div class="col-md-12">    
                               <h6>3.1 Définitions générales</h6> 
                               <div class="row">
@@ -36,19 +24,19 @@
                                     </div> 
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">Le Chef de service du marché est : </label>
-                                          <input type="text" v-model="chef_service_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="chef_service_marche" class="input-custom" placeholder="Nom du chef service du marché" required>
                                     </div> 
                                     <div class="col-md-12">
                                           <label class="label-custom" for="dossier">L'ingénieur du marché est :</label>
-                                          <input type="text" v-model="ing_marche" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="ing_marche" class="input-custom" placeholder="Nom de l'ingénieur du marché" required>
                                     </div> 
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">L’organisme chargé du contrôle externe des marchés publics est: </label>
-                                          <input type="text" v-model="control_externe" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="control_externe" class="input-custom" placeholder="Nom de l'organisme" required>
                                     </div>
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">Le cocontractant de l'Administration ou le titulaire du marché : </label>
-                                          <input type="text" v-model="cocontractant" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="cocontractant" class="input-custom" placeholder="Nom du cocontractant" required>
                                     </div>
                               </div>
                               <br>
@@ -56,19 +44,19 @@
                               <div class="row">
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">L’autorité chargée de l’ordonnancement des paiements est :</label>
-                                          <input type="text" v-model="autorite_ordonnancement" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="autorite_ordonnancement" class="input-custom" placeholder="Nom de l'autorité chargée de l'ordonnacement" required>
                                     </div> 
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">L’autorité chargée de la liquidation des dépenses est : </label>
-                                          <input type="text" v-model="auorite_liquidation" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="autorite_liquidation" class="input-custom" placeholder="Nom de l'autorité chargée de la liquidation" required>
                                     </div>  
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">L’organisme ou le responsable chargé du paiement est : </label>
-                                          <input type="text" v-model="organisme_paiment" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="organisme_paiment" class="input-custom" placeholder="Responsable chargé du paiement" required>
                                     </div>
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">Le responsable compétent pour fournir les renseignements au titre de l’exécution du présent marché est : </label>
-                                          <input type="text" v-model="responsable_renseignement" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <input type="text" v-model="responsable_renseignement" class="input-custom" placeholder="Responsabe du renseignement" required>
                                     </div>
                               </div>
                         </div>
@@ -77,7 +65,7 @@
 
             <div v-else-if="currentStep === 1">
                   <div class="mt-3">
-                        <h5 class="fw-bold mb-4">Article 5. Pièces constitutives du marché</h5>
+                        <h5 class="fw-bold mb-4">Article 6. Pièces constitutives du marché</h5>
                         <div class="row">
                               <div class="col-md-12">   
                               <label for="consistence_travaux">Les pièces contractuelles constitutives du présent marché sont complémentaires. Elles sont par ordre de priorité :</label>
@@ -87,7 +75,7 @@
                   </div>
                   
                   <div class="mt-5">
-                        <h5 class="fw-bold mb-4">Article 6. Textes généraux applicables au marché </h5>
+                        <h5 class="fw-bold mb-4">Article 7. Textes généraux applicables au marché </h5>
                         <div class="row">
                         <div class="col-md-12">   
                               <label for="consistence_travaux">Le présent marché est soumis aux textes généraux ci-après :</label>
@@ -105,18 +93,11 @@
                                     <RichTextarea v-model="communication" />
                                     </div>
                               </div> 
-                        </div>
-                        <div class="mt-3">
-                              <h5 class="fw-bold mb-4">Article 9. Consistance des prestations </h5>
-                              <div class="row">
-                                    <div class="col-md-12">   
-                                    <RichTextarea v-model="consistance_prestation" />
-                                    </div>
-                              </div> 
-                        </div>
+                        </div> 
             </div>
 
             <div v-else-if="currentStep === 3">
+                        <div class="row"><h5 class="text-center mt-3 mb-3">CHAPITRE II : EXECUTION DES TRAVAUX</h5></div>
                         <div class="mt-3">
                               <h5 class="fw-bold mb-4">Article 10. Délais d’exécution du marché </h5>
                               <div class="row">
@@ -132,15 +113,7 @@
                                           <RichTextarea v-model="marche_a_tranche" />
                                     </div>
                               </div> 
-                        </div> 
-                        <div class="mt-3">
-                              <h5 class="fw-bold mb-4">Article 15. Personnel et Matériel du cocontractant </h5>
-                              <div class="row">
-                                    <div class="col-md-12">   
-                                          <RichTextarea v-model="personnel_entreprise" />
-                                    </div>
-                              </div> 
-                        </div> 
+                        </div>  
             </div>
 
             <div v-else-if="currentStep === 4">
@@ -191,15 +164,6 @@
                                           <RichTextarea v-model="labo_chantier" />
                                     </div>
                               </div> 
-                        </div> 
-                        <div class="mt-3"> 
-                              <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
-                              <div class="row">
-                                    <h6 class="fw-bold mb-4">21.2 Réunions de chantier</h6>
-                                    <div class="col-md-12">   
-                                          <RichTextarea v-model="reunion_chantier" />
-                                    </div>
-                              </div> 
                         </div>  
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 21. Journal et Réunions de chantier </h5>
@@ -222,8 +186,27 @@
             </div>
 
                   <div v-else-if="currentStep === 7">
+                        <h5 class="text-center">CHAPITRE III : DE LA RECEPTION</h5>
                         <div class="mt-3"> 
-                              <h5 class="fw-bold mb-4">Article 24. Laboratoire de chantier et essais </h5>
+                              <h5 class="fw-bold mb-4">Article 24. Réception provisoire</h5>
+                              <div class="row"> 
+                                    <h6 class="fw-bold mb-4">24.1 Opérations préalables à la reception </h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="operation_prealable_reception" />
+                                    </div>
+                              </div>
+                              <div class="row"> 
+                                    <h6 class="fw-bold mb-4">24.3 Composition de la commission de réception </h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="commission_reception" />
+                                    </div>
+                              </div>
+                              <div class="row"> 
+                                    <h6 class="fw-bold mb-4">24.4 Réceptions partielles</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="reception_partielle" />
+                                    </div>
+                              </div>
                               <div class="row"> 
                                     <h6 class="fw-bold mb-4">24.5 Début de la période de garantie </h6>
                                     <div class="col-md-12">   
@@ -232,7 +215,7 @@
                               </div> 
                         </div>
                         <div class="mt-3"> 
-                              <h5 class="fw-bold mb-4">Article 25. Laboratoire de chantier et essais </h5>
+                              <h5 class="fw-bold mb-4">Article 25. Documents à fournir après exécution </h5>
                               <div class="row">  
                                     <div class="col-md-12">   
                                           <RichTextarea v-model="documente_a_fournir" />
@@ -248,14 +231,79 @@
                                     </div>
                               </div> 
                         </div>
-                  </div>
-
-                  <div v-else-if="currentStep === 8">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 27. Réception définitive </h5>
                               <div class="row">  
                                     <div class="col-md-12">   
-                                          <RichTextarea v-model="art_27" />
+                                          <RichTextarea v-model="reception_definitive" />
+                                    </div>
+                              </div> 
+                        </div>
+                  </div>
+
+                  <div v-else-if="currentStep === 8"> 
+                        <h5 class="text-center mt-3">CHAPITRE IV : CLAUSES FINANCIERES</h5>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 31. Garanties et cautions </h5>
+                              <div class="row">  
+                                    <h6 class="fw-bold mb-4">31.1 Cautionnement définitif</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="cautionnement_definitif" />
+                                    </div>
+                              </div> 
+                              <div class="row">  
+                                    <h6 class="fw-bold mt-3 mb-4">31.2 Cautionnement de garantie</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="cautionnement_garantie" />
+                                    </div>
+                              </div> 
+                              <div class="row">  
+                                    <h6 class="fw-bold mt-3 mb-4">31.3 Cautionnement d'avance de démarrage</h6>
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="cautionnement_avance_demarrage" />
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 32. Variation des prix </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="variation_prix" />
+                                    </div>
+                              </div> 
+                        </div>
+                  </div>
+
+                  <div v-else-if="currentStep === 9">
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 33. Formules de révision des prix </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="revision_prix" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 34. Formules d'actualisation des prix </h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="actualisation_prix" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 35. Travaux en régie</h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="taux_regie" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 36. Valorisation des approvisionnements</h5>
+                              <div class="row">  
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="valorisation_approvisionnement" />
                                     </div>
                               </div> 
                         </div>
@@ -269,7 +317,7 @@
                         </div>
                   </div>
 
-                  <div v-else-if="currentStep === 9">
+                  <div v-else-if="currentStep === 10">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 38. Règlement des travaux </h5>
                               <div class="row">  
@@ -298,7 +346,7 @@
                   </div>
 
 
-                  <div v-else-if="currentStep === 10">
+                  <div v-else-if="currentStep === 11">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 42. Régime fiscal et douanier </h5>
                               <div class="row">   
@@ -309,7 +357,7 @@
                         </div> 
                   </div>
 
-                  <div v-else-if="currentStep === 11">
+                  <div v-else-if="currentStep === 12">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 45. Cas de force majeure </h5>
                               <div class="row">   
@@ -366,6 +414,14 @@ onMounted(async () => {
         isLoading.value = false;
     }
 })
+
+const pieces_constitutive_marche = ref(`<ol>
+      <li>La lettre de soumission;</li>
+      <li>La soumission de l’entrepreneur et ses annexes dans toutes les dispositions non contraires au Cahier des Clauses Administratives Particulières et au Cahier des Clauses Techniques Particulières ci-dessous visés ;</li>
+      <li>Le Cahier des Clauses Administratives Particulières (CCAP) ;</li>
+      <li>Le Cahier des Clauses Techniques Particulières (CCTP) ;</li>
+      <li>Les éléments propres à la détermination du montant du marché, tels que, par ordre de priorité : les bordereaux des prix unitaires ; l’état des prix forfaitaires ; le détail ou le devis estimatif ; la décomposition des prix forfaitaires et/ou le sous-détail des prix unitaires ;</li>
+      </ol>`)
 
 const communication = ref(`<p>Toutes les communications au titre du présent marché sont écrites et les notifications faites aux adresses ci-après</p>
 <p> a) Dans le cas où le cocontractant est le destinataire : 
@@ -504,7 +560,6 @@ const labo_chantier = ref(`<p>
 
   <p>Les frais inhérents à ces essais et contrôles sont à la charge du Cocontractant.</p>`)
 
-
 const reunion_chantier = ref(`<p>Outre les réunions régulières de chantier à l’initiative du maître d’œuvre, des réunions périodiques devront être
 tenues en présence du Chef de service du marché et de l’Ingénieur du marché ou leur représentant. [Préciser
 la fréquence].</p>
@@ -517,11 +572,27 @@ const periode_garantie = ref('')
 
 const documente_a_fournir = ref(`<p>Le Cocontractant remettra à la Maitrise d’Œuvre le cas échéant ou à l’ingénieur du marché dans les trente jours suivants la date de réception provisoire de l’ensemble des travaux, le plan de récolement.</p>
 <p>25.1. [Indiquer la liste des autres documents à fournir dans un délai de 30 jours après la réception provisoire].</p>
-<p>25.2. [Indiquer le montant à retenir sur la caution en termes de pénalité pour non-fourniture desdits documents].</p>
-`)
+<p>25.2. [Indiquer le montant à retenir sur la caution en termes de pénalité pour non-fourniture desdits documents].</p>`)
+
+
+const operation_prealable_reception = ref(`<p>Avant la réception provisoire, le cocontractant demande par écrit au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué, avec copie à l’ingénieur, l’organisation d’une visite technique préalable à la réception.
+Cette visite comprend entre autres opérations :</p>`);
+
+const commission_reception = ref(`<p>La Commission de réception sera composée des membres suivants [à titre indicatif] :</p>
+<ul><li><b>Président</b>: </li></ul>
+<p>Les membres de la commission de réception sont convoqués au moins dix (10) jours avant la date de réception. Le cocontractant ou le prestataire est convoqué à la réception par courrier au moins dix (10) jours avant la date de la réception. Il est tenu d’y assister (ou de s’y faire représenter). Son absence équivaut à l’acceptation sans réserve des conclusions de la Commission de réception.</p>`);
+
+const reception_partielle = ref('');
 
 const delai_garantie = ref(`<p>La durée de garantie est de [A préciser] à compter de la date de réception provisoire des travaux ou de la réception partielle le cas échéant (à préciser). 
 Le Cocontractant garantit que les équipements livrés (le cas échéant) en exécution du marché sont neufs et que les travaux sont exécutés dans les règles de l’art et les normes requises.</p>`)
+
+const reception_definitive = ref(`<ol>
+      <li>La réception définitive s’effectuera dans un délai maximal [de quinze (15) jours] à compter de l’expiration
+du délai de garantie.</li>
+      <li>Le Maître d’Œuvre [sera ou ne sera pas] membre de la commission.</li>
+      <li>La composition et la procédure de réception définitive sont la même que celles de la réception provisoire.</li>
+      </ol>`)
 
 const art_27 = ref(`<p><strong>27.1.</strong> La réception définitive s’effectuera dans un délai maximal [de quinze (15) jours] à compter de l’expiration du délai de garantie.</p>
 
@@ -530,6 +601,28 @@ const art_27 = ref(`<p><strong>27.1.</strong> La réception définitive s’effe
   <p><strong>27.3.</strong> La composition et la procédure de réception définitive sont la même que celles de la réception provisoire.</p>
 
   <p><strong>27.4.</strong> Le marché est clôturé définitivement dans les conditions fixées à l’article 38 alinéa 4 du présent CCAP concernant le Décompte général et définitif.</p>`)
+
+const cautionnement_definitif = ref(`<ul>
+      <li>Il est constitué par le titulaire du Marché et transmis au Chef Service du marché dans un délai maximum de vingt (20) jours calendaires à compter de la date de notification du marché et en tout cas avant le premier paiement.</li>
+      <li>Son montant est fixé à : __________________ <i>[A préciser. Il est compris entre 2 et 5% du montant TTC du marché augmenté le cas échéant du montant des avenants]</i></li>
+      <li>La garantie sera libellée dans la ou les monnaie(s) du Marché, ou dans une monnaie librement convertible satisfaisant le Maître d’ouvrage ou le Maître d’Ouvrage Délégué, et devra suivre l’un des modèles fournis dans le Dossier d’appel d’offres, comme indiqué par le Maître d’ouvrage ou le Maître d’Ouvrage Délégué dans le CCAP, ou tout autre document satisfaisant le Maître d’ouvrage ou le Maître d’Ouvrage Délégué.</li>
+      </ul>`)
+
+const cautionnement_garantie = ref(`<p>La retenue de garantie est fixée à dix pour cent (10%) du montant TTC du marché.</p>
+<p>La restitution de la retenue de garantie ou du cautionnement sera effectuée dans un délai d’un mois après la réception définitive sur mainlevée délivrée par le Maître d’Ouvrage après demande de l’entrepreneur.</p>`)
+
+const cautionnement_avance_demarrage = ref(`<p>Conformément aux textes en vigueur et sur demande expresse du Cocontractant, il pourra être accordé, une avance de démarrage d’un montant au plus égal à vingt pour cent (20%) du montant toutes taxes comprises du marché sans justification. Cette avance devra être cautionnée à cent pour cent (100%) par un établissement bancaire ou organisme installé sur le territoire camerounais, et agréé par le Ministre en charge des Finances.</p>
+<p>L’avance de démarrage sera remboursée par prélèvement de cinquante pour-cent (50%) du montant des
+travaux de chaque décompte à partir du moment où les travaux effectués dépassent quarante pour cent
+(40%) du montant du marché. Il doit être terminé au plus tard lorsque le montant des travaux atteint quatre- vingt pour cent (80%) de la valeur du marché. En tout état de cause, le remboursement devra être terminé un (01) mois avant la date d’expiration du délai contractuel.</p>`)
+
+const variation_prix = ref(`<ol>
+      <li>Les prix sont fermes et non révisables.
+      <p>a. Les acomptes payés au cocontractant au titre des avances ne sont pas révisables.</p>   
+      <p>b. La révision est « gelée » à l’expiration du délai contractuel, sauf en cas de baisse des prix.</p>   
+      </li>
+      <li>Modalités d’actualisation des prix <br/> Les modalités d’actualisation ou de révision des prix sont celles prévues dans le Code des Marchés Publics.</li>
+      </ol>`)
 
 const art_37 = ref(`<p><strong>37.1.</strong> Le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué [accordera ou n’accordera pas] une avance de démarrage [n’excédant pas 20% du montant TTC du marché].</p>
 
