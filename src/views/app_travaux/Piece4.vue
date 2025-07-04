@@ -295,7 +295,7 @@
                               <h5 class="fw-bold mb-4">Article 35. Travaux en régie</h5>
                               <div class="row">  
                                     <div class="col-md-12">   
-                                          <RichTextarea v-model="taux_regie" />
+                                          <RichTextarea v-model="travaux_regie" />
                                     </div>
                               </div> 
                         </div>
@@ -306,18 +306,18 @@
                                           <RichTextarea v-model="valorisation_approvisionnement" />
                                     </div>
                               </div> 
-                        </div>
+                        </div> 
+                  </div>
+
+                  <div v-else-if="currentStep === 10">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 37. Avances </h5>
                               <div class="row">  
                                     <div class="col-md-12">   
-                                          <RichTextarea v-model="art_37" />
+                                          <RichTextarea v-model="avances" />
                                     </div>
                               </div> 
                         </div>
-                  </div>
-
-                  <div v-else-if="currentStep === 10">
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 38. Règlement des travaux </h5>
                               <div class="row">  
@@ -348,26 +348,66 @@
 
                   <div v-else-if="currentStep === 11">
                         <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 41. Règlement en cas de groupement d’entreprises et de sous-traitance </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="reglement_groupement" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 42. Régime fiscal et douanier </h5>
                               <div class="row">   
                                     <div class="col-md-12">   
-                                          <RichTextarea v-model="art_42" />
+                                          <RichTextarea v-model="regime_fiscal" />
                                     </div>
                               </div> 
                         </div> 
                   </div>
 
                   <div v-else-if="currentStep === 12">
+                        <h5 class="text-center mt-3">CHAPITRE V : DISPOSITIONS DIVERSES</h5>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 44. Résiliation du marché </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="resiliation_marche" />
+                                    </div>
+                              </div> 
+                        </div>
                         <div class="mt-3"> 
                               <h5 class="fw-bold mb-4">Article 45. Cas de force majeure </h5>
                               <div class="row">   
                                     <div class="col-md-12">   
-                                          <RichTextarea v-model="art_45" />
+                                          <RichTextarea v-model="force_majeure" />
                                     </div>
                               </div> 
                         </div> 
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 46. Différends et litiges </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="differends_litiges" />
+                                    </div>
+                              </div> 
+                        </div>
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 47. Edition et diffusion du présent marché </h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="edition_marche" />
+                                    </div>
+                              </div> 
+                        </div> 
+                        <div class="mt-3"> 
+                              <h5 class="fw-bold mb-4">Article 48. Entrée en vigueur du marché</h5>
+                              <div class="row">   
+                                    <div class="col-md-12">   
+                                          <RichTextarea v-model="entree_en_vigueur" />
+                                    </div>
+                              </div> 
+                        </div>
                   </div>
-
 
             <!-- Navigation -->
             <div class="buttons mt-4 text-center">
@@ -415,6 +455,24 @@ onMounted(async () => {
     }
 })
 
+const moa = ref('')
+
+const chef_service_marche = ref('')
+
+const ing_marche = ref('')
+
+const control_externe = ref('')
+
+const cocontractant = ref('')
+
+const autorite_ordonnancement = ref('')
+
+const autorite_liquidation = ref('')
+
+const organisme_paiment = ref('')
+
+const responsable_renseignement = ref('')
+
 const pieces_constitutive_marche = ref(`<ol>
       <li>La lettre de soumission;</li>
       <li>La soumission de l’entrepreneur et ses annexes dans toutes les dispositions non contraires au Cahier des Clauses Administratives Particulières et au Cahier des Clauses Techniques Particulières ci-dessous visés ;</li>
@@ -422,6 +480,8 @@ const pieces_constitutive_marche = ref(`<ol>
       <li>Le Cahier des Clauses Techniques Particulières (CCTP) ;</li>
       <li>Les éléments propres à la détermination du montant du marché, tels que, par ordre de priorité : les bordereaux des prix unitaires ; l’état des prix forfaitaires ; le détail ou le devis estimatif ; la décomposition des prix forfaitaires et/ou le sous-détail des prix unitaires ;</li>
       </ol>`)
+
+const textes_applicables = ref('')      
 
 const communication = ref(`<p>Toutes les communications au titre du présent marché sont écrites et les notifications faites aux adresses ci-après</p>
 <p> a) Dans le cas où le cocontractant est le destinataire : 
@@ -443,7 +503,7 @@ Madame/Monsieur le :
 <p>avec copie adressée dans les mêmes délais au Chef de service, et à l’ingénieur.</p>
 `) 
 
-const consistance_prestation = ref(`<p>Les travaux à réaliser dans le cadre du présent marché comprennent :</p>`)
+//const consistance_prestation = ref(`<p>Les travaux à réaliser dans le cadre du présent marché comprennent :</p>`)
 
 const delai_execution = ref(`
 <p>10.1 Le délai d’exécution des travaux objet du présent marché est de trois (03) Mois.</p>
@@ -592,15 +652,7 @@ const reception_definitive = ref(`<ol>
 du délai de garantie.</li>
       <li>Le Maître d’Œuvre [sera ou ne sera pas] membre de la commission.</li>
       <li>La composition et la procédure de réception définitive sont la même que celles de la réception provisoire.</li>
-      </ol>`)
-
-const art_27 = ref(`<p><strong>27.1.</strong> La réception définitive s’effectuera dans un délai maximal [de quinze (15) jours] à compter de l’expiration du délai de garantie.</p>
-
-  <p><strong>27.2.</strong> Le Maître d’Œuvre [sera ou ne sera pas] membre de la commission.</p>
-
-  <p><strong>27.3.</strong> La composition et la procédure de réception définitive sont la même que celles de la réception provisoire.</p>
-
-  <p><strong>27.4.</strong> Le marché est clôturé définitivement dans les conditions fixées à l’article 38 alinéa 4 du présent CCAP concernant le Décompte général et définitif.</p>`)
+      </ol>`) 
 
 const cautionnement_definitif = ref(`<ul>
       <li>Il est constitué par le titulaire du Marché et transmis au Chef Service du marché dans un délai maximum de vingt (20) jours calendaires à compter de la date de notification du marché et en tout cas avant le premier paiement.</li>
@@ -624,7 +676,7 @@ const variation_prix = ref(`<ol>
       <li>Modalités d’actualisation des prix <br/> Les modalités d’actualisation ou de révision des prix sont celles prévues dans le Code des Marchés Publics.</li>
       </ol>`)
 
-const art_37 = ref(`<p><strong>37.1.</strong> Le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué [accordera ou n’accordera pas] une avance de démarrage [n’excédant pas 20% du montant TTC du marché].</p>
+const avances = ref(`<p><strong>37.1.</strong> Le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué [accordera ou n’accordera pas] une avance de démarrage [n’excédant pas 20% du montant TTC du marché].</p>
 
   <p><strong>37.2.</strong> L’avance de démarrage peut être obtenue par le co-contractant de l’administration sur simple demande adressée au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué sans justificatif. Cette avance commence à être remboursée par déduction d’un pourcentage : [A préciser] sur chaque décompte dès lors que le cumul des travaux atteint 40% du montant du marché. Le versement de l'avance de démarrage intervient postérieurement à la mise en place des cautions exigibles, conformément aux dispositions du code des marchés publics.</p>
 
@@ -706,7 +758,20 @@ const decompte_defintif = ref(`
     décompte final.
   </p>`)
 
-const art_42 = ref(`
+const revision_prix = ref('')
+
+const actualisation_prix = ref('')
+
+const travaux_regie = ref(`<ol>
+      <li>Le cocontractant sera tenu de mettre à la disposition du Maître d’Ouvrage ou du Maître d’Ouvrage Délégué, la main d’œuvre, les matériaux, ainsi que l’outillage et tous les moyens nécessaires qu’il pourra être amené à lui demander pour exécuter en régie certains travaux, à condition que la demande lui en soit faite au moins huit (8) jours à l’avance et qu’elle soit en rapport avec l’objet du marché.</li>
+
+      </ol>`)
+
+const valorisation_approvisionnement = ref('')
+
+const reglement_groupement = ref('')
+
+const regime_fiscal = ref(`
 <p>Le marché est soumis au régime fiscal et douanier en vigueur en République du Cameroun. Le marché est conclu tout taxes comprises, conformément à la loi n°…………… du …. Portant loi de finances de la République du Cameroun pour l’exercice ……et au Code Général des Impôts qui définissent les modalités de mise en œuvre du régime fiscal des Marchés Publics</p>
 <p>La fiscalité applicable au présent marché comporte notamment :</p>
 <ul>
@@ -723,7 +788,9 @@ const art_42 = ref(`
 <p>Sauf mention spécifique contraire figurant au Marché, le cocontractant devra supporter et payer tous droits, taxes, impôts et charges lui incombant ainsi qu’à ses sous-traitants.</p>
 `)
 
-const art_45 = ref(` <p>
+const resiliation_marche = ref(``)
+
+const force_majeure = ref(` <p>
     Le titulaire du marché ne sera pas tenu responsable des retards imputables à un cas de force majeure. Dans un tel cas, le titulaire du marché avertira le Maître d’ouvrage ou le Maître d’ouvrage Délégué par écrit, dans les [préciser nombre de jours] suivant l’apparition du cas de force majeure et il donnera une estimation des retards en résultant. Chaque fois qu’un cas de force majeure provoquera un retard, le titulaire du marché aura droit, si le Maître d’ouvrage le juge réel, à une prorogation des délais
   </p>
 
@@ -743,5 +810,11 @@ const art_45 = ref(` <p>
     <li><em>Crue :</em> Crue de fréquence décennale.</li>
   </ul>
 `)
+
+const differends_litiges = ref(`<p>Les différends ou litiges nés de l'exécution du présent marché peuvent faire l'objet d'un règlement à l'amiable.</p> <p>Lorsqu'aucune solution amiable ne peut être apportée au différend, celui-ci est porté devant la juridiction camerounaise compétente.</p>`)
+
+const edition_marche = ref(`<p>_______<i>[Entrez le nombre d'exemplaire]</i> exemplaires du présent marché seront édités par les soins du Cocontractant et fournis au chef de service du marché.</p>`)
+
+const entree_en_vigueur = ref(`<p>Le présent marché ne deviendra définitif qu'après sa signature par l'Autorité Contractante. Il entrera en vigueur dès sa notification au Co-contractant par le Maître d'Ouvrage.</p>`)
 
 </script>
