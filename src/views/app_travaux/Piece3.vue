@@ -412,6 +412,7 @@ const { getDAO } = useAppelOffre()
 const { get_pieces, update_piece } =  usePiece()
 const { get_aao, get_rpao, create_rpao, update_rpao } = useTravaux() 
 
+//VARIABLE DU RPAO
 const consistenceTravaux = ref('')
 
 const taux_change = ref("<p>Le taux de change pour convertir l'offre du soumissionaire en monnaie locale ainsi que pour convertir les futures décomptes en monnaies étrangère, sera celui du FCFA</p>")
@@ -810,18 +811,18 @@ const monnaie_retenu =  ref(`
   <p>La date du taux d'échange est: </p>
 `)
 
-const mode_evaluation = ref(`<p>Le mode d’évaluation des travaux en régie à chiffrer de façon compétitive est défini comme suit : [à préciser le cas échéant] et le pourcentage desdits travaux devra être précisé </p>`)
+const mode_evaluation = ref(`<p>Le mode d’évaluation des travaux en régie à chiffrer de façon compétitive est défini comme suit : <i>[à préciser le cas échéant]</i> et le pourcentage desdits travaux devra être précisé </p>`)
 
-const ref33_1 = ref(`<p>Les soumissionnaires nationaux [bénéficient ou ne bénéficient pas] d’une marge de préférence nationale au cours de l’évaluation.</p>`)
+const ref33_1 = ref(`<p>Les soumissionnaires nationaux <i>[bénéficient ou ne bénéficient pas]</i> d’une marge de préférence nationale au cours de l’évaluation.</p>`)
 
 const ref_32_2_e = ref(`<p>Le délai d’exécution sera évalué comme suit:(à préciser le cas échéant)</p>`)
 const ref_32_2_g = ref(`<p>La méthode d’évaluation des variantes techniques est la suivante:</p>`)
 
 const ref_34_1 = ref(`<p>Le Maitre d’Ouvrage ou le Maitre d’Ouvrage Délégué attribue le marché au soumissionnaire dont l’offre a été reconnue conforme pour l’essentiel au Dossier d’Appel d’offres et qui dispose des capacités techniques et financières requises pour exécuter le marché de façon satisfaisante et dont l’offre a été évaluée la moins disante après application des remises proposées le cas échéant.</p>`)
 
-const ref_34_2 = ref(`<p>La combinaison à appliquer en cas d’attribution simultanée de plusieurs lots est la suivante le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué tiendra compte des rabais proposés et se basera sur la combinaison qui lui est la plus avantageuse économiquement afin d’arrêter la liste d’attributaires par lot: ans le cas contraire, [préciser le cas échéant, un autre mode que celui le plus économiquement avantageux pour le Maître d’Ouvrage ou Maître d’Ouvrage Délégué]</p>`)
+const ref_34_2 = ref(`<p>La combinaison à appliquer en cas d’attribution simultanée de plusieurs lots est la suivante le Maître d’Ouvrage ou le Maître d’Ouvrage Délégué tiendra compte des rabais proposés et se basera sur la combinaison qui lui est la plus avantageuse économiquement afin d’arrêter la liste d’attributaires par lot: ans le cas contraire, <i>[préciser le cas échéant, un autre mode que celui le plus économiquement avantageux pour le Maître d’Ouvrage ou Maître d’Ouvrage Délégué]</i></p>`)
 
-const ref_39_2 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ [à préciser (entre 2 et 5%)] du montant toutes taxes comprises du marché</p>
+const ref_39_2 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ <i>[à préciser (entre 2 et 5%)]</i> du montant toutes taxes comprises du marché</p>
 <p>Dans un délai de vingt (20) jours à compter de la date de notification du marché par le Maître d’ouvrage,le cocontractant fournira un cautionnement définitif suivant le modèle joint au Dossier d’appel d’offres. La non production dudit cautionnement dans les délais et conditions de l’article 28 du CCAP expose le soumissionnaire aux sanctions prévues par l’article 37 dudit CCAP</p>
 `)
 
@@ -908,8 +909,7 @@ onMounted(async () => {
           ref_34_2.value = responseRPAO[0].ref_34_2
           ref_39_2.value = responseRPAO[0].ref_39_2
           ref_40.value = responseRPAO[0].ref_40
-        }
-        console.log(trouve.value)
+        } 
  
     } catch (error) {
         console.error("Erreur lors de la récupération du DAO :", error) 

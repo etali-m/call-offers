@@ -426,35 +426,34 @@
 import { ref, onMounted } from 'vue'
 import RichTextarea from '@/components/RichTextarea.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue'
-import StepperForm from '@/components/StepperForm.vue' 
-
+import StepperForm from '@/components/StepperForm.vue';
+import { toast } from 'vue3-toastify'; 
 import { useRoute, useRouter } from 'vue-router';
-import PieceNavigator from "@/components/PieceNavigator.vue";
 import Loader from "@/components/Loader.vue";
+import PieceNavigator from "@/components/PieceNavigator.vue";
 import { useAppelOffre } from '@/composables/useAppelOffre';
+import { usePiece } from '@/composables/usePiece';
+
+import { useTravaux } from '@/composables/useTravaux';
 
 const route = useRoute();
 const router = useRouter();
 const dossier = route.params.project_id      //recuperation de l'identifiant du projet
 const dao = ref({}); 
 const isLoading = ref(true);
+const pieces = ref([])  
+const current_piece = route.name
+const id_piece = ref()
+const trouve = ref(false) 
+const message = ref(''); //message d'enregistrement reussi
+const errors = ref({});
 
 const { getDAO } = useAppelOffre() 
+const { get_pieces, update_piece } =  usePiece()
+const { get_ccap, create_ccap, update_ccap } = useTravaux()
  
 
-onMounted(async () => {
-    try {
-        isLoading.value = true;
-        const responseDAO = await getDAO(dossier)
-        dao.value = responseDAO[0];    
- 
-    } catch (error) {
-        console.error("Erreur lors de la récupération du DAO :", error) 
-    } finally{
-        isLoading.value = false;
-    }
-})
-
+//DECLARATION DES VARIABLES POUR LE CCAP
 const moa = ref('')
 
 const chef_service_marche = ref('')
@@ -817,4 +816,172 @@ const edition_marche = ref(`<p>_______<i>[Entrez le nombre d'exemplaire]</i> exe
 
 const entree_en_vigueur = ref(`<p>Le présent marché ne deviendra définitif qu'après sa signature par l'Autorité Contractante. Il entrera en vigueur dès sa notification au Co-contractant par le Maître d'Ouvrage.</p>`)
 
+
+onMounted(async () => {
+    try {
+      isLoading.value = true;
+      const responsePiece = await get_pieces(dossier)
+      pieces.value = responsePiece 
+      //récuperer les informations sur le dossier d'appel d'offre.
+      const responseDAO = await getDAO(dossier)
+      dao.value = responseDAO[0];  
+
+      const responseCCAP = await get_ccap(dossier)
+
+      // Une fois les pièces chargées, on met à jour l’index courant
+      const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
+      id_piece.value = pieces.value[index].id;  
+      
+      if(responseCCAP && responseCCAP.length > 0){
+            trouve.value = true
+            moa = responseCCAP[0].moa
+            chef_service_marche = responseCCAP[0].chef_service_marche
+            ing_marche = responseCCAP[0].ing_marche
+            control_externe = responseCCAP[0].control_externe
+            cocontractant = responseCCAP[0].cocontractant
+            autorite_ordonnancement = responseCCAP[0].autorite_ordonnancement
+            autorite_liquidation = responseCCAP[0].autorite_liquidation
+            organisme_paiment = responseCCAP[0].organisme_paiment
+            responsable_renseignement = responseCCAP[0].responsable_renseignement
+            pieces_constitutive_marche = responseCCAP[0].pieces_constitutive_marche
+            textes_applicables = responseCCAP[0].textes_applicables
+            communication = responseCCAP[0].communication
+            delai_execution = responseCCAP[0].delai_execution
+            marche_a_tranche = responseCCAP[0].marche_a_tranche
+            personnel_entreprise = responseCCAP[0].personnel_entreprise
+            replacement_personnel = responseCCAP[0].replacement_personnel
+            programme_travaux = responseCCAP[0].programme_travaux
+            projet_execution = responseCCAP[0].projet_execution
+            labo_chantier = responseCCAP[0].labo_chantier
+            reunion_chantier = responseCCAP[0].reunion_chantier
+            utilisation_explosifs = responseCCAP[0].utilisation_explosifs
+            periode_garantie = responseCCAP[0].periode_garantie
+            documente_a_fournir = responseCCAP[0].documente_a_fournir
+            operation_prealable_reception = responseCCAP[0].operation_prealable_reception
+            commission_reception = responseCCAP[0].commission_reception
+            reception_partielle = responseCCAP[0].reception_partielle
+            delai_garantie = responseCCAP[0].delai_garantie
+            reception_definitive = responseCCAP[0].reception_definitive
+            cautionnement_definitif = responseCCAP[0].cautionnement_definitif
+            cautionnement_garantie = responseCCAP[0].cautionnement_garantie
+            cautionnement_avance_demarrage = responseCCAP[0].cautionnement_avance_demarrage
+            variation_prix = responseCCAP[0].variation_prix
+            avances = responseCCAP[0].avances
+            decompte_provisoir = responseCCAP[0].decompte_provisoir
+            decompte_final = responseCCAP[0].decompte_final
+            decompte_defintif = responseCCAP[0].decompte_definitif
+            revision_prix = responseCCAP[0].revision_prix
+            actualisation_prix = responseCCAP[0].actualisation_prix
+            travaux_regie = responseCCAP[0].travaux_regie
+            valorisation_approvisionnement = responseCCAP[0].valorisation_approvisionnement
+            reglement_groupement = responseCCAP[0].reglement_groupement
+            regime_fiscal = responseCCAP[0].regime_fiscal
+            resiliation_marche = responseCCAP[0].resiliation_marche
+            force_majeure = responseCCAP[0].force_majeure
+            differends_litiges = responseCCAP[0].differends_litiges
+            edition_marche = responseCCAP[0].edition_marche
+            entree_en_vigueur = responseCCAP[0].entree_en_vigueur
+      }
+ 
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error) 
+    } finally{
+        isLoading.value = false;
+    }
+})
+
+//soumission du formulaire
+const handleSubmit = async () => {
+    errors.value = {}
+    isLoading.value = true; 
+
+    try {
+        const ccapData = { 
+            moa : moa.value,
+            chef_service_marche : chef_service_marche.value,
+            ing_marche :  ing_marche.value,
+            control_externe : control_externe.value,
+            cocontractant : cocontractant.value,
+            autorite_ordonnancement : autorite_ordonnancement.value,
+            autorite_liquidation : autorite_liquidation.value,
+            organisme_paiment : organisme_paiment.value,
+            responsable_renseignement : responsable_renseignement.value,
+            pieces_constitutive_marche : pieces_constitutive_marche.value,
+            textes_applicables : textes_applicables.value,
+            communication : communication.value,
+            delai_execution : delai_execution.value,
+            marche_a_tranche : marche_a_tranche.value,
+            personnel_entreprise : personnel_entreprise.value,
+            replacement_personnel : replacement_personnel.value,
+            programme_travaux : programme_travaux.value,
+            projet_execution : projet_execution.value,
+            labo_chantier : labo_chantier.value,
+            reunion_chantier : reunion_chantier.value,
+            utilisation_explosifs : utilisation_explosifs.value,
+            periode_garantie : periode_garantie.value,
+            documente_a_fournir : documente_a_fournir.value,
+            operation_prealable_reception : operation_prealable_reception.value,
+            commission_reception : commission_reception.value,
+            reception_partielle : reception_partielle.value,
+            delai_garantie : delai_garantie.value,
+            reception_definitive : reception_definitive.value,
+            cautionnement_definitif : cautionnement_definitif.value,
+            cautionnement_garantie : cautionnement_garantie.value,
+            cautionnement_avance_demarrage : cautionnement_avance_demarrage.value,
+            variation_prix : variation_prix.value,
+            avances : avances.value,
+            decompte_provisoir : decompte_provisoir.value,
+            decompte_final : decompte_final.value,
+            decompte_defintif : decompte_defintif.value,
+            revision_prix : revision_prix.value,
+            actualisation_prix : actualisation_prix,
+            travaux_regie : travaux_regie.value,
+            valorisation_approvisionnement : valorisation_approvisionnement.value,
+            reglement_groupement : reglement_groupement.value,
+            regime_fiscal : regime_fiscal.value,
+            resiliation_marche : resiliation_marche.value,
+            force_majeure : force_majeur.value,
+            differends_litiges : differends_litiges,
+            edition_marche : edition_marche.value,
+            entree_en_vigueur : entree_en_vigueur
+        }; 
+
+
+
+        if(trouve.value){
+            const response = await update_ccap(dossier, ccapData)
+            message.value = response.message
+        }else {
+            const response = await create_ccap(dossier, ccapData)
+            //mise à jour du statut de la piece
+            const update = await update_piece(id_piece.value, true);
+
+            //Définition du message
+            message.value = response.message 
+        }
+          
+        //toast pour informer l'utilisateur
+        toast.success(message, {
+            theme: 'colored',
+            autoClose: 2000,
+        });
+
+        
+    
+        //rediriger vers la page de gestion du dossier d'appel d'offre
+        /*setTimeout(() => {
+            router.push({ name: 'edit', params: { project_id: projectId } }); 
+        }, 5000);*/
+        
+    } catch (err) { 
+        toast.error(err, {
+            theme: 'colored',
+            autoClose: 2000,
+        });
+        errors.value = err;
+        console.log(err)
+    }finally {
+        isLoading.value = false; 
+    }
+}
 </script>
