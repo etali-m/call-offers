@@ -108,7 +108,7 @@ onMounted(async () => {
 
         if(responseBPU && responseBPU.length > 0){
           trouve.value = true
-          prix_unitaires.value = reponseBPU[0].prix_unitaire
+          prix_unitaires.value = responseBPU[0].prix_unitaire
         }
 
  

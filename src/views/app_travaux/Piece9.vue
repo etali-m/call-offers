@@ -32,7 +32,7 @@
                         </div> 
                         <div class="col-md-3">
                             <label class="label-custom" for="dossier">Logo: </label>
-                            <input type="file" class="input-custom" required>
+                            <input type="file" class="input-custom" @change="handleFileUpload">
                         </div>
                     </div>
                 </div>
