@@ -13,7 +13,7 @@
 
       <div class="row">
           <div class="col-md-12 d-flex justify-content-end">
-              <button class="btn btn-sm btn-success"><i class="bi bi-download"></i> Générer le document</button>
+              <button class="btn btn-sm btn-warning" @click="telechargerPDF"><i class="bi bi-download"></i> Télécharger le document</button>
           </div>
       </div>
       <br>
@@ -61,8 +61,7 @@ export default {
         const responseDAO = await getDAO(dossier)
         dao.value = responseDAO[0];  // affectation des données récupérées 
         const responsePiece = await get_pieces(dossier)
-        pieces.value = responsePiece 
-        
+        pieces.value = responsePiece   
         //Calcule du taux d'édidtion du DAO
         const total = pieces.value.length;
         const completed = pieces.value.filter(p => p.is_complete).length;
@@ -75,11 +74,46 @@ export default {
         isLoading.value = false;
       }
     }) 
+
+    const telechargerPDF = async () => {
+      const token = localStorage.getItem('access_token');
+      if (!token) return;
+
+      const url = `http://localhost:8000/api/${dao.value.type_marche_slug}/${dossier}/telecharger`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Erreur lors du téléchargement du fichier');
+        }
+
+        const blob = await response.blob();
+        const urlBlob = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = urlBlob;
+        link.setAttribute('download', `${dao.value.objet_appel}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(urlBlob);
+      } catch (error) {
+          console.error('Erreur téléchargement PDF :', error);
+        }
+    };
+
+
     return {
       isLoading, 
       dao,
       pieces,
       progression,
+      telechargerPDF,
     }
   }
 }

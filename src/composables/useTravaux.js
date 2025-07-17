@@ -351,6 +351,77 @@ export function useTravaux() {
         }
     }
 
+    //recuperer les données sur le modèle de marché
+    const get_modele_marche = async (id_projet) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.get(`${API_URL}/${id_projet}/modele_marche`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //créer le modèle de marché
+    const create_modele_marche = async (id_projet, modeleData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.post(`${API_URL}/${id_projet}/modele_marche`, modeleData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'multipart/form-data',
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //mettre à jour un dqe
+    const update_modele_marche = async (id_projet, modeleData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.put(`${API_URL}/${id_projet}/modele_marche`, modeleData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'multipart/form-data',
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     return {
         get_aao,
         create_aao,
@@ -366,6 +437,9 @@ export function useTravaux() {
         update_bpu,
         get_dqe,
         create_dqe,
-        update_dqe
+        update_dqe,
+        get_modele_marche,
+        create_modele_marche,
+        update_modele_marche,
     }
 }
