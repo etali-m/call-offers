@@ -212,6 +212,75 @@ export function useTravaux() {
         }
     }
 
+    //fonctions pour récupérer les données du cctp
+    const get_cctp = async (id_projet) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.get(`${API_URL}/${id_projet}/cctp`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //créer le règlement de l'appel d'offre
+    const create_cctp = async (id_projet, cctpData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.post(`${API_URL}/${id_projet}/cctp`, cctpData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //mettre à jour un ccap
+    const update_cctp = async (id_projet, cctpData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.put(`${API_URL}/${id_projet}/ccap`, cctpData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     //fonctions pour récupérer les données d'un BPU
     const get_bpu = async (id_projet) => {
         const token = localStorage.getItem('access_token')
@@ -432,6 +501,9 @@ export function useTravaux() {
         get_ccap,
         create_ccap,
         update_ccap,
+        get_cctp,
+        create_cctp,
+        update_cctp,
         get_bpu,
         create_bpu,
         update_bpu,

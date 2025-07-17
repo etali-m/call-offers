@@ -10,51 +10,15 @@
 
                   <div class="form-container">  
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-            <StepperForm :totalSteps="5" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+            <StepperForm :totalSteps="1" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
                   <div class="mt-3">
-                        <h5 class="fw-bold mb-2">I. Description et consistance des travaux et des ouvrages </h5>
+                        <h5 class="fw-bold mb-2">Clauses techniques </h5>
                         <div class="col-md-12">    
-                              <RichTextarea v-model="description_travaux"/>
+                              <RichTextarea v-model="clauses_techniques"/>
                         </div>
                   </div>  
-            </div> 
-
-            <div v-else-if="currentStep === 1">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">II. Organisation du chantier et travaux préparatoires </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="organisation_chantier"/>
-                        </div>
-                  </div>  
-            </div>
-
-            <div v-else-if="currentStep === 2">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">III. Provenance, qualité et préparation des matériaux </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="provenance_materiaux"/>
-                        </div>
-                  </div>  
-            </div>
-
-            <div v-else-if="currentStep === 3">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">IV. Mode d’exécution des travaux </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="mode_execution"/>
-                        </div>
-                  </div>  
-            </div>
-
-            <div v-else-if="currentStep === 4">
-                  <div class="mt-3">
-                        <h5 class="fw-bold mb-2">V. Protection de l'environnement </h5>
-                        <div class="col-md-12">    
-                              <RichTextarea v-model="mode_execution"/>
-                        </div>
-                  </div>  
-            </div>
+            </div>  
 
 
             <!-- Navigation -->
@@ -74,26 +38,51 @@ import { ref, onMounted } from 'vue'
 import RichTextarea from '@/components/RichTextarea.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue' 
-
+import { toast } from 'vue3-toastify'; 
 import { useRoute, useRouter } from 'vue-router';
 import PieceNavigator from "@/components/PieceNavigator.vue";
-import Loader from "@/components/Loader.vue";
-import { useAppelOffre } from '@/composables/useAppelOffre';
+import Loader from "@/components/Loader.vue"; 
+import { useAppelOffre } from '@/composables/useAppelOffre'; 
+import { usePiece } from '@/composables/usePiece';
+import { useTravaux } from '@/composables/useTravaux';
 
 const route = useRoute();
 const router = useRouter();
 const dossier = route.params.project_id      //recuperation de l'identifiant du projet
 const dao = ref({}); 
 const isLoading = ref(true);
+const pieces = ref([])  
+const current_piece = route.name
+const id_piece = ref()
+const trouve = ref(false) 
+const message = ref(''); //message d'enregistrement reussi
+const errors = ref({});
 
 const { getDAO } = useAppelOffre() 
- 
+const { get_pieces, update_piece } =  usePiece()
+const { get_cctp, create_cctp, update_cctp} = useTravaux() 
+
+const clauses_techniques = ref('')
 
 onMounted(async () => {
     try {
         isLoading.value = true;
         const responseDAO = await getDAO(dossier)
+        const responsePiece = await get_pieces(dossier)
+        pieces.value = responsePiece 
+        //récuperer les informations sur le dossier d'appel d'offre.
         dao.value = responseDAO[0];    
+
+        const responseCCTP = await get_cctp(dossier)
+
+        // Une fois les pièces chargées, on met à jour l’index courant
+        const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
+        id_piece.value = pieces.value[index].id;  
+
+        if(responseCCTP && responseCCTP.length > 0){
+          trouve.value = true
+          dqe.value = responseCCTP[0].clauses_techniques
+        }
  
     } catch (error) {
         console.error("Erreur lors de la récupération du DAO :", error) 
@@ -102,9 +91,45 @@ onMounted(async () => {
     }
 })
 
-const mode_execution = ref(``)
-const provenance_materiaux = ref(``)
-const organisation_chantier = ref(``)
-const description_travaux = ref(``)
+
+//soumission du formulaire
+const handleSubmit = async () => {
+    errors.value = {}
+    isLoading.value = true; 
+
+    try {
+        const cctpData = {  
+            clauses_techniques : clauses_techniques.value
+        };
+ 
+        if(trouve.value){
+            const response = await update_cctp(dossier, cctpData)
+            message.value = response.message
+        }else {
+            const response = await create_cctp(dossier, cctpData)
+            //mise à jour du statut de la piece
+            const update = await update_piece(id_piece.value, true);
+
+            //Définition du message
+            message.value = response.message 
+        }
+        console.log(message);  
+        //toast pour informer l'utilisateur
+        toast.success(message, {
+            theme: 'colored',
+            autoClose: 5000,
+        });
+        
+    } catch (err) { 
+        toast.error(err, {
+            theme: 'colored',
+            autoClose: 2000,
+        });
+        errors.value = err;
+        console.log(err)
+    }finally {
+        isLoading.value = false; 
+    }
+}
 
 </script>
