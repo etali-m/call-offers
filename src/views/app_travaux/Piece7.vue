@@ -17,6 +17,63 @@
                   <h5 class="fw-bold mb-2"> DEVIS ESTIMATIF ET QUANTITATIF DES TRAVAUX</h5>
                   <div class="col-md-12">    
                         <RichTextarea v-model="dqe"/>
+                        <!-- ========================= -->
+                        <!-- APERCU DQE -->
+                        <!-- ========================= -->
+                        <h2>DÉTAIL QUANTITATIF ET ESTIMATIF (DQE)</h2>
+
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>N° Prix</th>
+                              <th>Désignation</th>
+                              <th>Unité</th>
+                              <th>Quantité</th>
+                              <th>Prix Unitaire</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <template
+                              v-for="(row, index) in rows"
+                              :key="'dqe-' + index"
+                            >
+
+                              <!-- SERIE -->
+                              <tr
+                                v-if="row.type === 'section'"
+                                class="section-row"
+                              >
+                                <td colspan="5">
+                                  {{ row.title }}
+                                </td>
+                              </tr>
+
+                              <!-- LIGNE -->
+                              <tr v-else>
+
+                                <td>{{ row.code }}</td>
+
+                                <td>{{ row.designation }}</td>
+
+                                <td>{{ row.unit }}</td>
+
+                                <!-- QUANTITE AJOUTEE -->
+                                <td>
+                                  <input
+                                    v-model="row.quantity"
+                                  />
+                                </td>
+
+                                <td>{{ row.price }}</td>
+
+                              </tr>
+
+                            </template>
+
+                          </tbody>
+                        </table>
                   </div>
             </div>  
           </div> 

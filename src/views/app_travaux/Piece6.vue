@@ -14,11 +14,97 @@
         <form @submit.prevent="handleSubmit" style="padding-left:10px;">
           <StepperForm :totalSteps="1" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
-              <div class="mt-3">
+              <!-- <div class="mt-3">
                     <h5 class="fw-bold mb-2"> Définition des prix unitaires - Montants HT en lettres et en chiffres</h5>
                     <div class="col-md-12">    
                           <RichTextarea v-model="prix_unitaires"/>
                     </div>
+              </div> -->
+              <div class="container"> 
+                <h4 class="my-4 text-center text-uppercase">Définition des prix unitaires</h4>
+                <!-- ========================= -->
+                <!-- FORMULAIRE BPU -->
+                <!-- ========================= -->
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>N° Prix</th>
+                      <th>Désignation</th>
+                      <th>Unité</th>
+                      <th>Prix Unitaire</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+
+                    <template v-for="(row, index) in rows" :key="index">
+
+                      <!-- SERIE -->
+                      <tr
+                        v-if="row.type === 'section'"
+                        class="section-row"
+                      >
+                        <td colspan="4">
+                          <input
+                            v-model="row.title"
+                            class="section-input"
+                          />
+                        </td>
+                        <td>
+                          <button
+                            class="btn btn-danger btn-sm"
+                            @click="removeRow(index)"
+                          >
+                            X
+                          </button>
+                        </td>
+                      </tr>
+
+                      <!-- LIGNE -->
+                      <tr v-else>
+
+                        <td>
+                          <input v-model="row.code" />
+                        </td>
+
+                        <td>
+                          <textarea
+                            v-model="row.designation"
+                          ></textarea>
+                        </td>
+
+                        <td>
+                          <input v-model="row.unit" />
+                        </td>
+
+                        <td>
+                          <input v-model="row.price" />
+                        </td>
+
+                        <td class="text-center">
+                          <button
+                            class="btn btn-danger btn-sm"
+                            @click="removeRow(index)"
+                          >
+                            X
+                          </button>
+                        </td>
+
+                      </tr>
+
+                    </template>
+
+                  </tbody>
+                </table>
+
+                 <!-- ACTIONS -->
+                <div class="actions">
+                  <button class="btn btn-success btn-sm " @click.prevent="addSection">Ajouter une série</button>
+                  <button class="btn btn-secondary btn-sm" @click.prevent="addItem">Ajouter une ligne</button>
+                </div>
+
               </div>  
             </div> 
 
@@ -160,4 +246,48 @@ const handleSubmit = async () => {
     }
 }
 
+const rows = ref([
+  {
+    type: "section",
+    title: "SERIE 000 : INSTALLATIONS"
+  },
+
+  {
+    type: "item",
+    code: "TM001",
+    designation: "Installation de chantier",
+    unit: "Fft",
+    price: "",
+    quantity: ""
+  }
+]);
+
+const addSection = () => {
+  rows.value.push({
+    type: "section",
+    title: "NOUVELLE SERIE"
+  });
+};
+
+const addItem = () => {
+  rows.value.push({
+    type: "item",
+    code: "",
+    designation: "",
+    unit: "",
+    price: "",
+    quantity: ""
+  });
+};
+
+const removeRow = (index) => {
+  rows.value.splice(index, 1);
+};
+
 </script>
+
+<style scoped>
+
+
+
+</style>

@@ -20,26 +20,53 @@
             </div>
         </div> <br><br>
 
-        <h4 class="mt-4">Projets recents</h4>
-        <table class="table mb-4">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Type de marché</th>
-                    <th>Date de création</th>
-                </tr>
+         <!-- PROJETS RECENTS -->
+    <div>
+      <h5 class="fw-semibold mb-3">Projets récents</h5>
+
+      <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Projet</th>
+                <th>Type</th>
+                <th>Date</th>
+              </tr>
             </thead>
+
             <tbody>
-                <tr v-for="projet in projets" :key="projet.id">
-                    <td>
-                        <span class="text-primary" style="cursor:pointer;"> <router-link :to="{ name: 'edit', params: { project_id: projet.id } }"> {{ projet.objet_appel }} </router-link> </span> <br>
-                        <small>{{ projet.maitre_ouvrage }}</small>
-                    </td>
-                    <td>{{ projet.type_marche_nom }}</td>
-                    <td>{{ projet.date_creation }}</td>
-                </tr>
+              <tr v-for="projet in projets" :key="projet.id">
+
+                <td>
+                  <router-link 
+                    :to="{ name: 'edit', params: { project_id: projet.id } }"
+                    class="fw-semibold text-dark text-decoration-none"
+                  >
+                    {{ projet.objet_appel }}
+                  </router-link>
+                  <div class="text-muted small">
+                    {{ projet.maitre_ouvrage }}
+                  </div>
+                </td>
+
+                <td>
+                  <span class="badge bg-light text-dark">
+                    {{ projet.type_marche_nom }}
+                  </span>
+                </td>
+
+                <td class="text-muted">
+                  {{ projet.date_creation }}
+                </td>
+
+              </tr>
             </tbody>
-        </table>
+          </table>
+        </div>
+      </div>
+    </div>
+
         <br>
     </div>
    

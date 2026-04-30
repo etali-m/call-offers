@@ -99,3 +99,55 @@ button:disabled {
   cursor: not-allowed;
   margin-top: 20px;
 }
+
+/*DQE et BPU*/
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.delete-btn {
+  background: #dc2626;
+  padding:6px 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #000;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.table input,
+.table textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 5px;
+  background: transparent;
+  font-size: 14px;
+}
+
+.table textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.section-row {
+  background: #e5e7eb;
+  font-weight: bold;
+  text-align: center;
+}
+
+.section-input {
+  text-align: center;
+  font-weight: bold;
+}
