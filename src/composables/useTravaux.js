@@ -491,6 +491,75 @@ export function useTravaux() {
         }
     }
 
+
+    const get_bpu_dqe = async (id_projet) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.get(`${API_URL}/${id_projet}/bpu_dqe`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //créer le devis estimatif et quantitatif
+    const create_bpu_dqe = async (id_projet, dqeData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.post(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
+    //mettre à jour un dqe
+    const update_bpu_dqe = async (id_projet, dqeData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.put(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
+
     return {
         get_aao,
         create_aao,
@@ -510,6 +579,9 @@ export function useTravaux() {
         get_dqe,
         create_dqe,
         update_dqe,
+        get_bpu_dqe,
+        create_bpu_dqe,
+        update_bpu_dqe,
         get_modele_marche,
         create_modele_marche,
         update_modele_marche,

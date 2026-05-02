@@ -21,7 +21,7 @@
                     </div>
               </div> -->
               <div class="container"> 
-                <h4 class="my-4 text-center text-uppercase">Définition des prix unitaires</h4>
+                <h4 class="my-4 text-center text-uppercase">Edition du Bordereau des Prix Unitaires et du Devis Quantitatif et Estimatif</h4>
                 <!-- ========================= -->
                 <!-- FORMULAIRE BPU -->
                 <!-- ========================= -->
@@ -32,6 +32,7 @@
                       <th>N° Prix</th>
                       <th>Désignation</th>
                       <th>Unité</th>
+                      <th>Qté</th>
                       <th>Prix Unitaire</th>
                       <th>Action</th>
                     </tr>
@@ -46,19 +47,35 @@
                         v-if="row.type === 'section'"
                         class="section-row"
                       >
-                        <td colspan="4">
+                        <td colspan="5">
                           <input
                             v-model="row.title"
                             class="section-input"
                           />
                         </td>
-                        <td>
+                        <td class="actions-cell">
+
                           <button
-                            class="btn btn-danger btn-sm"
-                            @click="removeRow(index)"
+                            class="action-btn add-btn"
+                            @click.prevent="insertItemAfter(index)"
                           >
-                            X
+                            + Ligne
                           </button>
+
+                          <button
+                            class="action-btn section-btn"
+                            @click.prevent="insertSectionAfter(index)"
+                          >
+                            + Série
+                          </button>
+
+                          <button
+                            class="action-btn delete-btn"
+                            @click.prevent="removeRow(index)"
+                          >
+                            ✕
+                          </button>
+
                         </td>
                       </tr>
 
@@ -70,7 +87,7 @@
                         </td>
 
                         <td>
-                          <textarea
+                          <textarea cols="50"
                             v-model="row.designation"
                           ></textarea>
                         </td>
@@ -80,15 +97,33 @@
                         </td>
 
                         <td>
+                          <input v-model="row.quantity" />
+                        </td>
+
+                        <td>
                           <input v-model="row.price" />
                         </td>
 
                         <td class="text-center">
                           <button
-                            class="btn btn-danger btn-sm"
-                            @click="removeRow(index)"
+                            class="action-btn add-btn"
+                            @click.prevent="insertItemAfter(index)"
                           >
-                            X
+                            + Ligne
+                          </button>
+
+                          <button
+                            class="action-btn section-btn"
+                            @click.prevent="insertSectionAfter(index)"
+                          >
+                            + Série
+                          </button>
+
+                          <button
+                            class="action-btn delete-btn"
+                            @click.prevent="removeRow(index)"
+                          >
+                            ✕
                           </button>
                         </td>
 
@@ -100,22 +135,75 @@
                 </table>
 
                  <!-- ACTIONS -->
-                <div class="actions">
+                <!-- <div class="actions">
                   <button class="btn btn-success btn-sm " @click.prevent="addSection">Ajouter une série</button>
                   <button class="btn btn-secondary btn-sm" @click.prevent="addItem">Ajouter une ligne</button>
+                </div> -->
+
+                <!-- Navigation -->
+                <div class="buttons my-4 text-center">
+                  <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
+                  <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
+                  <button class="btn-custom" type="submit" v-else>Enregister</button>
+                </div>
+                <br><br>
+                <div>
+                    <!-- ========================= -->
+                    <!-- APERCU DQE -->
+                    <!-- ========================= -->
+
+                    <h4 class="text-center">BORDEREAU DES PRIX UNITAIRES (BPU)</h4>
+
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>N° Prix</th>
+                          <th>Désignation</th>
+                          <th>Unité</th> 
+                          <th>Prix Unitaire</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+
+                        <template
+                          v-for="(row, index) in rows"
+                          :key="'dqe-' + index"
+                        >
+
+                          <!-- SERIE -->
+                          <tr
+                            v-if="row.type === 'section'"
+                            class="section-row"
+                          >
+                            <td colspan="5">
+                              {{ row.title }}
+                            </td>
+                          </tr>
+
+                          <!-- LIGNE -->
+                          <tr v-else>
+
+                            <td>{{ row.code }}</td>
+
+                            <td>{{ row.designation }}</td>
+
+                            <td>{{ row.unit }}</td>
+
+
+                            <td>{{ row.price }}</td>
+
+                          </tr>
+
+                        </template>
+
+                      </tbody>
+                    </table>
                 </div>
 
               </div>  
             </div> 
-
-
-
-            <!-- Navigation -->
-            <div class="buttons mt-4 text-center">
-              <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
-              <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
-              <button class="btn-custom" type="submit" v-else>Enregister</button>
-            </div>
+ 
           </StepperForm>
         </form> 
       </div>
@@ -147,10 +235,11 @@ const id_piece = ref()
 const trouve = ref(false) 
 const message = ref(''); //message d'enregistrement reussi
 const errors = ref({});
+const rows = ref([]);
 
 const { getDAO } = useAppelOffre() 
 const { get_pieces, update_piece } =  usePiece()
-const { get_bpu, create_bpu, update_bpu } = useTravaux()
+const { get_bpu_dqe, create_bpu_dqe, update_bpu_dqe } = useTravaux()
   
 
 const prix_unitaires = ref(`
@@ -186,7 +275,9 @@ onMounted(async () => {
         //récuperer les informations sur le dossier d'appel d'offre.
         dao.value = responseDAO[0];    
 
-        const responseBPU = await get_bpu(dossier)
+        const responseBPU = await get_bpu_dqe(dossier)
+
+        console.log(responseBPU);
 
         // Une fois les pièces chargées, on met à jour l’index courant
         const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
@@ -194,7 +285,17 @@ onMounted(async () => {
 
         if(responseBPU && responseBPU.length > 0){
           trouve.value = true
-          prix_unitaires.value = responseBPU[0].prix_unitaire
+          rows.value = responseBPU
+        } else {
+          rows.value.push({
+            type: "section",
+            title: "SERIE 000",
+            code: null,
+            designation: null,
+            unit: null,
+            price: null,
+            quantity: 1.00
+          });
         }
 
  
@@ -215,12 +316,13 @@ const handleSubmit = async () => {
         const bpuData = {  
           prix_unitaires : prix_unitaires.value
         };
+        console.log(rows.value);
  
         if(trouve.value){
-            const response = await update_bpu(dossier, bpuData)
+            const response = await update_bpu_dqe(dossier, rows.value)
             message.value = response.message
         }else {
-            const response = await create_bpu(dossier, bpuData)
+            const response = await create_bpu_dqe(dossier, rows.value)
             //mise à jour du statut de la piece
             const update = await update_piece(id_piece.value, true);
 
@@ -246,38 +348,56 @@ const handleSubmit = async () => {
     }
 }
 
-const rows = ref([
-  {
-    type: "section",
-    title: "SERIE 000 : INSTALLATIONS"
-  },
-
-  {
-    type: "item",
-    code: "TM001",
-    designation: "Installation de chantier",
-    unit: "Fft",
-    price: "",
-    quantity: ""
-  }
-]);
-
 const addSection = () => {
   rows.value.push({
     type: "section",
-    title: "NOUVELLE SERIE"
+    title: "NOUVELLE SERIE",
+    code: null,
+    designation: null,
+    unit: null,
+    price: null,
+    quantity: 1.00
   });
 };
 
 const addItem = () => {
   rows.value.push({
     type: "item",
+    title: null,
     code: "",
     designation: "",
     unit: "",
     price: "",
-    quantity: ""
+    quantity: 1.00
   });
+};
+
+const insertItemAfter = (index) => {
+
+  rows.value.splice(index + 1, 0, {
+    type: "item",
+    title: null,
+    code: "",
+    designation: "",
+    unit: "",
+    price: "",
+    quantity: 1.00
+  });
+
+};
+
+const insertSectionAfter = (index) => {
+
+  rows.value.splice(index + 1, 0, {
+    type: "section",
+    title: "NOUVELLE SERIE",
+    code: null,
+    designation: null,
+    unit: null,
+    price: "",
+    quantity: 1.00
+  });
+
 };
 
 const removeRow = (index) => {
@@ -288,6 +408,65 @@ const removeRow = (index) => {
 
 <style scoped>
 
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
 
+.action-btn {
+  border: none;
+  outline: none;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Hover général */
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+
+/* Ajouter ligne */
+.add-btn {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.add-btn:hover {
+  background: #e0e7ff;
+}
+
+
+/* Ajouter série */
+.section-btn {
+  background: #ecfeff;
+  color: #0f766e;
+}
+
+.section-btn:hover {
+  background: #cffafe;
+}
+
+
+/* Supprimer */
+.delete-btn {
+  background: #fef2f2;
+  color: #dc2626;
+  padding-inline: 10px;
+}
+
+.delete-btn:hover {
+  background: #fee2e2;
+}
 
 </style>
