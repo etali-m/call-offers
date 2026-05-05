@@ -14,13 +14,11 @@
         <StepperForm :totalSteps="1" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
           <div v-if="currentStep === 0">
             <div class="mt-3">
-                  <h5 class="fw-bold mb-2"> DEVIS ESTIMATIF ET QUANTITATIF DES TRAVAUX</h5>
-                  <div class="col-md-12">    
-                        <RichTextarea v-model="dqe"/>
+                  <h4 class="my-4 text-center"> DETAILS ESTIMATIF ET QUANTITATIF DES TRAVAUX</h4>
+                  <div class="col-md-12">     
                         <!-- ========================= -->
                         <!-- APERCU DQE -->
-                        <!-- ========================= -->
-                        <h2>DÉTAIL QUANTITATIF ET ESTIMATIF (DQE)</h2>
+                        <!-- ========================= --> 
 
                         <table class="table">
                           <thead>
@@ -61,9 +59,7 @@
 
                                 <!-- QUANTITE AJOUTEE -->
                                 <td>
-                                  <input
-                                    v-model="row.quantity"
-                                  />
+                                  {{ row.quantity }}
                                 </td>
 
                                 <td>{{ row.price }}</td>
@@ -118,10 +114,11 @@ const id_piece = ref()
 const trouve = ref(false) 
 const message = ref(''); //message d'enregistrement reussi
 const errors = ref({});
+const rows = ref([]);
 
 const { getDAO } = useAppelOffre() 
 const { get_pieces, update_piece } =  usePiece()
-const { get_dqe, create_dqe, update_dqe } = useTravaux()
+const { get_bpu_dqe, create_bpu_dqe, update_bpu_dqe } = useTravaux()
 
 
 const dqe = ref(`
@@ -187,7 +184,7 @@ onMounted(async () => {
         //récuperer les informations sur le dossier d'appel d'offre.
         dao.value = responseDAO[0];    
 
-        const responseDQE = await get_dqe(dossier)
+        const responseDQE = await get_bpu_dqe(dossier)
 
         // Une fois les pièces chargées, on met à jour l’index courant
         const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
@@ -195,7 +192,7 @@ onMounted(async () => {
 
         if(responseDQE && responseDQE.length > 0){
           trouve.value = true
-          dqe.value = responseDQE[0].dqe
+          rows.value = responseDQE
         }
  
     } catch (error) {
@@ -205,45 +202,5 @@ onMounted(async () => {
     }
 })
 
-
-//soumission du formulaire
-const handleSubmit = async () => {
-    errors.value = {}
-    isLoading.value = true; 
-
-    try {
-        const dqeData = {  
-          dqe : dqe.value
-        };
- 
-        if(trouve.value){
-            const response = await update_dqe(dossier, dqeData)
-            message.value = response.message
-        }else {
-            const response = await create_dqe(dossier, dqeData)
-            //mise à jour du statut de la piece
-            const update = await update_piece(id_piece.value, true);
-
-            //Définition du message
-            message.value = response.message 
-        }
-        console.log(message);  
-        //toast pour informer l'utilisateur
-        toast.success(message, {
-            theme: 'colored',
-            autoClose: 5000,
-        });
-        
-    } catch (err) { 
-        toast.error(err, {
-            theme: 'colored',
-            autoClose: 2000,
-        });
-        errors.value = err;
-        console.log(err)
-    }finally {
-        isLoading.value = false; 
-    }
-}
 
 </script>
