@@ -34,20 +34,98 @@
                     </div>
 
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <label class="label-custom" for="">Objet de l'appel d'offre</label>
-                        <textarea v-model="objet" class="textarea-custom" placeholder="Entrez l'objet de l'appel d'offre"></textarea>
+                <!-- Section Maître d'Ouvrage --> 
+                <div class="section-body">
+
+                    <!-- Objet -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="label-custom">Objet de l'Appel d'Offre <span class="required">*</span></label>
+                            <textarea
+                            v-model="objet"
+                            class="textarea-custom"
+                            placeholder="Entrez l'objet de l'appel d'offre"
+                            rows="4"
+                            ></textarea>
+                        </div>
                     </div>
+
+                    <!-- Logo -->
+                    <div class="row">
+                    <div class="col-md-12">
+                        <label class="label-custom">Logo du Maître d'Ouvrage</label>
+                        <div class="logo-upload-wrapper">
+                        <div v-if="logoPreview" class="logo-preview">
+                            <img :src="logoPreview" alt="Logo MOA" width="100" height="100"/>
+                            <button type="button" class="btn-remove-logo" @click="supprimerLogo">✕</button>
+                        </div>
+                        <label v-else class="logo-upload-area">
+                            <input type="file" accept="image/*" @change="onLogoChange" hidden />
+                            <span class="upload-icon">📁</span>
+                            <span>Cliquez pour ajouter un logo</span>
+                            <small>PNG, JPG — max 2 Mo</small>
+                        </label>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Nom + Dénomination -->
+                    <div class="row">
                     <div class="col-md-10">
-                        <label class="label-custom" for="">Nom du Maître d'ouvrage ou du maître d'ouvrage délégué</label>
-                        <input v-model="moa" type="text" class="input-custom" required placeholder="Ministère des travaux publics">
+                        <label class="label-custom">Nom du Maître d'Ouvrage ou délégué <span class="required">*</span></label>
+                        <input
+                        v-model="moa"
+                        type="text"
+                        class="input-custom"
+                        required
+                        placeholder="Ex : Ministère des Travaux Publics"
+                        />
                     </div>
                     <div class="col-md-2">
-                        <label class="label-custom" for="">Dénomination</label>
-                        <input v-model="denomination" type="text" class="input-custom" required placeholder="MINTP">
+                        <label class="label-custom">Dénomination <span class="required">*</span></label>
+                        <input
+                        v-model="denomination"
+                        type="text"
+                        class="input-custom"
+                        required
+                        placeholder="Ex : MINTP"
+                        />
                     </div>
-                </div>
+                    </div>
+
+                    <!-- Région + Département -->
+                    <div class="row">
+                    <div class="col-md-6">
+                        <label class="label-custom">Région</label>
+                        <select v-model="region" class="input-custom">
+                        <option value="" disabled>-- Sélectionnez une région --</option>
+                        <option v-for="r in regions" :key="r" :value="r">{{ r }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-custom">Département</label>
+                        <input
+                        v-model="departement"
+                        type="text"
+                        class="input-custom"
+                        placeholder="Ex : Mfoundi"
+                        />
+                    </div>
+                    </div>
+
+                    <!-- Service -->
+                    <div class="row">
+                    <div class="col-md-12">
+                        <label class="label-custom">Service</label>
+                        <input
+                        v-model="service"
+                        type="text"
+                        class="input-custom"
+                        placeholder="Ex : Direction des Infrastructures Routières"
+                        />
+                    </div>
+                    </div> 
+                </div> 
                 <label class="label-custom" for="commission">Commission de passation des marchés</label>
                 <select id="commission" v-model="commission" class="select-custom">
                     <option value="cipm" selected>Commission interne de passation des marchés</option>
@@ -130,6 +208,16 @@ export default {
         const objet = ref('')
         const moa = ref('')
         const denomination = ref('')
+        const region       = ref('')
+        const departement  = ref('')
+        const service      = ref('') 
+        const logo         = ref(null)       // fichier File
+        const logoPreview  = ref(null)
+        // Régions du Cameroun
+        const regions = [
+        'Adamaoua', 'Centre', 'Est', 'Extrême-Nord',
+        'Littoral', 'Nord', 'Nord-Ouest', 'Ouest', 'Sud', 'Sud-Ouest'
+        ]
         const commission = ref('')
         const type_dao = ref('')
         const mode_dao = ref('')
@@ -137,6 +225,28 @@ export default {
         const exercice_budgetaire = ref('')
         const financement = ref('')
         const imputation = ref('')
+
+        function onLogoChange(event) {
+            const fichier = event.target.files[0]
+            if (!fichier) return
+
+            if (fichier.size > 2 * 1024 * 1024) {
+                alert('Le fichier est trop volumineux (max 2 Mo)')
+                return
+            }
+
+            logo.value = fichier
+
+            // Générer l'aperçu base64
+            const reader = new FileReader()
+            reader.onload = (e) => { logoPreview.value = e.target.result }
+            reader.readAsDataURL(fichier)
+        }
+
+        function supprimerLogo() {
+            logo.value        = null
+            logoPreview.value = null
+        }
 
 
         const { getImageUrl } = utils() //fontion pour réguperer l'image
@@ -169,23 +279,37 @@ export default {
         const handleSubmit = async () => {
             errors.value = {}
             isLoading.value = true; 
+            const formData = new FormData()
+
+            formData.append('type_marche',         marche.value.id)
+            formData.append('objet_appel',         objet.value)
+            formData.append('maitre_ouvrage',      moa.value)
+            formData.append('region',              region.value)
+            formData.append('departement',         departement.value)
+            formData.append('service',             service.value)
+            formData.append('denomination',        denomination.value)
+            formData.append('commission_marche',   commission.value)
+            formData.append('type_dossier',        type_dao.value)
+            formData.append('mode_passation',      mode_dao.value)
+            formData.append('numero_dossier',      numero_dossier.value)
+            formData.append('exercice_budgetaire', exercice_budgetaire.value)
+            formData.append('financement',         financement.value)
+            formData.append('imputation',          imputation.value)
+
+            // ✅ Vérification stricte avant d'ajouter le logo
+            if (logo.value && logo.value instanceof File) {
+                formData.append('logo', logo.value, logo.value.name)
+                console.log('Logo ajouté au FormData:', logo.value.name)
+            } else {
+                console.log('ℹPas de logo, champ ignoré')
+                // Ne pas envoyer le champ du tout si pas de fichier
+                // car logo est blank=True, null=True dans le modèle
+            }
 
             try {
-                const callOfferData = {
-                    type_marche: marche.value.id,
-                    objet_appel: objet.value,  
-                    maitre_ouvrage: moa.value,
-                    denomination: denomination.value,
-                    commission_marche: commission.value,
-                    type_dossier: type_dao.value,
-                    mode_passation: mode_dao.value,
-                    numero_dossier: numero_dossier.value,
-                    exercice_budgetaire: exercice_budgetaire.value,
-                    financement: financement.value,
-                    imputation: imputation.value
-                };
-                console.log(callOfferData);
-                const response = await create_callOffer(callOfferData);
+                
+                console.log(formData);
+                const response = await create_callOffer(formData);
 
                 // Récupération des données renvoyées par l'API
                 const projectId = response.data.id; 
@@ -222,6 +346,12 @@ export default {
             moa,
             denomination,
             commission,
+            region,
+            departement,
+            service,
+            logo,
+            logoPreview,
+            regions,
             type_dao,
             mode_dao,
             numero_dossier,
@@ -230,6 +360,8 @@ export default {
             imputation, 
             errors,
             isLoading,
+            onLogoChange,
+            supprimerLogo,
             handleSubmit,
         }
     }

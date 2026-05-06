@@ -8,18 +8,20 @@
 
         <div class="col-12">
           <ProgressBar :percentage="progression" />
-        </div>
+        </div> 
       </div> 
 
       <div class="row">
           <div class="col-md-12 d-flex justify-content-end">
-              <button class="btn btn-sm btn-warning" @click="telechargerPDF"><i class="bi bi-download"></i> Télécharger le document</button>
+              <!-- <button class="btn btn-sm btn-warning" @click="telechargerPDF"><i class="bi bi-download"></i> Télécharger le document</button> -->
+              <PdfPreview :project-id="dossier" />
           </div>
       </div>
       <br>
       <div class="row g-2">
           <Card v-for="(statut, index) in pieces" :key="(index)" :titre="statut.piece.titre" :numero="index+1" :lien="{ name: statut.piece.nom_composant, params: { project_id: dao.id } }" :statut="statut.is_complete"/> 
-      </div>
+      </div>  
+      
     </div>
     
 </template>
@@ -30,6 +32,7 @@ import { useRoute, useRouter } from 'vue-router'
 import HeaderDossier from '@/components/HeaderDossier.vue';
 import Card from '@/components/Card.vue';
 import Loader from '@/components/Loader.vue';
+import PdfPreview from '@/components/PdfPreview.vue';
 import ProgressBar from '@/components/ProgressBar.vue'; 
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
@@ -40,6 +43,7 @@ export default {
     Card,
     Loader,
     ProgressBar,
+    PdfPreview,
   },
 
   setup() { 
@@ -60,7 +64,7 @@ export default {
         isLoading.value = true;
         const responseDAO = await getDAO(dossier)
         dao.value = responseDAO[0];  // affectation des données récupérées 
-        const responsePiece = await get_pieces(dossier)
+        const responsePiece = await get_pieces(dossier) // on récupères le pieces associeé au type de marché
         pieces.value = responsePiece   
         //Calcule du taux d'édidtion du DAO
         const total = pieces.value.length;
@@ -113,6 +117,7 @@ export default {
       dao,
       pieces,
       progression,
+      dossier,
       telechargerPDF,
     }
   }

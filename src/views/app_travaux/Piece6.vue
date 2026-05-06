@@ -59,14 +59,14 @@
                             class="action-btn add-btn"
                             @click.prevent="insertItemAfter(index)"
                           >
-                            + Ligne
+                            <i class="bi bi-plus-lg"></i> Ligne
                           </button>
 
                           <button
                             class="action-btn section-btn"
                             @click.prevent="insertSectionAfter(index)"
                           >
-                            + Série
+                            <i class="bi bi-plus-lg"></i> Série
                           </button>
 
                           <button
@@ -109,14 +109,14 @@
                             class="action-btn add-btn"
                             @click.prevent="insertItemAfter(index)"
                           >
-                            + Ligne
+                            <i class="bi bi-plus-lg"></i> Ligne
                           </button>
 
                           <button
                             class="action-btn section-btn"
                             @click.prevent="insertSectionAfter(index)"
                           >
-                            + Série
+                            <i class="bi bi-plus-lg"></i> Série
                           </button>
 
                           <button

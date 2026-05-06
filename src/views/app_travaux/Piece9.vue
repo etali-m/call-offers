@@ -16,26 +16,7 @@
           <div v-if="currentStep === 0">
             <div class="row">
                 <div class="mt-3">
-                  <h5 class="fw-bold mb-2">Information sur le maître d'ouvrage</h5> 
-                  <div class="row">
-                        <div class="col-md-3">
-                            <label class="label-custom" for="dossier">Région:</label>
-                            <input type="text" v-model="region" class="input-custom" placeholder="Nord">
-                        </div> 
-                        <div class="col-md-3">
-                            <label class="label-custom" for="dossier">Département: </label>
-                            <input type="text" v-model="departement" class="input-custom" placeholder="Benoué">
-                        </div> 
-                        <div class="col-md-3">
-                            <label class="label-custom" for="dossier">Service: </label>
-                            <input type="text" v-model="service" class="input-custom" placeholder="Secretariat général" required>
-                        </div> 
-                        <div class="col-md-3">
-                            <label class="label-custom" for="dossier">Logo: </label>
-                            <img :src="logo" alt="logo_moa" width="50" height="50"/>
-                            <input type="file" class="input-custom" @change="handleFileChange">
-                        </div>
-                    </div>
+                   
                 </div>
             </div> 
           </div>

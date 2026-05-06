@@ -9,81 +9,86 @@
           :current-piece-name="$route.name"
           />
 
-    <div class="form-container">  
-      <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-        <StepperForm :totalSteps="1" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
-          <div v-if="currentStep === 0">
-            <div class="mt-3">
-                  <h4 class="my-4 text-center"> DETAILS ESTIMATIF ET QUANTITATIF DES TRAVAUX</h4>
-                  <div class="col-md-12">     
-                        <!-- ========================= -->
-                        <!-- APERCU DQE -->
-                        <!-- ========================= --> 
+    <div class="form-container">   
+        <div class="mt-3 bg-white p-4" style="border-radius: 10px;">
+              <h4 class="my-4 text-center"> DETAILS ESTIMATIF ET QUANTITATIF DES TRAVAUX</h4>
+              <div class="col-md-12">     
+                    <!-- ========================= -->
+                    <!-- APERCU DQE -->
+                    <!-- ========================= --> 
 
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>N° Prix</th>
-                              <th>Désignation</th>
-                              <th>Unité</th>
-                              <th>Quantité</th>
-                              <th>Prix Unitaire</th>
-                            </tr>
-                          </thead>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>N° Prix</th>
+                          <th>Désignation</th>
+                          <th>Unité</th>
+                          <th>Quantité</th>
+                          <th>Prix Unitaire</th>
+                        </tr>
+                      </thead>
 
-                          <tbody>
+                      <tbody>
 
-                            <template
-                              v-for="(row, index) in rows"
-                              :key="'dqe-' + index"
-                            >
+                        <template
+                          v-for="(row, index) in rows"
+                          :key="'dqe-' + index"
+                        >
 
-                              <!-- SERIE -->
-                              <tr
-                                v-if="row.type === 'section'"
-                                class="section-row"
-                              >
-                                <td colspan="5">
-                                  {{ row.title }}
-                                </td>
-                              </tr>
+                          <!-- SERIE -->
+                          <tr
+                            v-if="row.type === 'section'"
+                            class="section-row"
+                          >
+                            <td colspan="5">
+                              {{ row.title }}
+                            </td>
+                          </tr>
 
-                              <!-- LIGNE -->
-                              <tr v-else>
+                          <!-- LIGNE -->
+                          <tr v-else>
 
-                                <td>{{ row.code }}</td>
+                            <td>{{ row.code }}</td>
 
-                                <td>{{ row.designation }}</td>
+                            <td>{{ row.designation }}</td>
 
-                                <td>{{ row.unit }}</td>
+                            <td>{{ row.unit }}</td>
 
-                                <!-- QUANTITE AJOUTEE -->
-                                <td>
-                                  {{ row.quantity }}
-                                </td>
+                            <!-- QUANTITE AJOUTEE -->
+                            <td>
+                              {{ row.quantity }}
+                            </td>
 
-                                <td>{{ row.price }}</td>
+                            <td>{{ row.price }}</td>
 
-                              </tr>
+                          </tr>
 
-                            </template>
-
-                          </tbody>
-                        </table>
-                  </div>
-            </div>  
-          </div> 
-
-
-
-          <!-- Navigation -->
-          <div class="buttons mt-4 text-center">
-            <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
-            <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
-            <button class="btn-custom" type="submit" v-else>Enregister</button>
-          </div>
-        </StepperForm>
-      </form> 
+                        </template>
+                        <tr>
+                          <td></td>
+                          <td><b>A- Total général HT</b></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><b>B- Montant TVA  (% de A)</b></td>
+                          <td>19.25%</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><b>C- Montant TTC  (A+B)</b></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+              </div>
+        </div>      
     </div>
 
   </div> 
