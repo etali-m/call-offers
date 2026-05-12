@@ -17,10 +17,10 @@
                         <h5 class="fw-bold mb-2">Article 3. Attribution et nantissement </h5>
                         <div class="col-md-12">    
                               <h6>3.1 Définitions générales</h6> 
-                              <div class="row">
+                              <div class="row"> 
                                     <div class="col-md-6">
-                                          <label class="label-custom" for="dossier">Le maître d'ouvrage est :</label>
-                                          <input type="text" v-model="moa" class="input-custom" placeholder="Le ministères de marchés publics" required>
+                                          <label class="label-custom" for="dossier">Le contractant du marché est : </label>
+                                          <input type="text" v-model="contractant" class="input-custom" placeholder="Nom du contractant du marché" required>
                                     </div> 
                                     <div class="col-md-6">
                                           <label class="label-custom" for="dossier">Le Chef de service du marché est : </label>
@@ -453,10 +453,11 @@ const { get_pieces, update_piece } =  usePiece()
 const { get_ccap, create_ccap, update_ccap } = useTravaux()
  
 
-//DECLARATION DES VARIABLES POUR LE CCAP
-const moa = ref('')
+//DECLARATION DES VARIABLES POUR LE CCAP 
 
 const chef_service_marche = ref('')
+
+const contractant = ref('')
 
 const ing_marche = ref('')
 
@@ -833,8 +834,8 @@ onMounted(async () => {
       id_piece.value = pieces.value[index].id;  
       
       if(responseCCAP && responseCCAP.length > 0){
-            trouve.value = true
-            moa.value = responseCCAP[0].moa
+            trouve.value = true 
+            contractant.value = responseCCAP[0].contractant
             chef_service_marche.value = responseCCAP[0].chef_service_marche
             ing_marche.value = responseCCAP[0].ing_marche
             control_externe.value = responseCCAP[0].control_externe
@@ -896,8 +897,8 @@ const handleSubmit = async () => {
     isLoading.value = true; 
 
     try {
-        const ccapData = { 
-            moa : moa.value,
+        const ccapData = {  
+            contractant : contractant.value,
             chef_service_marche : chef_service_marche.value,
             ing_marche :  ing_marche.value,
             control_externe : control_externe.value,

@@ -10,7 +10,7 @@
       />
 
 
-    <div class="form-container bg-white mt-3">   
+    <div class="form-container bg-white mt-3 mx-4">   
       <div style="font-size: 12pt; color: #1a1a1a; line-height: 1.5; margin: 20px auto; padding: 15mm 20mm 15mm 20mm; box-sizing: border-box; height: 500px; overflow-y:auto;">
         
 

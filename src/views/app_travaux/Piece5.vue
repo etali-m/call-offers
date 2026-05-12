@@ -81,7 +81,7 @@ onMounted(async () => {
 
         if(responseCCTP && responseCCTP.length > 0){
           trouve.value = true
-          dqe.value = responseCCTP[0].clauses_techniques
+          clauses_techniques.value = responseCCTP[0].clauses_techniques
         }
  
     } catch (error) {
