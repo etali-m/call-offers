@@ -26,113 +26,113 @@
                 <!-- FORMULAIRE BPU -->
                 <!-- ========================= -->
 
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>N° Prix</th>
-                      <th>Désignation</th>
-                      <th>Unité</th>
-                      <th>Qté</th>
-                      <th>Prix Unitaire</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <template v-for="(row, index) in rows" :key="index">
-
-                      <!-- SERIE -->
-                      <tr
-                        v-if="row.type === 'section'"
-                        class="section-row"
-                      >
-                        <td colspan="5">
-                          <input
-                            v-model="row.title"
-                            class="section-input"
-                          />
-                        </td>
-                        <td class="actions-cell">
-
-                          <button
-                            class="action-btn add-btn"
-                            @click.prevent="insertItemAfter(index)"
-                          >
-                            <i class="bi bi-plus-lg"></i> Ligne
-                          </button>
-
-                          <button
-                            class="action-btn section-btn"
-                            @click.prevent="insertSectionAfter(index)"
-                          >
-                            <i class="bi bi-plus-lg"></i> Série
-                          </button>
-
-                          <button
-                            class="action-btn delete-btn"
-                            @click.prevent="removeRow(index)"
-                          >
-                            ✕
-                          </button>
-
-                        </td>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>N° Prix</th>
+                        <th>Désignation</th>
+                        <th>Unité</th>
+                        <th>Qté</th>
+                        <th>Prix Unitaire</th>
+                        <th>Action</th>
                       </tr>
+                    </thead>
 
-                      <!-- LIGNE -->
-                      <tr v-else>
+                    <tbody>
 
-                        <td>
-                          <input v-model="row.code" />
-                        </td>
+                      <template v-for="(row, index) in rows" :key="index">
 
-                        <td>
-                          <textarea cols="50"
-                            v-model="row.designation"
-                          ></textarea>
-                        </td>
+                        <!-- SERIE -->
+                        <tr
+                          v-if="row.type === 'section'"
+                          class="section-row"
+                        >
+                          <td colspan="5">
+                            <input
+                              v-model="row.title"
+                              class="section-input"
+                            />
+                          </td>
+                          <td class="actions-cell">
 
-                        <td>
-                          <input v-model="row.unit" />
-                        </td>
+                            <button
+                              class="action-btn add-btn"
+                              @click.prevent="insertItemAfter(index)"
+                            >
+                              <i class="bi bi-plus-lg"></i> Ligne
+                            </button>
 
-                        <td>
-                          <input v-model="row.quantity" />
-                        </td>
+                            <button
+                              class="action-btn section-btn"
+                              @click.prevent="insertSectionAfter(index)"
+                            >
+                              <i class="bi bi-plus-lg"></i> Série
+                            </button>
 
-                        <td>
-                          <input v-model="row.price" />
-                        </td>
+                            <button
+                              class="action-btn delete-btn"
+                              @click.prevent="removeRow(index)"
+                            >
+                              ✕
+                            </button>
 
-                        <td class="text-center">
-                          <button
-                            class="action-btn add-btn"
-                            @click.prevent="insertItemAfter(index)"
-                          >
-                            <i class="bi bi-plus-lg"></i> Ligne
-                          </button>
+                          </td>
+                        </tr>
 
-                          <button
-                            class="action-btn section-btn"
-                            @click.prevent="insertSectionAfter(index)"
-                          >
-                            <i class="bi bi-plus-lg"></i> Série
-                          </button>
+                        <!-- LIGNE -->
+                        <tr v-else>
 
-                          <button
-                            class="action-btn delete-btn"
-                            @click.prevent="removeRow(index)"
-                          >
-                            ✕
-                          </button>
-                        </td>
+                          <td>
+                            <input v-model="row.code" />
+                          </td>
 
-                      </tr>
+                          <td>
+                            <textarea cols="50"
+                              v-model="row.designation"
+                            ></textarea>
+                          </td>
 
-                    </template>
+                          <td>
+                            <input v-model="row.unit" />
+                          </td>
 
-                  </tbody>
-                </table>
+                          <td>
+                            <input v-model="row.quantity" />
+                          </td>
+
+                          <td>
+                            <input v-model="row.price" />
+                          </td>
+
+                          <td class="text-center">
+                            <button
+                              class="action-btn add-btn"
+                              @click.prevent="insertItemAfter(index)"
+                            >
+                              <i class="bi bi-plus-lg"></i> Ligne
+                            </button>
+
+                            <button
+                              class="action-btn section-btn"
+                              @click.prevent="insertSectionAfter(index)"
+                            >
+                              <i class="bi bi-plus-lg"></i> Série
+                            </button>
+
+                            <button
+                              class="action-btn delete-btn"
+                              @click.prevent="removeRow(index)"
+                            >
+                              ✕
+                            </button>
+                          </td>
+
+                        </tr>
+
+                      </template>
+
+                    </tbody>
+                  </table>
 
                  <!-- ACTIONS -->
                 <!-- <div class="actions">
