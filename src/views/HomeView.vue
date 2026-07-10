@@ -1,75 +1,87 @@
 <template>
     <Loader v-if="isLoading"/>
-    <div v-else>
-        <h3>Bonjour, John</h3>
-        <p>Créez un nouveau dossier d'appel d'offre</p>
+    <div v-else class="home-view">
 
-        <div class="row mt-3">
-            <!-- Debut de la boucle -->
-                <div v-for="type in typesMarche" :key="type.id" class="col-md-3 template-box">
-                    <div class="template-card">   
-                        <router-link :to="{ name: 'create', params: { slug: type.slug } }">
+        <div class="page-header">
+            <h1 class="page-title">Bonjour, John 👋</h1>
+            <p class="page-sub">Créez un nouveau dossier d'appel d'offre</p>
+        </div>
+
+        <section class="templates-section">
+            <div class="templates-grid">
+                <!-- Debut de la boucle -->
+                <div v-for="type in typesMarche" :key="type.id" class="template-card">
+                    <router-link :to="{ name: 'create', params: { slug: type.slug } }" class="template-link">
+                        <div class="template-thumb">
                             <img :src="getImageUrl(type.image_garde)" :alt="type.nom">
-                            <p class="template-title">{{ type.nom }}</p>
-                        </router-link>
+                        </div>
+                        <p class="template-title">{{ type.nom }}</p>
+                    </router-link>
+                </div>
+                <!-- fin de la boucle -->
+            </div>
+
+            <div class="templates-more">
+                <span class="more-link" id="more_template">
+                    Plus de modèles
+                    <i class="bi bi-arrow-down-short"></i>
+                </span>
+            </div>
+        </section>
+
+        <!-- PROJETS RECENTS -->
+        <section class="projects-section">
+            <h2 class="section-title">Projets récents</h2>
+
+            <div class="projects-card">
+                <div class="table-responsive">
+                    <table class="projects-table">
+                        <thead>
+                            <tr>
+                                <th>Projet</th>
+                                <th>Type</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr v-for="projet in projets" :key="projet.id">
+
+                                <td>
+                                    <router-link
+                                        :to="{ name: 'edit', params: { project_id: projet.id } }"
+                                        class="project-name"
+                                    >
+                                        {{ projet.objet_appel }}
+                                    </router-link>
+                                    <div class="project-owner">
+                                        {{ projet.maitre_ouvrage }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span class="type-badge">
+                                        {{ projet.type_marche_nom }}
+                                    </span>
+                                </td>
+
+                                <td class="project-date">
+                                    {{ projet.date_creation }}
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div v-if="!projets.length" class="empty-state">
+                        Aucun projet pour le moment.
                     </div>
                 </div>
-            <!-- fin de la boucle -->
-            <div class="d-flex justify-content-end">
-                <span class="text-primary" id="more_template" style="cursor:pointer;">Plus de modèle <i class="bi bi-arrow-down-short"></i></span>
             </div>
-        </div> <br><br>
+        </section>
 
-         <!-- PROJETS RECENTS -->
-    <div>
-      <h5 class="fw-semibold mb-3">Projets récents</h5>
-
-      <div class="card border-0 shadow-sm">
-        <div class="table-responsive">
-          <table class="table align-middle mb-0">
-            <thead class="table-light">
-              <tr>
-                <th>Projet</th>
-                <th>Type</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr v-for="projet in projets" :key="projet.id">
-
-                <td>
-                  <router-link 
-                    :to="{ name: 'edit', params: { project_id: projet.id } }"
-                    class="fw-semibold text-dark text-decoration-none"
-                  >
-                    {{ projet.objet_appel }}
-                  </router-link>
-                  <div class="text-muted small">
-                    {{ projet.maitre_ouvrage }}
-                  </div>
-                </td>
-
-                <td>
-                  <span class="badge bg-light text-dark">
-                    {{ projet.type_marche_nom }}
-                  </span>
-                </td>
-
-                <td class="text-muted">
-                  {{ projet.date_creation }}
-                </td>
-
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
 
-        <br>
-    </div>
-   
 </template>
 
 <script>
@@ -142,30 +154,199 @@ export default {
 </script>
 
 <style scoped>
-.template-card a{
-    color: #202124;
+.home-view {
+    --ink:        #241505;
+    --ink-soft:   #6b5847;
+    --orange-50:  #FFF4EC;
+    --orange-100: #FFE4D1;
+    --orange-500: #FF6A1A;
+    --orange-600: #F0560A;
+    --orange-700: #C4460A;
+    --white:      #FFFFFF;
+    --line:       rgba(36, 21, 5, 0.08);
+
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    max-width: 1180px;
+}
+
+/* ===== Header ===== */
+.page-header {
+    margin-bottom: 30px;
+}
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    color: var(--ink);
+}
+.page-sub {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+/* ===== Templates grid ===== */
+.templates-section {
+    margin-bottom: 40px;
+}
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+.template-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.template-card:hover {
+    border-color: var(--orange-500);
+    box-shadow: 0 16px 30px -16px rgba(240, 86, 10, 0.35);
+    transform: translateY(-2px);
+}
+
+.template-link {
+    display: block;
+    color: var(--ink);
     text-decoration: none;
 }
 
-.template-title{
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 5px;
+.template-thumb {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--orange-50);
+    overflow: hidden;
+}
+.template-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s ease;
+}
+.template-card:hover .template-thumb img {
+    transform: scale(1.04);
 }
 
-.template-card img {
-    width: 200px;
-    height: auto; 
-    border: 1px solid rgb(218, 220, 224);
-    border-radius: 5px;
+.template-title {
+    margin: 0;
+    padding: 12px 14px 14px;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink);
 }
 
-.template-card img:hover {
-    border: 1px solid #f38b04;
-    margin-bottom:1px;
+.templates-more {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+.more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange-600);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+}
+.more-link:hover {
+    background: var(--orange-50);
 }
 
-#template_list{
-    display: none;
+/* ===== Projets récents ===== */
+.section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 14px;
+}
+
+.projects-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: 0 12px 28px -20px rgba(36, 21, 5, 0.25);
+    overflow: hidden;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.projects-table thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    background: var(--orange-50);
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.projects-table tbody tr {
+    transition: background 0.15s ease;
+}
+.projects-table tbody tr:hover {
+    background: var(--orange-50);
+}
+.projects-table tbody tr:not(:last-child) td {
+    border-bottom: 1px solid var(--line);
+}
+
+.projects-table td {
+    padding: 14px 20px;
+    vertical-align: middle;
+    font-size: 13.5px;
+}
+
+.project-name {
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+}
+.project-name:hover {
+    color: var(--orange-600);
+}
+
+.project-owner {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--orange-100);
+    color: var(--orange-700);
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.project-date {
+    color: var(--ink-soft);
+}
+
+.empty-state {
+    padding: 36px 20px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13.5px;
 }
 </style>
