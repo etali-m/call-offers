@@ -96,7 +96,7 @@ export default {
 }
 
 .doc-title {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--ink);
     overflow: hidden;
     text-overflow: ellipsis;

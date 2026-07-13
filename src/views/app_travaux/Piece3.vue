@@ -13,8 +13,10 @@
           <StepperForm :totalSteps="14" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
               <h5 class="fw-bold mb-4">Reférence 1.1</h5>
-              <div class="row"> 
+              <div class="row">
+                <div class="col-md-12">
                   <RichTextarea v-model="consistenceTravaux"/>
+                </div> 
                   <!-- <div v-html="consistenceTravaux"></div> -->
               </div> <br>  
             </div>
@@ -1010,3 +1012,131 @@ const handleSubmit = async () => {
 }
 
 </script>
+
+
+<style scoped>
+.form-container {
+    --ink:        #241505;
+    --ink-soft:   #6b5847;
+    --orange-50:  #FFF4EC;
+    --orange-100: #FFE4D1;
+    --orange-500: #FF6A1A;
+    --orange-600: #F0560A;
+    --orange-700: #C4460A;
+    --white:      #FFFFFF;
+    --line:       rgba(36, 21, 5, 0.08);
+ 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    margin: 0 auto;
+    color: var(--ink);
+}
+ 
+/* ===== Titres de section (ex: "1. Objet de l'appel d'offre") ===== */
+.form-container :deep(h5.fw-bold) {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 15.5px;
+    font-weight: 700 !important;
+    color: var(--ink);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+}
+.form-container :deep(h5.fw-bold::before) {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange-500);
+    flex-shrink: 0;
+}
+ 
+.form-container :deep(h6.fw-bold) {
+    font-size: 13.5px;
+    font-weight: 700 !important;
+    color: var(--orange-700);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+ 
+.form-container :deep(p) {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+}
+ 
+/* ===== Champs ===== */
+.form-container :deep(label) {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 7px;
+}
+ 
+.form-container :deep(.input-custom),
+.form-container :deep(.select-custom) {
+    width: 100%;
+    max-width: 340px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: var(--orange-50);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+.form-container :deep(.input-custom::placeholder) {
+    color: #C4B6A6;
+}
+.form-container :deep(.input-custom:focus),
+.form-container :deep(.select-custom:focus) {
+    border-color: var(--orange-500);
+    background: var(--white);
+    box-shadow: 0 0 0 4px rgba(255, 106, 26, 0.14);
+}
+ 
+/* ===== Navigation (Précédent / Suivant / Enregistrer) ===== */
+.form-container :deep(.buttons) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+ 
+.form-container :deep(.btn-custom) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1.5px solid var(--orange-500);
+    background: var(--white);
+    color: var(--orange-600);
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+}
+.form-container :deep(.btn-custom:hover:not(:disabled)) {
+    background: var(--orange-500);
+    color: var(--white);
+}
+.form-container :deep(.btn-custom:disabled) {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+ 
+/* Le bouton "Enregistrer" (submit) ressort davantage que "Précédent"/"Suivant" */
+.form-container :deep(.btn-custom[type="submit"]) {
+    background: linear-gradient(180deg, var(--orange-500), var(--orange-600));
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 10px 22px -8px rgba(240, 86, 10, 0.55);
+}
+.form-container :deep(.btn-custom[type="submit"]:hover) {
+    filter: brightness(1.04);
+}
+</style>
