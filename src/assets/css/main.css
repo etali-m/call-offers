@@ -91,8 +91,7 @@ body {
   outline: none;
   display: block;
   width: 100%;
-  box-sizing: border-box;
-  margin: 10px ;
+  box-sizing: border-box; 
   background-color: var(--orange-50);
   font-size: 14px;
   font-family: inherit;
@@ -152,8 +151,7 @@ body {
   font-size: 13.5px;
   font-weight: 700;
   font-family: inherit;
-  cursor: pointer;
-  display: inline-flex;
+  cursor: pointer; 
   align-items: center;
   gap: 8px;
   transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;

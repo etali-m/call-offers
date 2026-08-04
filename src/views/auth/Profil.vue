@@ -1,44 +1,67 @@
 <template>
-<div class="row">
-    <div v-if="message" class="alert alert-success">
-        <b>{{ message }}</b>
-    </div>
-    <div v-if="errorMessage" class="alert alert-danger">
-        <b>{{ errorMessage }}</b>
-    </div>
-    <div class="col-md-3"> 
-        <div class="card shadow-custom mb-4 mt-4">
-            <div class="card-body text-center">
-                <img class="img-profile rounded-circle"
-            src="@/assets/img/undraw_profile_1.svg" width="100" height="100">
-                <span><b>{{ email }}</b></span>
-            </div> 
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Abonnement</li>
-                <li class="list-group-item">Changer le mot de passe</li> 
-            </ul>
+<div class="profile-page">
+
+    <transition name="fade-slide">
+        <div v-if="message" class="banner-success mb-3">
+            <i class="bi bi-check-circle-fill"></i>
+            <b>{{ message }}</b>
         </div>
-    </div>
-    <div class="col-md-9"> 
-        <div class="shadow-custom p-3 mb-2 mt-4 d-flex align-items-center justify-content-start" style="height: 90px;">
-            <h4 style="color: var(--second)"><b>Paramètres utilisateur</b></h4>
+    </transition>
+    <transition name="fade-slide">
+        <div v-if="errorMessage" class="banner-error mb-3">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <b>{{ errorMessage }}</b>
+        </div>
+    </transition>
+
+    <div class="row g-4">
+
+        <!-- ===== Colonne profil ===== -->
+        <div class="col-md-3">
+            <div class="shadow-custom profile-card">
+                <div class="profile-avatar-wrap">
+                    <img class="profile-avatar"
+                         src="@/assets/img/undraw_profile_1.svg" width="84" height="84" alt="Avatar">
+                </div>
+                <p class="profile-email">{{ email }}</p>
+
+                <ul class="profile-menu">
+                    <li class="profile-menu-item">
+                        <i class="bi bi-credit-card"></i>
+                        Abonnement
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="bi bi-key"></i>
+                        Changer le mot de passe
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="shadow-custom p-3 mb-2 mt-2">
-            <div class="card-body mt-1">
-                <form @submit.prevent="handleSubmit"> 
-                    <div class="row">
+        <!-- ===== Colonne formulaire ===== -->
+        <div class="col-md-9">
+            <div class="shadow-custom page-header-card mb-3">
+                <div class="page-header-icon">
+                    <i class="bi bi-person-gear"></i>
+                </div>
+                <h4 class="page-header-title">Paramètres utilisateur</h4>
+            </div>
+
+            <div class="shadow-custom">
+                <form @submit.prevent="handleSubmit" class="profile-form">
+                    <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="label-custom" for=""><b>Nom</b></label>
-                            <input class="input-custom" type="text" v-model="first_name" placeholder="Etali">
+                            <label class="label-custom" for="first_name">Nom</label>
+                            <input id="first_name" class="input-custom" type="text" v-model="first_name" placeholder="Etali">
                         </div>
                         <div class="col-md-6">
-                            <label class="label-custom" for=""><b>Prénom</b></label>
-                            <input class="input-custom" type="text" v-model="last_name" placeholder="Mathias">
+                            <label class="label-custom" for="last_name">Prénom</label>
+                            <input id="last_name" class="input-custom" type="text" v-model="last_name" placeholder="Mathias">
                         </div>
                         <div class="col-md-6">
-                            <label class="label-custom" for=""><b>Téléphone</b></label>
+                            <label class="label-custom" for="phone">Téléphone</label>
                             <vue-tel-input
+                                id="phone"
                                 v-model="phone_number"
                                 defaultCountry="CM"
                                 mode="international"
@@ -47,26 +70,28 @@
                                 styleClasses="custom_phone"
                                 @validate="validatePhoneNumber"
                             /> 
-                            <small v-if="phoneError" class="text-danger">{{ phoneError }}</small>
+                            <small v-if="phoneError" class="error">{{ phoneError }}</small>
                         </div>
                         <div class="col-md-6">
-                            <label class="label-custom" for=""><b>Entreprise</b></label>
-                            <input class="input-custom" type="text" v-model="company" placeholder="OCTAL GROUP">
+                            <label class="label-custom" for="company">Entreprise</label>
+                            <input id="company" class="input-custom" type="text" v-model="company" placeholder="OCTAL GROUP">
                         </div>
-                    </div> 
+                    </div>
+
                     <div class="d-grid gap-2 mt-4">
-                    <button class="btn-custom" type="submit" :disabled="isLoading">
-                        <span v-if="isLoading">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        Chargement...
-                        </span>
-                        <span v-else>Enregistrer</span>
-                    </button>
-                    </div> 
+                        <button class="btn-custom" type="submit" :disabled="isLoading">
+                            <span v-if="isLoading" class="btn-inner">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Chargement...
+                            </span>
+                            <span v-else>Enregistrer</span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
-    </div> 
+
+    </div>
 </div>
 </template>
 
@@ -129,12 +154,11 @@ export default {
                     phone_number: phone_number.value,
                     company: company.value
                 }
-                const response = await updateProfil(userData)
-                if(response.data){
-                    setTimeout(() => {
-                        message.value = "Votre profil a bien été mis à jour !"
-                    }, 5000);
-                }
+                const response = await updateProfil(userData) 
+                setTimeout(() => {
+                    message.value = "Votre profil a bien été mis à jour !" 
+                }, 2000);
+                
             } catch(error) {
                 console.log(error);
                 errorMessage.value = "Veuillez réessayer.";
@@ -163,26 +187,137 @@ export default {
 </script>
 
 <style scoped>
-    .custom_phone{
-        border: none !important;
-        border-bottom: 2px solid var(--secondary) !important;
-        border-radius: 5px !important;
-        outline: none !important;
-        box-shadow: none !important; 
-        margin: 10px auto !important; 
-    }
+/* ===== Layout général ===== */
+.profile-page {
+    color: var(--ink);
+}
 
-    ::v-deep .vti__input {
-        padding: 10px !important; 
-    }
+.fade-slide-enter-active, .fade-slide-leave-active {
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.fade-slide-enter-from, .fade-slide-leave-to {
+    opacity: 0;
+    transform: translateY(-6px);
+}
 
-    ::v-deep .vti__input:focus { 
-        border-bottom: 2px solid #f38b04;
-        background-color: var(--secondary);
-    }
+/* ===== Carte profil (colonne gauche) ===== */
+.profile-card {
+    text-align: center;
+    padding: 28px 20px;
+}
 
-    .custom_phone:focus{
-        outline: none !important; 
-        box-shadow: none !important; 
-    }
+.profile-avatar-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+.profile-avatar {
+    border-radius: 50%;
+    border: 3px solid var(--orange-50);
+    background: var(--orange-50);
+}
+
+.profile-email {
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--ink);
+    word-break: break-word;
+    margin-bottom: 20px;
+}
+
+.profile-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+}
+.profile-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.profile-menu-item i {
+    font-size: 15px;
+    color: var(--orange-500);
+    width: 18px;
+    text-align: center;
+}
+.profile-menu-item:hover {
+    background: var(--orange-50);
+    color: var(--orange-700);
+}
+
+/* ===== En-tête de page ===== */
+.page-header-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+}
+.page-header-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--orange-50);
+    color: var(--orange-600);
+    font-size: 18px;
+}
+.page-header-title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+/* ===== Formulaire ===== */
+.profile-form {
+    padding: 4px;
+}
+
+.btn-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ===== vue-tel-input ===== */
+.custom_phone {
+    border: 1.5px solid var(--line) !important;
+    border-radius: 10px !important;
+    background: var(--orange-50) !important;
+    outline: none !important;
+    box-shadow: none !important;
+    margin: 10px 0 !important;
+    min-height: 44px;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.custom_phone.vue-tel-input:focus-within {
+    border-color: var(--orange-500) !important;
+    background: var(--white) !important;
+    box-shadow: 0 0 0 4px rgba(255, 106, 26, 0.14) !important;
+}
+
+::v-deep .vti__input {
+    padding: 10px 12px !important;
+    background: transparent;
+}
+
+::v-deep .vti__dropdown:hover {
+    background: var(--orange-100);
+}
 </style>

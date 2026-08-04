@@ -19,10 +19,10 @@
                     </router-link>
                 </li>
                 <li>
-                    <a href="#" class="nav-item" :title="isCollapsed ? 'Mes appels d\'offre' : null">
+                    <router-link :to="{ name:'projects' }" class="nav-item" :title="isCollapsed ? 'Mes appels d\'offre' : null">
                         <i class="bi bi-folder2-open nav-icon"></i>
                         <span v-show="!isCollapsed">Mes appels d'offre</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li>
                     <a href="#" class="nav-item" :title="isCollapsed ? 'Notifications' : null">
