@@ -28,7 +28,7 @@ export function useAppelOffre() {
         }
     }
 
-    //fonction pour récupérer les informations sur le projet
+    //fonction pour récupérer les informations un le projet
     const getDAO = async(dossier) => {
         const token = localStorage.getItem('access_token') 
         //Si l'utilisateur est connecté
@@ -74,12 +74,57 @@ export function useAppelOffre() {
         }
     }
 
-    //mettre à jour un appel d'offre
+    //mettre à jour un appel d'offre (mise à jour partielle -> PATCH)
+    const update_callOffer = async (dossierId, callOfferData) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.patch(`${API_URL}/appel-offre/${dossierId}`, callOfferData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
 
+    //supprimer un appel d'offre
+    const delete_callOffer = async (dossierId) => {
+        const token = localStorage.getItem('access_token')
+        if (token) {
+            try {
+                const response = await axios.delete(`${API_URL}/appel-offre/${dossierId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        }
+                    }
+                );
+                return response.data;
+            } catch (error) {
+                if (error.response && error.response.data) {
+                    return Promise.reject(error.response.data);
+                } else {
+                    return Promise.reject({ detail: error.message });
+                }
+            }
+        }
+    }
 
     return {
         create_callOffer,
         get_callOffers,
-        getDAO
+        getDAO,
+        update_callOffer,
+        delete_callOffer
     };
 }

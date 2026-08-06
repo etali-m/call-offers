@@ -27,6 +27,10 @@
 
                 <ul class="profile-menu">
                     <li class="profile-menu-item">
+                        <i class="bi bi-person-circle"></i>
+                        Profil
+                    </li>
+                    <li class="profile-menu-item">
                         <i class="bi bi-credit-card"></i>
                         Abonnement
                     </li>
