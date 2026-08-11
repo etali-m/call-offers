@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/utils/api'
 import { ref } from 'vue'
 
 const API_URL = 'http://localhost:8000/api'; 
@@ -9,7 +9,7 @@ export function usePiece() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/statutpieces/${id}`,
+                const response = await api.get(`${API_URL}/statutpieces/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ export function usePiece() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.patch(`${API_URL}/statutpieces/${pieceId}/update`, {
+                const response = await api.patch(`${API_URL}/statutpieces/${pieceId}/update`, {
                     is_complete: isComplete
                 }, {
                     headers: {

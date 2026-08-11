@@ -63,10 +63,14 @@ const props = defineProps({
   projectId: {
     type: Number,
     required: true
+  },
+  apiBasePath: {
+    type: String,
+    default: 'marche-de-travaux'
   }
 })
 
-const API_URL = 'http://localhost:8000/api/marche-de-travaux'
+const API_URL = `http://localhost:8000/api/${props.apiBasePath}`
 
 const pdfUrl     = ref(null)
 const chargement = ref(false)

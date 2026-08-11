@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/utils/api'
 import { ref } from 'vue'
 
 const API_URL = 'http://localhost:8000/api'; // Remplace par l'URL de ton API
@@ -10,7 +10,7 @@ export function useAppelOffre() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/appel-offre`,
+                const response = await api.get(`${API_URL}/appel-offre`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ export function useAppelOffre() {
         //Si l'utilisateur est connecté
         if (token) {
             try{
-                const response = await axios.get(`${API_URL}/appel-offre?dossier=${dossier}`, {
+                const response = await api.get(`${API_URL}/appel-offre?dossier=${dossier}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
@@ -56,7 +56,7 @@ export function useAppelOffre() {
         const token = localStorage.getItem('access_token')
         if(token){
             try {
-                const response = await axios.post(`${API_URL}/appel-offre`, callOfferData,
+                const response = await api.post(`${API_URL}/appel-offre`, callOfferData,
                    {
                        headers: {
                            Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export function useAppelOffre() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.patch(`${API_URL}/appel-offre/${dossierId}`, callOfferData,
+                const response = await api.patch(`${API_URL}/appel-offre/${dossierId}`, callOfferData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ export function useAppelOffre() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.delete(`${API_URL}/appel-offre/${dossierId}`,
+                const response = await api.delete(`${API_URL}/appel-offre/${dossierId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

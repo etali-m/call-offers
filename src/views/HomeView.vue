@@ -86,7 +86,7 @@
 
 <script>
 
-import axios from 'axios'
+import api from '@/utils/api'
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { utils } from '@/composables/utils';
@@ -114,7 +114,7 @@ export default {
             const token = localStorage.getItem('access_token')
             if (token) {
                 try{
-                    const response = await axios.get(`${API_URL}/type-marche`, {
+                    const response = await api.get(`${API_URL}/type-marche`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         }

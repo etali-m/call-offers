@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/utils/api'
 import { ref } from 'vue'
 
 const API_URL = 'http://localhost:8000/api/marche-de-travaux'; 
@@ -10,7 +10,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/aao`,
+                const response = await api.get(`${API_URL}/${id_projet}/aao`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -33,7 +33,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/aao`, aaoData,
+                const response = await api.post(`${API_URL}/${id_projet}/aao`, aaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/aao`, aaoData,
+                const response = await api.put(`${API_URL}/${id_projet}/aao`, aaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/rpao`,
+                const response = await api.get(`${API_URL}/${id_projet}/rpao`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/rpao`, rpaoData,
+                const response = await api.post(`${API_URL}/${id_projet}/rpao`, rpaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -125,7 +125,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/rpao`, rpaoData,
+                const response = await api.put(`${API_URL}/${id_projet}/rpao`, rpaoData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -148,7 +148,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/ccap`,
+                const response = await api.get(`${API_URL}/${id_projet}/ccap`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -171,7 +171,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/ccap`, ccapData,
+                const response = await api.post(`${API_URL}/${id_projet}/ccap`, ccapData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -194,7 +194,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/ccap`, ccapData,
+                const response = await api.put(`${API_URL}/${id_projet}/ccap`, ccapData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -217,7 +217,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/cctp`,
+                const response = await api.get(`${API_URL}/${id_projet}/cctp`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -240,7 +240,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/cctp`, cctpData,
+                const response = await api.post(`${API_URL}/${id_projet}/cctp`, cctpData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -263,7 +263,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/ccap`, cctpData,
+                const response = await api.put(`${API_URL}/${id_projet}/ccap`, cctpData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -286,7 +286,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/bpu`,
+                const response = await api.get(`${API_URL}/${id_projet}/bpu`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -309,7 +309,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/bpu`, bpuData,
+                const response = await api.post(`${API_URL}/${id_projet}/bpu`, bpuData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -332,7 +332,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/bpu`, bpuData,
+                const response = await api.put(`${API_URL}/${id_projet}/bpu`, bpuData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -356,7 +356,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/dqe`,
+                const response = await api.get(`${API_URL}/${id_projet}/dqe`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -379,7 +379,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/dqe`, dqeData,
+                const response = await api.post(`${API_URL}/${id_projet}/dqe`, dqeData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -402,7 +402,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/dqe`, dqeData,
+                const response = await api.put(`${API_URL}/${id_projet}/dqe`, dqeData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -425,7 +425,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/modele_marche`,
+                const response = await api.get(`${API_URL}/${id_projet}/modele_marche`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -448,7 +448,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/modele_marche`, modeleData,
+                const response = await api.post(`${API_URL}/${id_projet}/modele_marche`, modeleData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -472,7 +472,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/modele_marche`, modeleData,
+                const response = await api.put(`${API_URL}/${id_projet}/modele_marche`, modeleData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -496,7 +496,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.get(`${API_URL}/${id_projet}/bpu_dqe`,
+                const response = await api.get(`${API_URL}/${id_projet}/bpu_dqe`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -519,7 +519,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.post(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
+                const response = await api.post(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -542,7 +542,7 @@ export function useTravaux() {
         const token = localStorage.getItem('access_token')
         if (token) {
             try {
-                const response = await axios.put(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
+                const response = await api.put(`${API_URL}/${id_projet}/bpu_dqe`, dqeData,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

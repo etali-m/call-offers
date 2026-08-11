@@ -14,7 +14,7 @@
       <div class="row">
           <div class="col-md-12 d-flex justify-content-end">
               <!-- <button class="btn btn-sm btn-warning" @click="telechargerPDF"><i class="bi bi-download"></i> Télécharger le document</button> -->
-              <PdfPreview :project-id="dossier" />
+              <PdfPreview :project-id="dossier" :api-base-path="pdfApiBasePath" />
           </div>
       </div>
       <br>
@@ -27,7 +27,7 @@
 </template>
 
 <script> 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import HeaderDossier from '@/components/HeaderDossier.vue';
 import Card from '@/components/Card.vue';
@@ -58,6 +58,12 @@ export default {
 
     const { getDAO } = useAppelOffre()
     const { get_pieces } =  usePiece()
+
+    const API_BASE_PATH_BY_SLUG = {
+      'marche-de-travaux': 'marche-de-travaux',
+      'marche-de-conception-et-realisation': 'marche-conception-realisation',
+    }
+    const pdfApiBasePath = computed(() => API_BASE_PATH_BY_SLUG[dao.value.type_marche_slug] || 'marche-de-travaux')
 
     onMounted(async () => {
       try {
@@ -119,6 +125,7 @@ export default {
       progression,
       dossier,
       telechargerPDF,
+      pdfApiBasePath,
     }
   }
 }

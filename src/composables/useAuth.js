@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '@/utils/api';
 import { ref } from 'vue';
 
 const API_URL = 'http://localhost:8000/api'; // Remplace par l'URL de ton API
@@ -71,7 +72,7 @@ export function useAuth() {
       console.log(refresh);
       if (!refresh) throw new Error("Token manquant")
 
-      await axios.post(`${API_URL}/logout/`, { refresh_token: refresh })
+      await api.post(`${API_URL}/logout/`, { refresh_token: refresh })
 
       user.value = null
       localStorage.removeItem('user')

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '@/utils/api'
 
 const API_URL = 'http://localhost:8000/api'; 
 
@@ -8,7 +8,7 @@ export function useProfil(){
         console.log(token);
         if (token) {
             try{
-                const response = await axios.get(`${API_URL}/profil`, {
+                const response = await api.get(`${API_URL}/profil`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
@@ -24,7 +24,7 @@ export function useProfil(){
         const token = localStorage.getItem('access_token')
         if (token) {
             try{
-                const response = await axios.put(`${API_URL}/profil/`, userData, {
+                const response = await api.put(`${API_URL}/profil/`, userData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     }
