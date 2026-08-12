@@ -63,13 +63,14 @@ export default {
       'marche-de-travaux': 'marche-de-travaux',
       'marche-de-conception-et-realisation': 'marche-conception-realisation',
     }
-    const pdfApiBasePath = computed(() => API_BASE_PATH_BY_SLUG[dao.value.type_marche_slug] || 'marche-de-travaux')
-
+    const pdfApiBasePath = computed(() => API_BASE_PATH_BY_SLUG[dao.value.type_marche_slug] || 'marche-de-travaux')  
+    
     onMounted(async () => {
       try {
         isLoading.value = true;
         const responseDAO = await getDAO(dossier)
         dao.value = responseDAO[0];  // affectation des données récupérées 
+        console.log(dao.value);
         const responsePiece = await get_pieces(dossier) // on récupères le pieces associeé au type de marché
         pieces.value = responsePiece   
         //Calcule du taux d'édidtion du DAO

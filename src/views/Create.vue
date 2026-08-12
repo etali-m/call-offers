@@ -147,6 +147,7 @@
                         <label class="label-custom" for="mode_passation">Mode de passation</label>
                         <select v-model="mode_dao" class="select-custom" id="mode_passation"> 
                             <option value="ouvert">Ouvert</option>
+                            <option value="concour">Avec concour</option>
                             <option value="restreint">Restreint</option>
                         </select>
                     </div>

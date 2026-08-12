@@ -7,97 +7,202 @@
 
         <div class="form-container">
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-                <StepperForm :totalSteps="9" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+              <StepperForm :totalSteps="14" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
 
                 <div v-if="currentStep === 0">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Descriptif de l'opération</h5><RichTextarea v-model="descriptif_operation"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Lieu d'exécution</h5><RichTextarea v-model="lieu_execution"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Objectifs de la mission</h5><RichTextarea v-model="objectifs_mission"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Source de financement</h5><RichTextarea v-model="source_financement_rpao"/></div>
+                    <h5 class="fw-bold mb-4">Référence 1.1</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Descriptif de l'opération :</label>
+                            <RichTextarea v-model="ref_1_1"/>
+                        </div>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 1.2</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Étendue de la consultation (concours, mode de sélection, coût et délai globaux) :</label>
+                            <RichTextarea v-model="ref_1_2"/>
+                        </div>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 1">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Délai phase conception</h5><RichTextarea v-model="delai_phase_conception"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Délai phase réalisation</h5><RichTextarea v-model="delai_phase_realisation"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Délai global</h5><RichTextarea v-model="delai_global"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Coût global prévisionnel</h5><RichTextarea v-model="cout_global_previsionnel"/></div>
+                    <h5 class="fw-bold mb-4">Référence 1.4</h5>
+                    <div class="col-md-12">
+                        <label>Répartition en phase conception et phase travaux :</label>
+                        <RichTextarea v-model="ref_1_4"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 1.5</h5>
+                    <div class="col-md-12">
+                        <label>Conférence préalable à l'établissement des offres :</label>
+                        <RichTextarea v-model="ref_1_5"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 1.6</h5>
+                    <div class="col-md-12">
+                        <label>Responsable(s) du Maître d'Ouvrage à contacter :</label>
+                        <RichTextarea v-model="ref_1_6"/>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 2">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Provenance des matériaux</h5><RichTextarea v-model="provenance_materiaux"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Visite des lieux</h5><RichTextarea v-model="visite_travaux"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Renseignements nécessaires</h5><RichTextarea v-model="renseignements_necessaires"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Renseignements complémentaires</h5><RichTextarea v-model="renseignements_complementaires"/></div>
+                    <h5 class="fw-bold mb-4">Référence 2</h5>
+                    <div class="col-md-12">
+                        <label>Source(s) de financement :</label>
+                        <RichTextarea v-model="ref_2"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 4.2</h5>
+                    <div class="col-md-12">
+                        <label>Candidats admis à participer :</label>
+                        <RichTextarea v-model="ref_4_2"/>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 3">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Langue de soumission</h5><RichTextarea v-model="langue_soumission"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Pièces administratives (candidats locaux)</h5><RichTextarea v-model="piecesAdminLocales"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Pièces administratives (candidats étrangers)</h5><RichTextarea v-model="piecesAdminEtrangeres"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Références du soumissionnaire</h5><RichTextarea v-model="refSoumissionnaire"/></div>
+                    <h5 class="fw-bold mb-4">Référence 5.1</h5>
+                    <div class="col-md-12">
+                        <label>Provenance des matériaux, matériels et fournitures :</label>
+                        <RichTextarea v-model="ref_5_1"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 6.2</h5>
+                    <div class="col-md-12">
+                        <label>Pièces à produire uniquement par le mandataire du groupement :</label>
+                        <RichTextarea v-model="ref_6_2"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 7</h5>
+                    <div class="col-md-12">
+                        <label>Visite du site :</label>
+                        <RichTextarea v-model="ref_7"/>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 4">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Personnel</h5><RichTextarea v-model="personnel"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Matériels</h5><RichTextarea v-model="materiels"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Organisation et méthodologie</h5><RichTextarea v-model="organisation_methodologie"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Avant-Projet Sommaire (APS) attendu</h5><RichTextarea v-model="avant_projet_sommaire"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Liste des études de conception à mener</h5><RichTextarea v-model="liste_etudes_conception"/></div>
+                    <h5 class="fw-bold mb-4">Référence 9</h5>
+                    <div class="col-md-12">
+                        <label>Éclaircissements / renseignements complémentaires :</label>
+                        <RichTextarea v-model="ref_9"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 11</h5>
+                    <div class="col-md-12">
+                        <label>Délai de dépôt des offres :</label>
+                        <RichTextarea v-model="ref_11"/>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 5">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Coût des études</h5><RichTextarea v-model="cout_etudes"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Coût estimatif du projet</h5><RichTextarea v-model="cout_estimatif_projet"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Coût global du projet</h5><RichTextarea v-model="cout_global_projet"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Preuves d'acceptation des conditions du marché</h5><RichTextarea v-model="preuve_acceptation"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Commentaires sur le CCAP</h5><RichTextarea v-model="commentaire_ccap"/></div>
+                    <h5 class="fw-bold mb-4">Référence 13.2</h5>
+                    <div class="col-md-12">
+                        <label>Volumes de soumission (4 enveloppes) :</label>
+                        <RichTextarea v-model="ref_13_2"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 13.3</h5>
+                    <div class="col-md-12">
+                        <label>Soumission électronique :</label>
+                        <RichTextarea v-model="ref_13_3"/>
+                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 6">
-                    <div class="row mt-3">
-                        <div class="col-md-4">
-                            <label class="label-custom">Nb exemplaires - Dossier admin.</label>
-                            <input type="number" class="input-custom" v-model="nombre_exemplaires_dossier_administratif">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="label-custom">Nb exemplaires - Proposition artistique</label>
-                            <input type="number" class="input-custom" v-model="nombre_exemplaires_proposition_artistique">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="label-custom">Nb exemplaires - Proposition technique</label>
-                            <input type="number" class="input-custom" v-model="nombre_exemplaires_proposition_technique">
-                        </div>
+                    <h5 class="fw-bold mb-4">Référence 13.4</h5>
+                    <div class="col-md-12">
+                        <label>Lieu, date et heure limite de dépôt :</label>
+                        <RichTextarea v-model="ref_13_4"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 13.7</h5>
+                    <div class="col-md-12">
+                        <label>Ouverture des plis (deux temps) :</label>
+                        <RichTextarea v-model="ref_13_7"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 14</h5>
+                    <div class="col-md-12">
+                        <label>Langue de l'offre et volumes attendus :</label>
+                        <RichTextarea v-model="ref_14"/>
                     </div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Adresse de dépôt des offres</h5><RichTextarea v-model="adresse_depot_offres"/></div>
                 </div>
 
                 <div v-else-if="currentStep === 7">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Prix du marché</h5><RichTextarea v-model="prix_marche"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Monnaies de soumission</h5><RichTextarea v-model="monnaies_soumission"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Taux de change</h5><RichTextarea v-model="taux_change"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Monnaie retenue</h5><RichTextarea v-model="monnaie_retenu"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Validité des offres</h5><RichTextarea v-model="validite_offre"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Montant du cautionnement</h5><RichTextarea v-model="montant_cautionnement"/></div>
-                    <div class="mt-3">
-                        <label class="label-custom">Taux de cautionnement définitif (%)</label>
-                        <input type="number" step="0.01" class="input-custom" v-model="taux_cautionnement_definitif_rpao">
+                    <h5 class="fw-bold mb-4">Référence 15.1</h5>
+                    <div class="col-md-12">
+                        <label>Caution de soumission et dossier administratif détaillé :</label>
+                        <RichTextarea v-model="ref_15_1"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 16.1</h5>
+                    <div class="col-md-12">
+                        <label>Montant de l'offre / coût global du projet :</label>
+                        <RichTextarea v-model="ref_16_1"/>
                     </div>
                 </div>
 
                 <div v-else-if="currentStep === 8">
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Variantes techniques</h5><RichTextarea v-model="variante_techniques"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Réunion préparatoire</h5><RichTextarea v-model="reunion_preparatoire"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Soumission en ligne</h5><RichTextarea v-model="soumission_en_ligne"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Mode de soumission</h5><RichTextarea v-model="mode_soumission"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Date et heure limites</h5><RichTextarea v-model="date_heure_limite"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Critères éliminatoires</h5><RichTextarea v-model="criteres_eliminatoires"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Critères essentiels</h5><RichTextarea v-model="criteres_essentiels"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">Mode d'évaluation</h5><RichTextarea v-model="mode_evaluation"/></div>
-                    <div class="mt-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="formation_element_majeur" v-model="formation_element_majeur">
-                        <label class="form-check-label" for="formation_element_majeur">La formation est un élément majeur de la mission</label>
+                    <h5 class="fw-bold mb-4">Référence 16.4</h5>
+                    <div class="col-md-12">
+                        <label>Variation des prix :</label>
+                        <RichTextarea v-model="ref_16_4"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 17</h5>
+                    <div class="col-md-12">
+                        <label>Monnaie de soumission et taux de change :</label>
+                        <RichTextarea v-model="ref_17"/>
                     </div>
+                </div>
+
+                <div v-else-if="currentStep === 9">
+                    <h5 class="fw-bold mb-4">Référence 18</h5>
+                    <div class="col-md-12">
+                        <label>Délai de validité des offres :</label>
+                        <RichTextarea v-model="ref_18"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 19</h5>
+                    <div class="col-md-12">
+                        <label>Montant de la caution de soumission :</label>
+                        <RichTextarea v-model="ref_19"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 20.3</h5>
+                    <div class="col-md-12">
+                        <label>Variantes :</label>
+                        <RichTextarea v-model="ref_20_3"/>
+                    </div>
+                </div>
+
+                <div v-else-if="currentStep === 10">
+                    <h5 class="fw-bold mb-4">Référence 22.5</h5>
+                    <div class="col-md-12">
+                        <label>Mode de soumission (en ligne / hors ligne) :</label>
+                        <RichTextarea v-model="ref_22_5"/>
+                    </div>
+                </div>
+
+                <div v-else-if="currentStep === 11">
+                    <h5 class="fw-bold mb-4">Référence 24</h5>
+                    <div class="col-md-12">
+                        <label>Critères d'évaluation (éliminatoires et essentiels) :</label>
+                        <RichTextarea v-model="ref_24"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 25</h5>
+                    <div class="col-md-12">
+                        <label>Grille détaillée des critères et sous-critères (NA, NT, NF, NG) :</label>
+                        <RichTextarea v-model="ref_25"/>
+                    </div>
+
                     <div class="row mt-3">
+                        <div class="col-md-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="formation_element_majeur" v-model="formation_element_majeur">
+                            <label class="form-check-label" for="formation_element_majeur">Formation, élément majeur de la mission</label>
+                        </div>
                         <div class="col-md-4">
                             <label class="label-custom">Pondération artistique (%)</label>
                             <input type="number" step="0.01" class="input-custom" v-model="poids_artistique">
@@ -106,269 +211,240 @@
                             <label class="label-custom">Pondération technique (%)</label>
                             <input type="number" step="0.01" class="input-custom" v-model="poids_technique">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mt-2">
                             <label class="label-custom">Pondération financière (%)</label>
                             <input type="number" step="0.01" class="input-custom" v-model="poids_financiere">
                         </div>
                     </div>
                 </div>
 
+                <div v-else-if="currentStep === 12">
+                    <h5 class="fw-bold mb-4">Référence 30</h5>
+                    <div class="col-md-12">
+                        <label>Cautionnement définitif :</label>
+                        <RichTextarea v-model="ref_30"/>
+                    </div> <br>
+
+                    <h5 class="fw-bold mb-4">Référence 35</h5>
+                    <div class="col-md-12">
+                        <label>Attribution du marché :</label>
+                        <RichTextarea v-model="ref_35"/>
+                    </div>
+                </div>
+
+                <div v-else-if="currentStep === 13">
+                    <h5 class="fw-bold mb-4">Référence 36</h5>
+                    <div class="col-md-12">
+                        <label>Principes Éthiques :</label>
+                        <RichTextarea v-model="ref_36"/>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
                 <div class="buttons mt-4 text-center">
                     <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
                     <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
                     <button class="btn-custom" type="submit" v-else>Enregister</button>
                 </div>
-                </StepperForm>
+              </StepperForm>
             </form>
         </div>
     </div>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
+import RichTextarea from '@/components/RichTextarea.vue';
+import HeaderPiece from '@/components/HeaderPiece.vue';
+import StepperForm from '@/components/StepperForm.vue';
+import { toast } from 'vue3-toastify';
 import { useRoute, useRouter } from 'vue-router';
 import Loader from '@/components/Loader.vue';
-import HeaderPiece from '@/components/HeaderPiece.vue'
-import StepperForm from '@/components/StepperForm.vue'
-import PieceNavigator from '@/components/PieceNavigator';
-import RichTextarea from '@/components/RichTextarea.vue';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import PieceNavigator from '@/components/PieceNavigator.vue';
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
 import { useConceptionRealisation } from '@/composables/useConceptionRealisation';
 
-export default {
-    components: { HeaderPiece, StepperForm, RichTextarea, PieceNavigator, Loader },
+const route = useRoute();
+const router = useRouter();
+const dossier = route.params.project_id
+const dao = ref({})
+const aao = ref({})
+const isLoading = ref(true)
+const pieces = ref([])
+const current_piece = route.name
+const id_piece = ref()
+const trouve = ref(false)
+const message = ref('');
+const errors = ref({});
 
-    setup() {
-        const route = useRoute();
-        const router = useRouter();
-        const dossier = route.params.project_id
-        const dao = ref({})
-        const pieces = ref([])
-        const isLoading = ref(true)
-        const current_piece = route.name
-        const id_piece = ref()
-        const trouve = ref(false)
-        const message = ref('');
-        const errors = ref({});
+const { getDAO } = useAppelOffre()
+const { get_pieces, update_piece } = usePiece()
+const { get_aao, get_rpao, create_rpao, update_rpao } = useConceptionRealisation()
 
-        const { getDAO } = useAppelOffre()
-        const { get_pieces, update_piece } = usePiece()
-        const { get_rpao, create_rpao, update_rpao } = useConceptionRealisation()
+// ===== Champs du RPAO (ref_X_Y = ligne "X.Y" du tableau du RPAO conception-réalisation) =====
+const ref_1_1 = ref(`<p>Faire une description précise du projet. Le concours est organisé sur la base d'un programme établi par le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué qui indique les besoins auxquels doit répondre la prestation. Le contenu des prestations est détaillé dans le programme.</p><p>Lieu d'exécution : <i>[préciser le lieu d'exécution du projet]</i></p><p>Nom, objectifs et description de la mission : <i>[à préciser]</i></p>`)
 
-        const descriptif_operation = ref('')
-        const lieu_execution = ref('')
-        const objectifs_mission = ref('')
-        const source_financement_rpao = ref('')
-        const delai_phase_conception = ref('')
-        const delai_phase_realisation = ref('')
-        const delai_global = ref('')
-        const cout_global_previsionnel = ref('')
-        const provenance_materiaux = ref('')
-        const visite_travaux = ref('')
-        const renseignements_necessaires = ref('')
-        const renseignements_complementaires = ref('')
-        const langue_soumission = ref('')
-        const piecesAdminLocales = ref('')
-        const piecesAdminEtrangeres = ref('')
-        const refSoumissionnaire = ref('')
-        const personnel = ref('')
-        const materiels = ref('')
-        const organisation_methodologie = ref('')
-        const avant_projet_sommaire = ref('')
-        const liste_etudes_conception = ref('')
-        const cout_etudes = ref('')
-        const cout_estimatif_projet = ref('')
-        const cout_global_projet = ref('')
-        const preuve_acceptation = ref('')
-        const commentaire_ccap = ref('')
-        const nombre_exemplaires_dossier_administratif = ref()
-        const nombre_exemplaires_proposition_artistique = ref()
-        const nombre_exemplaires_proposition_technique = ref()
-        const adresse_depot_offres = ref('')
-        const prix_marche = ref('')
-        const monnaies_soumission = ref('')
-        const taux_change = ref('')
-        const monnaie_retenu = ref('')
-        const validite_offre = ref('')
-        const montant_cautionnement = ref('')
-        const taux_cautionnement_definitif_rpao = ref()
-        const variante_techniques = ref('')
-        const reunion_preparatoire = ref('')
-        const soumission_en_ligne = ref('')
-        const mode_soumission = ref('')
-        const date_heure_limite = ref('')
-        const criteres_eliminatoires = ref('')
-        const criteres_essentiels = ref('')
-        const mode_evaluation = ref('')
-        const formation_element_majeur = ref(false)
-        const poids_artistique = ref()
-        const poids_technique = ref()
-        const poids_financiere = ref()
+const ref_1_2 = ref(`<p>La procédure de passation du marché est celle de « l'appel d'offres avec concours », décrite aux articles 79 et 119 du Code des marchés publics.</p><p>Mode de sélection : le marché sera attribué au soumissionnaire ayant produit l'offre évaluée la mieux-disante, par combinaison des critères techniques, financiers et esthétiques.</p><p>Le coût global prévisionnel du projet (conception et réalisation) est estimé à <i>[préciser le montant prévisionnel de l'enveloppe]</i>.</p><p>Le délai global prévisionnel d'exécution des prestations est de : ……"Dg"…. jours calendaires ou mois, dont …"Dc"…. pour la phase de conception et …"Dt"… pour la phase des travaux, sachant que "Dg = Dc + Dt".</p>`)
 
-        onMounted(async () => {
-            try {
-                isLoading.value = true;
-                const responseDAO = await getDAO(dossier)
-                dao.value = responseDAO[0];
-                const responsePiece = await get_pieces(dossier)
-                pieces.value = responsePiece
-                const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
-                id_piece.value = pieces.value[index].id;
+const ref_1_4 = ref(`<p>Les prestations à exécuter sont réparties en deux (02) phases : la phase de Conception et la phase des Travaux. Pour chacune des phases, le délai court à compter de la date de notification de l'ordre de service de commencer les prestations concernées.</p>`)
 
-                const responseRPAO = await get_rpao(dossier)
-                if (responseRPAO && responseRPAO.length > 0) {
-                    trouve.value = true
-                    const r = responseRPAO[0]
-                    descriptif_operation.value = r.descriptif_operation
-                    lieu_execution.value = r.lieu_execution
-                    objectifs_mission.value = r.objectifs_mission
-                    source_financement_rpao.value = r.source_financement_rpao
-                    delai_phase_conception.value = r.delai_phase_conception
-                    delai_phase_realisation.value = r.delai_phase_realisation
-                    delai_global.value = r.delai_global
-                    cout_global_previsionnel.value = r.cout_global_previsionnel
-                    provenance_materiaux.value = r.provenance_materiaux
-                    visite_travaux.value = r.visite_travaux
-                    renseignements_necessaires.value = r.renseignements_necessaires
-                    renseignements_complementaires.value = r.renseignements_complementaires
-                    langue_soumission.value = r.langue_soumission
-                    piecesAdminLocales.value = r.piecesAdminLocales
-                    piecesAdminEtrangeres.value = r.piecesAdminEtrangeres
-                    refSoumissionnaire.value = r.refSoumissionnaire
-                    personnel.value = r.personnel
-                    materiels.value = r.materiels
-                    organisation_methodologie.value = r.organisation_methodologie
-                    avant_projet_sommaire.value = r.avant_projet_sommaire
-                    liste_etudes_conception.value = r.liste_etudes_conception
-                    cout_etudes.value = r.cout_etudes
-                    cout_estimatif_projet.value = r.cout_estimatif_projet
-                    cout_global_projet.value = r.cout_global_projet
-                    preuve_acceptation.value = r.preuve_acceptation
-                    commentaire_ccap.value = r.commentaire_ccap
-                    nombre_exemplaires_dossier_administratif.value = r.nombre_exemplaires_dossier_administratif
-                    nombre_exemplaires_proposition_artistique.value = r.nombre_exemplaires_proposition_artistique
-                    nombre_exemplaires_proposition_technique.value = r.nombre_exemplaires_proposition_technique
-                    adresse_depot_offres.value = r.adresse_depot_offres
-                    prix_marche.value = r.prix_marche
-                    monnaies_soumission.value = r.monnaies_soumission
-                    taux_change.value = r.taux_change
-                    monnaie_retenu.value = r.monnaie_retenu
-                    validite_offre.value = r.validite_offre
-                    montant_cautionnement.value = r.montant_cautionnement
-                    taux_cautionnement_definitif_rpao.value = r.taux_cautionnement_definitif_rpao
-                    variante_techniques.value = r.variante_techniques
-                    reunion_preparatoire.value = r.reunion_preparatoire
-                    soumission_en_ligne.value = r.soumission_en_ligne
-                    mode_soumission.value = r.mode_soumission
-                    date_heure_limite.value = r.date_heure_limite
-                    criteres_eliminatoires.value = r.criteres_eliminatoires
-                    criteres_essentiels.value = r.criteres_essentiels
-                    mode_evaluation.value = r.mode_evaluation
-                    formation_element_majeur.value = r.formation_element_majeur
-                    poids_artistique.value = r.poids_artistique
-                    poids_technique.value = r.poids_technique
-                    poids_financiere.value = r.poids_financiere
-                }
-            } catch (error) {
-                console.error("Erreur lors de la récupération du DAO :", error)
-            } finally {
-                isLoading.value = false;
-            }
-        })
+const ref_1_5 = ref(`<p>Toutes les informations relatives à la conférence préalable à l'établissement des offres seront présentées ici <i>[à préciser, le cas échéant]</i>.</p>`)
 
-        const handleSubmit = async () => {
-            errors.value = {}
-            isLoading.value = true;
-            try {
-                const rpaoData = {
-                    descriptif_operation: descriptif_operation.value,
-                    lieu_execution: lieu_execution.value,
-                    objectifs_mission: objectifs_mission.value,
-                    source_financement_rpao: source_financement_rpao.value,
-                    delai_phase_conception: delai_phase_conception.value,
-                    delai_phase_realisation: delai_phase_realisation.value,
-                    delai_global: delai_global.value,
-                    cout_global_previsionnel: cout_global_previsionnel.value,
-                    provenance_materiaux: provenance_materiaux.value,
-                    visite_travaux: visite_travaux.value,
-                    renseignements_necessaires: renseignements_necessaires.value,
-                    renseignements_complementaires: renseignements_complementaires.value,
-                    langue_soumission: langue_soumission.value,
-                    piecesAdminLocales: piecesAdminLocales.value,
-                    piecesAdminEtrangeres: piecesAdminEtrangeres.value,
-                    refSoumissionnaire: refSoumissionnaire.value,
-                    personnel: personnel.value,
-                    materiels: materiels.value,
-                    organisation_methodologie: organisation_methodologie.value,
-                    avant_projet_sommaire: avant_projet_sommaire.value,
-                    liste_etudes_conception: liste_etudes_conception.value,
-                    cout_etudes: cout_etudes.value,
-                    cout_estimatif_projet: cout_estimatif_projet.value,
-                    cout_global_projet: cout_global_projet.value,
-                    preuve_acceptation: preuve_acceptation.value,
-                    commentaire_ccap: commentaire_ccap.value,
-                    nombre_exemplaires_dossier_administratif: nombre_exemplaires_dossier_administratif.value || null,
-                    nombre_exemplaires_proposition_artistique: nombre_exemplaires_proposition_artistique.value || null,
-                    nombre_exemplaires_proposition_technique: nombre_exemplaires_proposition_technique.value || null,
-                    adresse_depot_offres: adresse_depot_offres.value,
-                    prix_marche: prix_marche.value,
-                    monnaies_soumission: monnaies_soumission.value,
-                    taux_change: taux_change.value,
-                    monnaie_retenu: monnaie_retenu.value,
-                    validite_offre: validite_offre.value,
-                    montant_cautionnement: montant_cautionnement.value,
-                    taux_cautionnement_definitif_rpao: taux_cautionnement_definitif_rpao.value || null,
-                    variante_techniques: variante_techniques.value,
-                    reunion_preparatoire: reunion_preparatoire.value,
-                    soumission_en_ligne: soumission_en_ligne.value,
-                    mode_soumission: mode_soumission.value,
-                    date_heure_limite: date_heure_limite.value,
-                    criteres_eliminatoires: criteres_eliminatoires.value,
-                    criteres_essentiels: criteres_essentiels.value,
-                    mode_evaluation: mode_evaluation.value,
-                    formation_element_majeur: formation_element_majeur.value,
-                    poids_artistique: poids_artistique.value || null,
-                    poids_technique: poids_technique.value || null,
-                    poids_financiere: poids_financiere.value || null,
-                };
+const ref_1_6 = ref(`<p>Nom(s), adresse(s), et numéro(s) de téléphone du/des responsable(s) des Services du Maître d'Ouvrage ou du Maître d'Ouvrage Délégué : <i>[à préciser]</i></p>`)
 
-                if (trouve.value) {
-                    const response = await update_rpao(dossier, rpaoData)
-                    message.value = response.message
-                } else {
-                    const response = await create_rpao(dossier, rpaoData)
-                    await update_piece(id_piece.value, true);
-                    message.value = response.message
-                }
+const ref_2 = ref(`<p>Les prestations objet du présent Appel d'Offres sont financées par : Budget : …………………… Exercice ….……………Ligne ………….</p><p><i>[Insérer pour les marchés sur financement extérieur, le nom de l'Emprunteur et indiquer le cas échéant, quelle est sa relation avec le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué. Indiquer aussi le nom exact du Projet]</i></p>`)
 
-                toast.success(message, { theme: 'colored', autoClose: 2000 });
-            } catch (err) {
-                toast.error(err, { theme: 'colored', autoClose: 2000 });
-                errors.value = err;
-                console.log(err)
-            } finally {
-                isLoading.value = false;
-            }
+const ref_4_2 = ref(`<p>Tout Appel d'Offres relatif aux Marchés de Conception Réalisation est ouvert aux soumissionnaires (opérateurs économiques) organisés en groupement d'entreprises solidaires. Néanmoins, pour les seuls marchés de conception réalisation portant sur les seuls ouvrages d'infrastructure, le groupement n'est pas obligatoire, conformément aux dispositions de l'arrêté N°168/A/MINMAP du 11 août 2021.</p><p>Il est interdit à toute personne ayant pris part à l'organisation et à l'élaboration du programme du concours, ainsi qu'aux membres du Jury, de concourir et de participer directement ou indirectement aux travaux.</p>`)
+
+const ref_5_1 = ref(`<p>Aucun matériau, matériel ni fourniture destiné à l'utilisation dans le cadre de ce projet ne devra provenir des lieux ci-après : <i>[indiquer les pays non éligibles, le cas échéant]</i>. Privilégier autant que possible l'utilisation du matériau produit localement.</p>`)
+
+const ref_6_2 = ref(`<p>Chaque membre du groupement doit présenter un dossier administratif complet. Toutefois, l'attestation de domiciliation bancaire, la quittance d'achat du DAO, le cautionnement de soumission, la charte d'intégrité et l'engagement à respecter les clauses environnementales et sociales sont présentées uniquement par le mandataire du groupement.</p>`)
+
+const ref_7 = ref(`<p>La visite du site des travaux sera organisée par le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué au plus tard <i>[date à insérer, le cas échéant]</i> après la publication de l'Avis d'Appel d'Offres. Il est conseillé à chaque soumissionnaire de visiter et d'inspecter le site des travaux à ses propres frais et sous sa propre responsabilité.</p>`)
+
+const ref_9 = ref(`<p>Des éclaircissements peuvent être demandés au plus tard <i>[indiquer le nombre de jours]</i> jours avant la date de remise des offres, à l'adresse suivante : <i>[insérer l'adresse complète]</i>.</p><p>Les renseignements complémentaires peuvent être obtenus aux heures ouvrables à <i>[service (SIGAMP), numéro de porte, BP, téléphone, fax, e-mail]</i> ou en ligne sur la plateforme COLEPS.</p>`)
+
+const ref_11 = ref(`<p>Les offres des soumissionnaires devront être déposées dans un délai de quatre-vingt-dix (90) jours à compter de la date de publication de l'avis d'appel d'offres dans le Journal des Marchés Publics.</p>`)
+
+const ref_13_2 = ref(`<p>Chaque candidat soumettra une proposition constituée de quatre (04) enveloppes : Dossier Administratif, Proposition Artistique, Proposition Technique et Proposition Technique Témoin, chacune présentée en <i>[préciser le nombre d'exemplaires]</i> exemplaires dont un (01) original.</p><p>Les quatre enveloppes seront placées dans un pli scellé et cacheté, portant le Numéro et l'objet de l'Appel d'Offres, sans mention du nom du soumissionnaire.</p>`)
+
+const ref_13_3 = ref(`<p>Si la soumission est faite par voie électronique, l'offre devra être transmise sur la plateforme COLEPS au plus tard le ……..à……… Une copie de sauvegarde enregistrée sur clé USB ou CD/DVD devra être transmise sous pli scellé avec la mention « copie de sauvegarde ».</p>`)
+
+const ref_13_4 = ref(`<p>Les plis devront être déposés contre récépissé dans les services du Maître d'Ouvrage ou du Maître d'Ouvrage Délégué à/au ……..[préciser le lieu de dépôt], au plus tard le …… [date limite] à ….. [heure limite], en présence des soumissionnaires ou de leurs représentants dûment mandatés.</p>`)
+
+const ref_13_7 = ref(`<p>L'ouverture des plis se fera en deux (02) temps : dans un premier temps, les pièces administratives et les propositions artistiques seront ouvertes le …...... [date] à …......[heure] ; dans un second temps, seules les propositions techniques des soumissionnaires ayant obtenu la note artistique minimale seront ouvertes à la date et au lieu communiqués ultérieurement.</p>`)
+
+const ref_14 = ref(`<p>L'offre est rédigée en français ou en anglais et comprendra notamment, dûment remplis et regroupés en quatre (04) volumes : le dossier administratif, la proposition artistique (Avant-Projet Sommaire), la proposition technique et la proposition technique témoin.</p>`)
+
+const ref_15_1 = ref(`<p>La caution de soumission est d'un montant de ……………….. francs CFA et d'une durée de validité de ………………….mois, établie par une banque de premier ordre ou un organisme financier de première catégorie habilité par le Ministre en charge des Finances du Cameroun.</p><p>Le dossier administratif comprend notamment : la lettre de soumission, la caution de soumission, l'accord de groupement, le pouvoir de signature, l'attestation de non redevance, l'attestation de non-faillite, l'attestation de domiciliation bancaire, la quittance d'achat du DAO, l'attestation de non exclusion des marchés publics, l'attestation CNPS, l'attestation de catégorisation le cas échéant.</p>`)
+
+const ref_16_1 = ref(`<p>Le coût global du projet proposé par le candidat couvrira l'ensemble des prestations (études et travaux) décrites dans le DAO. Le coût Global (CG) du projet comprendra : le Coût des Études (CE) et le Coût Estimatif du Projet (CEP) ou Coût de la réalisation des travaux, soit CG = CE + CEP.</p>`)
+
+const ref_16_4 = ref(`<p><i>[Préciser si les prix sont fermes ou actualisables, et s'ils sont révisables ou pas].</i></p>`)
+
+const ref_17 = ref(`<p>La monnaie de soumission est ………………………… La monnaie de règlement des prestations est ………………… La monnaie retenue pour la conversion en une seule monnaie est le Franc CFA, la source du taux de change étant la Banque des États de l'Afrique Centrale (BEAC).</p>`)
+
+const ref_18 = ref(`<p>La période de validité des offres est <i>[insérer la période en jours]</i> à partir de la date limite de dépôt des offres. Cette période ne doit pas excéder cent vingt (120) jours.</p>`)
+
+const ref_19 = ref(`<p>Le montant de la caution de soumission est fixé à …… <i>[à préciser]</i>.</p>`)
+
+const ref_20_3 = ref(`<p>Le Maître d'Ouvrage doit préciser si les variantes sont autorisées ou pas.</p>`)
+
+const ref_22_5 = ref(`<p>Le mode de soumission retenu pour cette consultation est <i>[indiquer : en ligne, hors ligne, ou en ligne et hors ligne]</i>. Adresse du Maître d'Ouvrage ou du Maître d'Ouvrage Délégué à utiliser pour l'envoi des offres : <i>[à préciser]</i>.</p>`)
+
+const ref_24 = ref(`<p><b>Critères éliminatoires :</b> absence du cautionnement de soumission, non-production d'une pièce administrative dans le délai de 48h, fausses déclarations, non-conformité de l'offre, non-obtention de la note artistique minimale, non-respect du format de fichier, absence de la charte d'intégrité, absence de l'engagement environnemental et social.</p><p><b>Critères essentiels :</b> ils portent sur les propositions artistique et technique (Avant-Projet Sommaire, méthodologie, références, qualifications du personnel, moyens matériels, respect des délais, capacité financière).</p>`)
+
+const ref_25 = ref(`<p>Pour l'évaluation de la Proposition artistique (100 pts) : Avant-Projet Sommaire (40 pts), preuves d'acceptation des conditions du marché (04 pts), descriptif de la méthodologie (10 pts), composition de l'équipe (15 pts), liste des études de conception (20 pts).</p><p>Pour l'évaluation de la Proposition technique (100 pts) : références du soumissionnaire (30 pts), qualifications et expérience du personnel (35 pts), disponibilité du matériel (30 pts), respect des délais (03 pts), capacité financière (02 pts).</p><p>Pour la détermination de la Note Financière : NF = 100 x PFm / PF.</p><p>Note générale : NG = (a x NA) + (t x NT) + (f x NF), avec a + t + f = 1.</p>`)
+
+const ref_30 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ <i>[à préciser, entre 2 et 5%]</i> du montant toutes taxes comprises du marché. Dans un délai de vingt (20) jours à compter de la date de notification du marché, le cocontractant fournira un cautionnement définitif suivant le modèle joint au Dossier d'appel d'offres.</p>`)
+
+const ref_35 = ref(`<p>Le marché sera attribué au soumissionnaire ayant présenté une offre conforme pour l'essentiel au DAO et évaluée la mieux-disante, par combinaison des critères techniques, financiers et esthétiques, c'est-à-dire à celui ayant obtenu la Note Générale la plus élevée.</p>`)
+
+const ref_36 = ref(`<p>Les Présidents et Membres de commission, les Soumissionnaires et les autres intervenants de la procédure doivent observer en tout temps les règles d'éthique professionnelle les plus strictes et s'interdire toute corruption ou manœuvre frauduleuse.</p><p>(i) Est coupable de « corruption » quiconque offre, donne, sollicite ou accepte directement ou indirectement un quelconque avantage en vue d'influencer l'action d'un agent public au cours de l'attribution ou de l'exécution d'un marché.</p><p>(ii) Se livre à des « manœuvres frauduleuses » quiconque déforme ou dénature des faits afin d'influencer l'attribution ou l'exécution d'un marché de manière préjudiciable au Maître d'Ouvrage.</p>`)
+
+const formation_element_majeur = ref(false)
+const poids_artistique = ref()
+const poids_technique = ref()
+const poids_financiere = ref()
+
+onMounted(async () => {
+    try {
+        isLoading.value = true;
+        const responseDAO = await getDAO(dossier)
+        dao.value = responseDAO[0];
+        const responsePiece = await get_pieces(dossier)
+        pieces.value = responsePiece
+        const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
+        id_piece.value = pieces.value[index].id;
+
+        const responseAAO = await get_aao(dossier)
+        if (responseAAO && responseAAO.length > 0) aao.value = responseAAO[0]
+
+        const responseRPAO = await get_rpao(dossier)
+        if (responseRPAO && responseRPAO.length > 0) {
+            trouve.value = true
+            const r = responseRPAO[0]
+            ref_1_1.value = r.ref_1_1
+            ref_1_2.value = r.ref_1_2
+            ref_1_4.value = r.ref_1_4
+            ref_1_5.value = r.ref_1_5
+            ref_1_6.value = r.ref_1_6
+            ref_2.value = r.ref_2
+            ref_4_2.value = r.ref_4_2
+            ref_5_1.value = r.ref_5_1
+            ref_6_2.value = r.ref_6_2
+            ref_7.value = r.ref_7
+            ref_9.value = r.ref_9
+            ref_11.value = r.ref_11
+            ref_13_2.value = r.ref_13_2
+            ref_13_3.value = r.ref_13_3
+            ref_13_4.value = r.ref_13_4
+            ref_13_7.value = r.ref_13_7
+            ref_14.value = r.ref_14
+            ref_15_1.value = r.ref_15_1
+            ref_16_1.value = r.ref_16_1
+            ref_16_4.value = r.ref_16_4
+            ref_17.value = r.ref_17
+            ref_18.value = r.ref_18
+            ref_19.value = r.ref_19
+            ref_20_3.value = r.ref_20_3
+            ref_22_5.value = r.ref_22_5
+            ref_24.value = r.ref_24
+            ref_25.value = r.ref_25
+            ref_30.value = r.ref_30
+            ref_35.value = r.ref_35
+            ref_36.value = r.ref_36
+            formation_element_majeur.value = r.formation_element_majeur
+            poids_artistique.value = r.poids_artistique
+            poids_technique.value = r.poids_technique
+            poids_financiere.value = r.poids_financiere
+        }
+    } catch (error) {
+        console.error("Erreur lors de la récupération du DAO :", error)
+    } finally {
+        isLoading.value = false;
+    }
+})
+
+const handleSubmit = async () => {
+    errors.value = {}
+    isLoading.value = true;
+    try {
+        const rpaoData = {
+            ref_1_1: ref_1_1.value, ref_1_2: ref_1_2.value, ref_1_4: ref_1_4.value,
+            ref_1_5: ref_1_5.value, ref_1_6: ref_1_6.value, ref_2: ref_2.value,
+            ref_4_2: ref_4_2.value, ref_5_1: ref_5_1.value, ref_6_2: ref_6_2.value,
+            ref_7: ref_7.value, ref_9: ref_9.value, ref_11: ref_11.value,
+            ref_13_2: ref_13_2.value, ref_13_3: ref_13_3.value, ref_13_4: ref_13_4.value,
+            ref_13_7: ref_13_7.value, ref_14: ref_14.value,
+            ref_15_1: ref_15_1.value, ref_16_1: ref_16_1.value, ref_16_4: ref_16_4.value,
+            ref_17: ref_17.value,
+            ref_18: ref_18.value, ref_19: ref_19.value, ref_20_3: ref_20_3.value, ref_22_5: ref_22_5.value,
+            ref_24: ref_24.value, ref_25: ref_25.value,
+            ref_30: ref_30.value, ref_35: ref_35.value, ref_36: ref_36.value,
+            formation_element_majeur: formation_element_majeur.value,
+            poids_artistique: poids_artistique.value || null,
+            poids_technique: poids_technique.value || null,
+            poids_financiere: poids_financiere.value || null,
+        };
+
+        if (trouve.value) {
+            const response = await update_rpao(dossier, rpaoData)
+            message.value = response.message
+        } else {
+            const response = await create_rpao(dossier, rpaoData)
+            await update_piece(id_piece.value, true);
+            message.value = response.message
         }
 
-        return {
-            handleSubmit, dao, pieces, isLoading,
-            descriptif_operation, lieu_execution, objectifs_mission, source_financement_rpao,
-            delai_phase_conception, delai_phase_realisation, delai_global, cout_global_previsionnel,
-            provenance_materiaux, visite_travaux, renseignements_necessaires, renseignements_complementaires,
-            langue_soumission, piecesAdminLocales, piecesAdminEtrangeres, refSoumissionnaire,
-            personnel, materiels, organisation_methodologie, avant_projet_sommaire, liste_etudes_conception,
-            cout_etudes, cout_estimatif_projet, cout_global_projet, preuve_acceptation, commentaire_ccap,
-            nombre_exemplaires_dossier_administratif, nombre_exemplaires_proposition_artistique, nombre_exemplaires_proposition_technique,
-            adresse_depot_offres, prix_marche, monnaies_soumission, taux_change, monnaie_retenu,
-            validite_offre, montant_cautionnement, taux_cautionnement_definitif_rpao,
-            variante_techniques, reunion_preparatoire, soumission_en_ligne, mode_soumission, date_heure_limite,
-            criteres_eliminatoires, criteres_essentiels, mode_evaluation, formation_element_majeur,
-            poids_artistique, poids_technique, poids_financiere,
-        }
+        toast.success(message, { theme: 'colored', autoClose: 2000 });
+    } catch (err) {
+        toast.error(err, { theme: 'colored', autoClose: 2000 });
+        errors.value = err;
+        console.log(err)
+    } finally {
+        isLoading.value = false;
     }
 }
 </script>
