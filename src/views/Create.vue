@@ -153,7 +153,7 @@
                     </div>
                     <div class="col">
                         <label class="label-custom" for="dossier">Numéro du dossier</label>
-                        <input type="number" v-model="numero_dossier" class="input-custom" required placeholder="N°00083">
+                        <input type="number" v-model="numero_dossier" class="input-custom" placeholder="N°00083">
                     </div>
                 </div>
 

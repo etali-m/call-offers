@@ -389,6 +389,17 @@ watch(() => props.modelValue, (value) => {
 
 .editor-field::v-deep(p) { margin: 0.4em 0; }
 
+/* Instructions à compléter par l'utilisateur (ex: [Lieu à préciser]) :
+   mises en italique dans le contenu par défaut, on les distingue visuellement
+   du texte réglementaire fixe qui les entoure. */
+.editor-field::v-deep(em) {
+  background: #fff3cd;
+  color: #92400e;
+  font-style: italic;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
 /* Listes */
 .editor-field::v-deep(ul),
 .editor-field::v-deep(ol) {
