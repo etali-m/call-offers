@@ -192,6 +192,16 @@
                         <RichTextarea v-model="ref_24"/>
                     </div> <br>
 
+                    <h6 class="fw-bold mb-2">Critères éliminatoires</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="criteres_eliminatoires"/>
+                    </div> <br>
+
+                    <h6 class="fw-bold mb-2">Critères essentiels</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="criteres_essentiels"/>
+                    </div> <br>
+
                     <h5 class="fw-bold mb-4">Référence 25</h5>
                     <div class="col-md-12">
                         <label>Grille détaillée des critères et sous-critères (NA, NT, NF, NG) :</label>
@@ -261,7 +271,7 @@ import { toast } from 'vue3-toastify';
 import { useRoute, useRouter } from 'vue-router';
 import Loader from '@/components/Loader.vue';
 import PieceNavigator from '@/components/PieceNavigator.vue';
-import { useAppelOffre } from '@/composables/useAppelOffre';
+import { useAppelOffre } from '@/composables/useAppelOffre'; 
 import { usePiece } from '@/composables/usePiece';
 import { useConceptionRealisation } from '@/composables/useConceptionRealisation';
 
@@ -281,6 +291,60 @@ const errors = ref({});
 const { getDAO } = useAppelOffre()
 const { get_pieces, update_piece } = usePiece()
 const { get_aao, get_rpao, create_rpao, update_rpao } = useConceptionRealisation()
+
+const criteres_eliminatoires = ref(`
+<h5>Critères éliminatoires</h5>
+<p>Les critères éliminatoires seront à titre indicatifs évalués en fonction des sous critères ci-après:</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Rubrique</th>
+      <th>Oui/Non</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="3"><strong>I- Critères éliminatoires relatifs au dossier administratif</strong></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>
+
+      </td>
+      <td>Oui/Non</td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>II- Critères éliminatoires relatifs à l’offre technique</strong></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>III- Critères éliminatoires relatifs à l’offre financière</strong></td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>IV- Critères éliminatoires d’ordre général</strong></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td> </td>
+      <td>Oui/Non</td>
+    </tr>
+  </tbody>
+</table>
+`)
+
+const criteres_essentiels = ref(`
+  <p>L'évalution des critères essentiels ou relatifs à la qualification des soumissionaires portera à titre indicatif sur : </p>
+`)
 
 // ===== Champs du RPAO (ref_X_Y = ligne "X.Y" du tableau du RPAO conception-réalisation) =====
 const ref_1_1 = ref(`<p>Faire une description précise du projet. Le concours est organisé sur la base d'un programme établi par le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué qui indique les besoins auxquels doit répondre la prestation. Le contenu des prestations est détaillé dans le programme.</p><p>Lieu d'exécution : <i>[préciser le lieu d'exécution du projet]</i></p><p>Nom, objectifs et description de la mission : <i>[à préciser]</i></p>`)
@@ -936,18 +1000,17 @@ const ref_18 = ref(`
 <br />
 <p> <em>[Cette période doit être réaliste et donner un temps suffisant pour l’évaluation des offres, les 
 délais d’obtention des éclaircissements éventuels et les autorisations nécessaires (y compris la 
-“non-objection” du Bailleur de Fonds) et la notification de l’attribution du marché. Cette période 
-de validité ne doit pas excéder cent vingt (120) jours.]. </em> </p>`)
+“non-objection” du Bailleur de Fonds) et la notification de l’attribution du marché. </em> </p>`)
 
 const ref_19 = ref(`<p>Le montant de la caution de soumission est fixé à …… <i>[à préciser]</i>.</p>`)
 
 const ref_20_3 = ref(`
 <strong>Variantes</strong>
-<p>Le Maître d'Ouvrage doit préciser si les variantes sont autorisées ou pas.</p>`)
+<p><em>Le Maître d'Ouvrage doit préciser si les variantes sont autorisées ou pas.</em></p>`)
 
-const ref_22_5 = ref(`<p>Le mode de soumission retenu pour cette consultation est <i>[indiquer : en ligne, hors ligne, ou en ligne et hors ligne]</i>. Adresse du Maître d'Ouvrage ou du Maître d'Ouvrage Délégué à utiliser pour l'envoi des offres : <i>[à préciser]</i>.</p>`)
+const ref_22_5 = ref('')
 
-const ref_24 = ref(`<p><b>Critères éliminatoires :</b> absence du cautionnement de soumission, non-production d'une pièce administrative dans le délai de 48h, fausses déclarations, non-conformité de l'offre, non-obtention de la note artistique minimale, non-respect du format de fichier, absence de la charte d'intégrité, absence de l'engagement environnemental et social.</p><p><b>Critères essentiels :</b> ils portent sur les propositions artistique et technique (Avant-Projet Sommaire, méthodologie, références, qualifications du personnel, moyens matériels, respect des délais, capacité financière).</p>`)
+const ref_24 = ref('')
 
 const ref_25 = ref(`<p>Pour l'évaluation de la Proposition artistique (100 pts) : Avant-Projet Sommaire (40 pts), preuves d'acceptation des conditions du marché (04 pts), descriptif de la méthodologie (10 pts), composition de l'équipe (15 pts), liste des études de conception (20 pts).</p><p>Pour l'évaluation de la Proposition technique (100 pts) : références du soumissionnaire (30 pts), qualifications et expérience du personnel (35 pts), disponibilité du matériel (30 pts), respect des délais (03 pts), capacité financière (02 pts).</p><p>Pour la détermination de la Note Financière : NF = 100 x PFm / PF.</p><p>Note générale : NG = (a x NA) + (t x NT) + (f x NF), avec a + t + f = 1.</p>`)
 
@@ -966,6 +1029,8 @@ onMounted(async () => {
     try {
         isLoading.value = true;
         const responseDAO = await getDAO(dossier)
+        const responseAAO = await get_aao(dossier)
+
         dao.value = responseDAO[0];
         ref_2.value = `<p>Les prestations objet du présent Appel d'Offres sont financées par : Budget : ${dao.value.financement || ''} Exercice ${dao.value.exercice_budgetaire || ''}  Ligne ${dao.value.imputation || ''} </p><p><i>[Insérer pour les marchés sur financement extérieur, le nom de l'Emprunteur et indiquer le cas échéant, quelle est sa relation avec le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué. Indiquer aussi le nom exact du Projet]</i></p>`
         ref_13_2.value = `<p>Chaque candidat soumettra une proposition constituée de quatre (04) enveloppes ainsi qu'il suit : </p>
@@ -1002,13 +1067,118 @@ onMounted(async () => {
             <p>Pour la soumission en ligne, les tailles minimales et maximales des documents devant transiter sur la plateforme et constituant l’offre du soumissionnaire doivent être précisées par le Maître d’Ouvrage au point 22 du présent RPAO. Les précisions doivent également être apportées sur l’importance d’utiliser des logiciels de compression afin de réduire éventuellement la taille des fichiers à transmettre conformément aux tailles préalablement indiquées. </p>
             `
 
+        if (responseAAO && responseAAO.length > 0) aao.value = responseAAO[0]
+
+        ref_22_5.value = `<strong>MODE DE SOUMISSION</strong>
+        ${aao.value.mode_soumission || ''}
+        <strong><u>Soumission en ligne</u></strong>
+        <p>Pour la soumission en ligne, les tailles maximales des documents qui vont transiter sur la plateforme et constituant l’offre du soumissionnaire sont les suivantes :</p>
+        <ul>
+            <li>5 Mo pour le dossier Administratif ; </li>
+            <li>15 Mo pour l’Offre Technique ;  </li>
+            <li>5 Mo pour l’Offre Financière ;  </li>
+        </ul>
+        Les formats acceptés sont les suivants :  
+        <ul>
+            <li>Format PDF pour les documents textuels ;   </li>
+            <li>JPEG pour les images.    </li> 
+        </ul>
+        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.7; color: #222; text-align: justify;">
+
+        <p style="margin: 0 0 12px 0;">
+          Le candidat veillera à utiliser des logiciels de compression afin de réduire éventuellement
+          la taille des fichiers à transmettre.
+        </p>
+
+        <p style="margin: 0 0 12px 0;">
+          Aux fins de la remise des offres, l'adresse du Maître d'Ouvrage ou du Maître d'Ouvrage
+          Délégué à utiliser pour l'envoi des offres est la suivante :
+        </p>
+
+        <p style="margin: 0 0 8px 0;">
+          <strong>Service du Maître d’ouvrage ou du Maître d’ouvrage Délégué :</strong>
+          ${dao.value.maitre_ouvrage || ''}
+        </p>
+
+        <p style="margin: 0 0 8px 0;">
+          <strong>Adresse :</strong>
+          <em>[insérer le nom de la rue et le numéro de l'immeuble]</em>
+        </p>
+
+        <p style="margin: 0 0 8px 0;">
+          <strong>Code postal :</strong>
+          <em>[insérer le numéro du code postal]</em>
+        </p>
+
+        <p style="margin: 0 0 12px 0;">
+          <strong>Étage/Numéro de bureau :</strong>
+          <em>[insérer l'étage et le numéro du bureau]</em>
+        </p>
+
+
+        <!-- SOUMISSION EN LIGNE -->
+        <br />
+
+        <strong>
+          Soumission en ligne
+        </strong>
+
+        <p style="margin: 0 0 12px 0;">
+          Pour la soumission en ligne, l'offre devra être transmise par le soumissionnaire sur
+          la plateforme COLEPS ou <strong><em>tout autre moyen de communication électronique
+          indiqué par le Maître d’Ouvrage.</em></strong>
+          Une copie de sauvegarde de l'offre enregistrée sur clé USB ou CD/DVD devra être déposée
+          dans les services du MO/MOD ou AC concerné sous pli scellé avec la mention claire et
+          lisible « copie de sauvegarde » et les références de l'appel d'offres dans les délais impartis.
+        </p>
+
+        <p style="margin: 0 0 12px 0;">
+            [pour la soumission en ligne, elles seront transmises par voie électronique via la
+            plateforme COLEPS disponible à l'adresse
+            <span style="text-decoration: underline;">http://www.marchespublics.cm</span>
+            ou
+            <span style="text-decoration: underline;">http://www.publiccontracts.cm</span>]
+        </p>
+
+
+        <!-- SOUMISSION HORS LIGNE -->
+        <br />
+
+        <strong>
+          Soumission hors ligne
+        </strong>
+
+        <p style="margin: 0 0 12px 0;">
+          Aux fins de la remise des offres, l'adresse du Maître d'Ouvrage ou du Maître d'Ouvrage
+          Délégué à utiliser pour l'envoi des offres est la suivante :
+        </p>
+
+        <p style="margin: 0 0 8px 0;">
+          <strong>Service du Maître d’ouvrage ou du Maître d’ouvrage Délégué :</strong>
+          ${dao.value.maitre_ouvrage || ''}
+        </p>
+
+        <p style="margin: 0 0 8px 0;">
+          <strong>Adresse :</strong>
+          <em>[insérer le nom de la rue et le numéro de l'immeuble]</em>
+        </p>
+
+      </div>
+        `
+
+        ref_24.value = `
+        <strong>Critères éliminatoires :</strong>
+        ${aao.value.critere_eliminatoire || ''}
+        <strong>Critères essentiels</strong>
+        ${aao.value.critere_essentielles || ''}
+        <br />
+        <strong></strong>
+        `
+
         const responsePiece = await get_pieces(dossier)
         pieces.value = responsePiece
         const index = pieces.value.findIndex(p => p.piece.nom_composant === current_piece);
         id_piece.value = pieces.value[index].id;
-
-        const responseAAO = await get_aao(dossier)
-        if (responseAAO && responseAAO.length > 0) aao.value = responseAAO[0]
 
         const responseRPAO = await get_rpao(dossier)
         if (responseRPAO && responseRPAO.length > 0) {
@@ -1040,6 +1210,8 @@ onMounted(async () => {
             ref_20_3.value = r.ref_20_3
             ref_22_5.value = r.ref_22_5
             ref_24.value = r.ref_24
+            criteres_eliminatoires.value = r.criteres_eliminatoires
+            criteres_essentiels.value = r.criteres_essentiels
             ref_25.value = r.ref_25
             ref_30.value = r.ref_30
             ref_35.value = r.ref_35
@@ -1070,7 +1242,9 @@ const handleSubmit = async () => {
             ref_15_1: ref_15_1.value, ref_16_1: ref_16_1.value, ref_16_4: ref_16_4.value,
             ref_17: ref_17.value,
             ref_18: ref_18.value, ref_19: ref_19.value, ref_20_3: ref_20_3.value, ref_22_5: ref_22_5.value,
-            ref_24: ref_24.value, ref_25: ref_25.value,
+            ref_24: ref_24.value,
+            criteres_eliminatoires: criteres_eliminatoires.value, criteres_essentiels: criteres_essentiels.value,
+            ref_25: ref_25.value,
             ref_30: ref_30.value, ref_35: ref_35.value, ref_36: ref_36.value,
             formation_element_majeur: formation_element_majeur.value,
             poids_artistique: poids_artistique.value || null,
