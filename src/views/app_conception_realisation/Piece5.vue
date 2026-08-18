@@ -7,18 +7,35 @@
 
         <div class="form-container">
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-                <div class="container">
+                <StepperForm :totalSteps="4" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
                     <h4 class="my-4 text-center text-uppercase">Termes de référence</h4>
 
-                    <div class="mt-3"><h5 class="fw-bold mb-2">I. Contexte et justification</h5><RichTextarea v-model="contexte_justification"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">II. Objectif de la conception</h5><RichTextarea v-model="objectif_conception"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">III. Résultats attendus (propositions artistique et technique)</h5><RichTextarea v-model="resultats_attendus"/></div>
-                    <div class="mt-3"><h5 class="fw-bold mb-2">IV. Qualification des consultants</h5><RichTextarea v-model="qualification_consultants"/></div>
-
-                    <div class="buttons my-4 text-center">
-                        <button class="btn-custom" type="submit">Enregister</button>
+                    <div v-if="currentStep === 0">
+                        <h5 class="fw-bold mb-2">I. Contexte et justification</h5>
+                        <RichTextarea v-model="contexte_justification"/>
                     </div>
-                </div>
+
+                    <div v-else-if="currentStep === 1">
+                        <h5 class="fw-bold mb-2">II. Objectif de la conception</h5>
+                        <RichTextarea v-model="objectif_conception"/>
+                    </div>
+
+                    <div v-else-if="currentStep === 2">
+                        <h5 class="fw-bold mb-2">III. Résultats attendus (propositions artistique et technique)</h5>
+                        <RichTextarea v-model="resultats_attendus"/>
+                    </div>
+
+                    <div v-else-if="currentStep === 3">
+                        <h5 class="fw-bold mb-2">IV. Qualification des consultants</h5>
+                        <RichTextarea v-model="qualification_consultants"/>
+                    </div>
+
+                    <div class="buttons mt-4 text-center">
+                        <button type="button" class="btn-custom" @click="prevStep" :disabled="currentStep === 0"><i class="bi bi-arrow-left-circle"></i> Précédent</button> &nbsp;
+                        <button type="button" class="btn-custom" v-if="!isLastStep" @click="nextStep">Suivant <i class="bi bi-arrow-right-circle"></i></button>
+                        <button class="btn-custom" type="submit" v-else>Enregister</button>
+                    </div>
+                </StepperForm>
             </form>
         </div>
     </div>
@@ -29,6 +46,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Loader from '@/components/Loader.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue'
+import StepperForm from '@/components/StepperForm.vue'
 import PieceNavigator from '@/components/PieceNavigator.vue';
 import RichTextarea from '@/components/RichTextarea.vue';
 import { toast } from 'vue3-toastify';

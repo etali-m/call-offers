@@ -7,7 +7,7 @@
 
         <div class="form-container">
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-              <StepperForm :totalSteps="15" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+              <StepperForm :totalSteps="20" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
 
                 <div v-if="currentStep === 0">
                     <h5 class="fw-bold mb-4">Référence 1.1</h5>
@@ -207,17 +207,42 @@
 
                 </div>
 
-                 <div v-else-if="currentStep === 13">
-
-                  <h6 class="fw-bold mb-2">Critères et Sous critères de l’évaluation détaillée </h6>
-
-                  <div class="col-md-12">
-                      <RichTextarea v-model="sous_criteres_essentiels_prop_technique"/>
-                  </div> <br>
-
+                <div v-else-if="currentStep === 13">
+                    <h6 class="fw-bold mb-2">Proposition technique — A. Références du soumissionnaire (30 pts)</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="sous_criteres_technique_references"/>
+                    </div> <br>
                 </div>
 
                 <div v-else-if="currentStep === 14">
+                    <h6 class="fw-bold mb-2">Proposition technique — B. Qualifications et expérience du personnel (35 pts)</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="sous_criteres_technique_personnel"/>
+                    </div> <br>
+                </div>
+
+                <div v-else-if="currentStep === 15">
+                    <h6 class="fw-bold mb-2">Proposition technique — Disponibilité du matériel/équipements (30 pts)</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="sous_criteres_technique_materiel"/>
+                    </div> <br>
+                </div>
+
+                <div v-else-if="currentStep === 16">
+                    <h6 class="fw-bold mb-2">Proposition technique — C. Délais (03 pts) et D. Capacité financière (02 pts)</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="sous_criteres_technique_delais_capacite"/>
+                    </div> <br>
+                </div>
+
+                <div v-else-if="currentStep === 17">
+                    <h6 class="fw-bold mb-2">Notes financière et générale (NF, NG)</h6>
+                    <div class="col-md-12">
+                        <RichTextarea v-model="notes_financiere_generale"/>
+                    </div> <br>
+                </div>
+
+                <div v-else-if="currentStep === 18">
                     <h5 class="fw-bold mb-4">Référence 30</h5>
                     <div class="col-md-12">
                         <label>Cautionnement définitif :</label>
@@ -231,7 +256,7 @@
                     </div>
                 </div>
 
-                <div v-else-if="currentStep === 15">
+                <div v-else-if="currentStep === 19">
                     <h5 class="fw-bold mb-4">Référence 36</h5>
                     <div class="col-md-12">
                         <label>Principes Éthiques :</label>
@@ -414,11 +439,251 @@ const sous_criteres_essentiels_prop_artistique = ref(`
 <p>➢ Les critères et sous-critères essentiels détaillés pour chaque lot, le nombre de points attribués pour chaque critère et sous-critère d’évaluation : <i>(valeurs indicatives)</i></p>
 `)
 
-const sous_criteres_essentiels_prop_technique = ref(`
+const sous_criteres_technique_references = ref(`
+<h5>Pour l’évaluation de la Proposition technique (100 pts)</h5>
+<h6>I. Détermination de la note technique</h6>
+<p>Le jury déterminera la Note Technique <i>(NT)</i> de chaque soumissionnaire suivant les critères essentiels ci-après :</p>
+
+<p><strong>A.</strong> Les références du soumissionnaire ; (30 pts)</p>
+
+<p><strong>A.1.</strong> Dans le domaine des études : (10 pts)</p>
+<p>Expériences récentes acquises dans la réalisation des études similaires : <i>[nombre de marchés exécutés au cours des dix (10) dernières années qui précèdent la date limite de dépôt des soumissions, avec une valeur minimale à préciser]</i>. <i>[Justificatifs à préciser]</i></p>
+
+<p><strong>A.2.</strong> Dans le domaine de la réalisation des travaux : (15 pts)</p>
+<p>Expériences récentes dans l’exécution des travaux similaires : <i>[nombre de marchés exécutés au cours des dix (10) dernières années qui précèdent la date limite de dépôt des soumissions, avec une valeur minimale à préciser]</i>. <i>[Justificatifs à préciser]</i></p>
+
+<p><strong>A.3.</strong> Dans le domaine spécifique de la conception-réalisation : (5 pts)</p>
+<p>Expériences récentes dans le cadre des marchés de conception-réalisation : <i>[nombre de marchés exécutés au cours des dix (10) dernières années qui précèdent la date limite de dépôt des soumissions]</i>. <i>[Justificatifs à préciser]</i></p>
+
+<p>La similitude portera sur <i>[à préciser par le MO/MOD en tenant compte du coût, la taille physique, de la nature, de la consistance et de la complexité du projet, des méthodes/technologies ou autres caractéristiques]</i>.</p>
+
+<p><i>[La nature des pièces justificatives de cette expérience doit être appréciée avec objectivité. Ces références devront être accompagnées des pièces justificatives, en l’occurrence :]</i></p>
+<ul>
+<li>Copies des premières et dernières pages du contrat ;</li>
+<li>PV de réception provisoire ou attestation de bonne fin signée du Maître d’Ouvrage ;</li>
+<li>Autres justificatifs le cas échéant et à préciser.</li>
+</ul>
+
+<p><i>NB : le nombre de marchés doit être compris entre un et trois selon la taille et la complexité du marché en objet, et le risque pour le Maître d’Ouvrage de défaillance de la part de l’entrepreneur. La période couverte est normalement de dix ans. Le montant indiqué pourrait être d’environ 75% de la valeur estimée du marché, en montant arrondi. Pour les marchés dans lesquels aucune période de garantie n’est prévue ou lorsque la période de garantie n’est pas encore échue, le PV de réception provisoire fait foi.</i></p>
+`)
+
+const sous_criteres_technique_personnel = ref(`
 <h5>Pour l’évaluation de la Proposition technique</h5>
-<p>Proposition technique (100 pts) : références du soumissionnaire (30 pts), qualifications et expérience du personnel (35 pts), disponibilité du matériel (30 pts), respect des délais (03 pts), capacité financière (02 pts).</p>
-<p>Pour la détermination de la Note Financière : NF = 100 x PFm / PF.</p>
-<p>Note générale : NG = (a x NA) + (t x NT) + (f x NF), avec a + t + f = 1.</p>
+<p><strong>B.</strong> Les qualifications et l’expérience du personnel ; (35 pts)</p>
+
+<p><strong>1. Chef de Projet</strong> : (05 pts)</p>
+<ul>
+<li>Qualification minimale : <i>[à définir]</i> (01 pt)</li>
+<li>Expérience générale : <i>[à définir]</i> (01-02 pts) — <i>[avoir participé à au moins X projets dans l’exécution de travaux similaires en qualité de … au cours des dix dernières années qui précèdent la date limite de dépôt des soumissions. Justificatifs à préciser]</i></li>
+<li>Expérience spécifique en conduite de projets de conception-réalisation : <i>[à définir]</i> (01-02 pts) — <i>[avoir participé à au moins X projets dans la conduite de projets de conception-réalisation en qualité de … au cours des dix dernières années qui précèdent la date limite de dépôt des soumissions. Justificatifs à préciser]</i></li>
+<li>Certification : <i>[à compléter]</i> (0,5-01 pt)</li>
+<li>Autres : <i>[à compléter]</i> (0,5-01 pt)</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>2. Personnel clé pour les études</strong> : (15 pts)</p>
+<p><strong>2.1. Chef de mission</strong> (05 pts)</p>
+<ul>
+<li>Qualification minimale : <i>[à définir]</i></li>
+<li>Expérience : <i>[à définir]</i> — <i>[avoir participé à au moins X projets d’études similaires au cours des dix dernières années qui précèdent la date limite de dépôt des soumissions. Justificatifs à préciser]</i></li>
+<li>Certification : <i>[à compléter]</i></li>
+<li>Autres : <i>[à compléter]</i></li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+<p><strong>2.2. Autres personnels clés</strong> <i>[à définir]</i> (10 pts)</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Poste</th>
+      <th>Qualifications / expériences</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>11</td>
+      <td>Un (01) Directeur des Travaux/Chef de mission</td>
+      <td>
+        <ul>
+          <li><strong>Formation de base :</strong> Ingénieur en Génie Civil / Architecte (Bac +5 ou plus) ou équivalent inscrit à un ordre.</li>
+          <li><strong>Expérience générale en BTP :</strong> Au moins dix (10) ans.</li>
+          <li><strong>Expérience spécifique :</strong> Avoir effectué au moins trois (03) projets au poste de Directeur des travaux dans le domaine de la construction, et de la réhabilitation.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Ingénieur de Génie Civil chargé du lot structure ;</td>
+      <td>
+        <ul>
+          <li><strong>Formation de base :</strong> Ingénieur des Travaux en Génie Civil (Bac +3 ou plus) ou équivalent Inscrit à ONIC.</li>
+          <li><strong>Expérience générale :</strong> Au moins dix (10) ans dans les prestations des travaux de Bâtiment.</li>
+          <li><strong>Expérience spécifique :</strong> Avoir été Ingénieur pour des contrats de travaux d’au moins deux (02) projets de construction.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr><td></td><td><i>[à définir]</i></td><td><i>[à définir]</i></td></tr>
+  </tbody>
+</table>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>3. Personnel clé pour l’exécution des travaux</strong> : (15 pts)</p>
+<p><strong>3.1. Conducteur des travaux</strong> (05 pts)</p>
+<ul>
+<li>Qualification : <i>[à définir]</i></li>
+<li>Expérience : <i>[à définir]</i></li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+<p><strong>3.2. Autres personnels clés</strong> <i>[à définir]</i> (10 pts)</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Poste</th>
+      <th>Qualifications / expériences</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>11</td>
+      <td>Un (01) Directeur des Travaux/Chef de mission</td>
+      <td>
+        <ul>
+          <li><strong>Formation de base :</strong> Ingénieur en Génie Civil / Architecte (Bac +5 ou plus) ou équivalent inscrit à un ordre.</li>
+          <li><strong>Expérience générale en BTP :</strong> Au moins dix (10) ans.</li>
+          <li><strong>Expérience spécifique :</strong> Avoir effectué au moins trois (03) projets au poste de Directeur des travaux dans le domaine de la construction, et de la réhabilitation.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Ingénieur de Génie Civil chargé du lot structure ;</td>
+      <td>
+        <ul>
+          <li><strong>Formation de base :</strong> Ingénieur des Travaux en Génie Civil (Bac +3 ou plus) ou équivalent Inscrit à ONIC.</li>
+          <li><strong>Expérience générale :</strong> Au moins dix (10) ans dans les prestations des travaux de Bâtiment.</li>
+          <li><strong>Expérience spécifique :</strong> Avoir été Ingénieur pour des contrats de travaux d’au moins deux (02) projets de construction.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr><td></td><td><i>[à définir]</i></td><td><i>[à définir]</i></td></tr>
+  </tbody>
+</table>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p>NB : (i) Tout agent public listé parmi le personnel et qui n’a pas présenté tous les documents susceptibles de justifier sa libération de l’Administration ne sera pas considéré dans l’évaluation. (ii) En cas de présence du CV d’un même expert dans plus d’une offre ou s’il y a divergence entre les CV présentés pour le même expert, une demande d’éclaircissements lui sera adressée en vue d’établir l’offre du soumissionnaire à considérer pour son évaluation. Dans ce cas l’expert en question ne sera pas évalué dans l’Offre concurrente et son CV sera examiné à condition que celui produit pour la demande d’éclaircissement soit identique à celui dans l’offre considérée. Par ailleurs, l’attestation d’inscription aux ordres professionnels est exigée, le cas échéant.</p>
+`)
+
+const sous_criteres_technique_materiel = ref(`
+<h5>Pour l’évaluation de la Proposition technique</h5>
+<p>La justification de la disponibilité du matériel proposé (Moyens logistiques pour l’étude et pour la réalisation) ; (30 pts)</p>
+<p>Le Maître d’Ouvrage indiquera la liste des matériels / équipements / logiciels minimum nécessaires pour les études et la réalisation des travaux. À cet effet, il pourra fixer les types de matériels/équipements à disposer en propre et éventuellement un âge maximal au-delà duquel le matériel/l’équipement ne sera pas accepté.</p>
+<p>Le MO/MOD doit préciser la liste des matériels/équipements dont chaque soumissionnaire doit disposer dans les quantités minimales requises. Le Soumissionnaire doit justifier qu’il dispose des matériels ci-après.</p>
+
+<p><strong>C.1. Matériels / équipements / logiciels pour les études</strong> : (10 pts)</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Désignation et caractéristiques du matériel</th>
+      <th>Âge/État minimal requis</th>
+      <th>Nombre requis</th>
+      <th>Nombre disponible</th>
+      <th>Propriétaire/location</th>
+      <th>Année d’obtention</th>
+      <th>Justificatif</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>…</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<p><i>[Insérer dans le tableau ci-dessus : (i) la liste des matériels les plus importants requis pour la conduite des études dont le soumissionnaire doit disposer, (ii) le nombre minimal requis de chaque type de matériel]</i></p>
+
+<p><strong>C.2. Matériels / équipements pour la réalisation</strong> : (20 pts)</p>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>Désignation et caractéristiques du matériel</th>
+      <th>Âge/État minimal requis</th>
+      <th>Nombre requis</th>
+      <th>Nombre disponible</th>
+      <th>Propriétaire/location</th>
+      <th>Année d’obtention</th>
+      <th>Justificatif</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>…</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<p><i>[Insérer dans le tableau ci-dessus : (i) la liste des matériels les plus importants requis pour la réalisation des travaux dont le soumissionnaire doit disposer, (ii) le nombre minimal requis de chaque type de matériel, (iii) il peut être envisagé la mise à disposition de ces matériels par la location, auquel cas il faudrait présenter un engagement de location de matériel signé et légalisé auprès des administrations compétentes]</i></p>
+
+<p><i>NB : joindre les copies certifiées par les services émetteurs ou toute autre autorité habilitée, des cartes grises pour les matériels roulants et les factures d’achat indiquant le numéro de contribuable de chaque émetteur pour les autres, le cas échéant, accompagnées d’un engagement de location de matériel signé.</i></p>
+`)
+
+const sous_criteres_technique_delais_capacite = ref(`
+<h5>Pour l’évaluation de la Proposition technique</h5>
+<p><strong>C.</strong> Le respect des délais et la cohérence entre les délais et la mobilisation du personnel clé (pour l’étude et pour la réalisation) ; (03 pts)</p>
+<ul>
+<li>1. Respect du délai global incluant la conduite des études et la réalisation des travaux (01 pt)</li>
+<li>2. Pour l’étude (01 pt)
+  <ul>
+    <li>a) Calendrier de réalisation des études <i>[à préciser]</i></li>
+    <li>b) Calendrier de mobilisation des personnels spécialisés <i>[à préciser]</i></li>
+    <li>c) Cohérence entre les deux calendriers <i>[à préciser]</i></li>
+    <li>d) Cohérence des calendriers avec la méthodologie proposée pour la conduite des études <i>[à préciser]</i></li>
+  </ul>
+</li>
+<li>3. Pour la réalisation (01 pt)
+  <ul>
+    <li>a) Calendrier de réalisation des travaux <i>[à préciser]</i></li>
+    <li>b) Calendrier de mobilisation des personnels clés <i>[à préciser]</i></li>
+    <li>c) Cohérence entre les deux calendriers <i>[à préciser]</i></li>
+    <li>d) Cohérence des calendriers avec la méthodologie proposée pour l’exécution des travaux <i>[à préciser]</i></li>
+  </ul>
+</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>D.</strong> La capacité financière pour couvrir le coût Global du Projet, ou le montant déterminé par le MO/MOD (l’accès à une ligne de crédit ou autres ressources financières, le chiffre d’affaires, attestation de solvabilité financière) <i>[à préciser]</i> ; (02 pts)</p>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p>Le barème proposé ci-dessus est à titre indicatif. Le Maître d’Ouvrage l’adaptera au projet suivant son importance et sa spécificité.</p>
+`)
+
+const notes_financiere_generale = ref(`
+<h5>Notes financière et générale</h5>
+<h6>II. Détermination de la note financière (100 pts)</h6>
+<p>Pour la détermination de la Note Financière <i>(NF)</i> d’un soumissionnaire, le montant à considérer est le coût global du projet proposé dans son offre.</p>
+<p>La formule utilisée pour établir la note financière de chaque soumissionnaire est la suivante :</p>
+<p style="text-align:center;"><strong>NF = 100 x PFm / PF</strong></p>
+<ul>
+<li>NF : note financière du candidat considéré ;</li>
+<li>PFm : proposition financière la moins-disante enregistrée à l’ouverture des offres techniques ;</li>
+<li>PF : montant de la proposition du candidat considéré.</li>
+</ul>
+
+<h6>III. Détermination de la note générale de chaque soumissionnaire</h6>
+<p>Les poids respectifs attribués aux notes artistique, technique et financière sont :</p>
+<ul>
+<li>a = poids de la note artistique <i>[à préciser, compris entre 0,4 et 0,5]</i></li>
+<li>t = poids de la note technique <i>[à préciser, compris entre 0,4 et 0,5]</i></li>
+<li>f = poids de la note financière <i>[à préciser, compris entre 0,05 et 0,1]</i></li>
+</ul>
+<p>La note globale est :</p>
+<p style="text-align:center;"><strong>NG = (a x NA) + (t x NT) + (f x NF)</strong></p>
+<p style="text-align:center;">Avec a + t + f = 1</p>
+<ul>
+<li>NA : Note Artistique</li>
+<li>NT : Note Technique</li>
+<li>NF : Note Financière</li>
+</ul>
 `)
 
 
@@ -1089,11 +1354,34 @@ const ref_22_5 = ref('')
 
 const ref_24 = ref('')
 
-const ref_30 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ <i>[à préciser, entre 2 et 5%]</i> du montant toutes taxes comprises du marché. Dans un délai de vingt (20) jours à compter de la date de notification du marché, le cocontractant fournira un cautionnement définitif suivant le modèle joint au Dossier d'appel d'offres.</p>`)
+const ref_30 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ <i>[à préciser, entre 2 et 5%]</i> du montant toutes taxes comprises du marché. </p>
+
+<p> Dans un délai de vingt (20) jours à compter de la date de notification du marché par le 
+Maître d’ouvrage, le cocontractant fournira un cautionnement définitif suivant le modèle 
+joint au Dossier d’appel d’offres. La non production dudit cautionnement dans les délais 
+et conditions de l’article 28 du CCAP expose le soumissionnaire aux sanctions prévues 
+par l’article 37 dudit CCAP </p>`)
 
 const ref_35 = ref(`<p>Le marché sera attribué au soumissionnaire ayant présenté une offre conforme pour l'essentiel au DAO et évaluée la mieux-disante, par combinaison des critères techniques, financiers et esthétiques, c'est-à-dire à celui ayant obtenu la Note Générale la plus élevée.</p>`)
 
-const ref_36 = ref(`<p>Les Présidents et Membres de commission, les Soumissionnaires et les autres intervenants de la procédure doivent observer en tout temps les règles d'éthique professionnelle les plus strictes et s'interdire toute corruption ou manœuvre frauduleuse.</p><p>(i) Est coupable de « corruption » quiconque offre, donne, sollicite ou accepte directement ou indirectement un quelconque avantage en vue d'influencer l'action d'un agent public au cours de l'attribution ou de l'exécution d'un marché.</p><p>(ii) Se livre à des « manœuvres frauduleuses » quiconque déforme ou dénature des faits afin d'influencer l'attribution ou l'exécution d'un marché de manière préjudiciable au Maître d'Ouvrage.</p>`)
+const ref_36 = ref(`<p> Les Présidents et Membres de commission, les Soumissionnaires et les autres intervenants de la procédure doivent observer en tout temps, les règles d’éthique professionnelle les plus strictes. Ils doivent notamment s’interdire toute corruption ou toute autre forme de manœuvres 
+frauduleuses. En vertu de ce principe, les expressions ci-dessus sont définies de la façon 
+suivante : </p>
+<p>(i) Est coupable de « corruption » quiconque offre, donne, sollicite ou accepte directement 
+ou indirectement un quelconque avantage en vue d’influencer l’action d’un agent public au cours 
+de l’attribution ou de l’exécution d’un marché ou d’une lettre commande, et</p>
+<p>(ii) est coupable de ‘’corruption’’ quiconque fournit, sollicite ou accepte plusieurs offres  
+émises par le même soumissionnaire sous des noms des sociétés différentes et/ou 
+sur des numéros d’enregistrement différents.  </p>
+<p>(iii) Se livre à des “manœuvres frauduleuses” quiconque déforme ou dénature des faits afin 
+d’influencer l’attribution ou l’exécution d’un marché ou d’une lettre commande de manière 
+préjudiciable au Maître d’Ouvrage ou au Maître d’Ouvrage Délégué. Les “Manœuvres 
+frauduleuses” comprennent notamment toute entente ou manœuvre collusoire des 
+soumissionnaires (avant ou après la remise de l’offre) visant à maintenir artificiellement les prix 
+des cotations à des niveaux ne correspondant pas à ceux qui résulteraient du jeu d’une 
+concurrence libre et ouverte, et à priver ainsi le Maître d’Ouvrage ou le Maître d’Ouvrage 
+Délégué des avantages de cette dernière.</p>
+`)
 
 const formation_element_majeur = ref(false)
 const poids_artistique = ref()
@@ -1287,7 +1575,11 @@ onMounted(async () => {
             ref_24.value = r.ref_24
             criteres_eliminatoires.value = r.criteres_eliminatoires
             sous_criteres_essentiels_prop_artistique.value = r.sous_criteres_essentiels_prop_artistique
-            sous_criteres_essentiels_prop_technique.value = r.sous_criteres_essentiels_prop_technique
+            sous_criteres_technique_references.value = r.sous_criteres_technique_references
+            sous_criteres_technique_personnel.value = r.sous_criteres_technique_personnel
+            sous_criteres_technique_materiel.value = r.sous_criteres_technique_materiel
+            sous_criteres_technique_delais_capacite.value = r.sous_criteres_technique_delais_capacite
+            notes_financiere_generale.value = r.notes_financiere_generale
             ref_30.value = r.ref_30
             ref_35.value = r.ref_35
             ref_36.value = r.ref_36
@@ -1320,7 +1612,11 @@ const handleSubmit = async () => {
             ref_24: ref_24.value,
             criteres_eliminatoires: criteres_eliminatoires.value,
             sous_criteres_essentiels_prop_artistique: sous_criteres_essentiels_prop_artistique.value,
-            sous_criteres_essentiels_prop_technique: sous_criteres_essentiels_prop_technique.value,
+            sous_criteres_technique_references: sous_criteres_technique_references.value,
+            sous_criteres_technique_personnel: sous_criteres_technique_personnel.value,
+            sous_criteres_technique_materiel: sous_criteres_technique_materiel.value,
+            sous_criteres_technique_delais_capacite: sous_criteres_technique_delais_capacite.value,
+            notes_financiere_generale: notes_financiere_generale.value,
             ref_30: ref_30.value, ref_35: ref_35.value, ref_36: ref_36.value,
             formation_element_majeur: formation_element_majeur.value,
             poids_artistique: poids_artistique.value || null,
