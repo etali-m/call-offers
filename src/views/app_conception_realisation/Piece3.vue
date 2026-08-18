@@ -7,7 +7,7 @@
 
         <div class="form-container">
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-              <StepperForm :totalSteps="14" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+              <StepperForm :totalSteps="15" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
 
                 <div v-if="currentStep === 0">
                     <h5 class="fw-bold mb-4">Référence 1.1</h5>
@@ -192,43 +192,32 @@
                         <RichTextarea v-model="ref_24"/>
                     </div> <br>
 
-                    <h6 class="fw-bold mb-2">Critères éliminatoires</h6>
+                    <h6 class="fw-bold mb-2">Critères et Sous critères de l’évaluation détaillée </h6>
                     <div class="col-md-12">
                         <RichTextarea v-model="criteres_eliminatoires"/>
                     </div> <br>
-
-                    <h6 class="fw-bold mb-2">Critères essentiels</h6>
-                    <div class="col-md-12">
-                        <RichTextarea v-model="criteres_essentiels"/>
-                    </div> <br>
-
-                    <h5 class="fw-bold mb-4">Référence 25</h5>
-                    <div class="col-md-12">
-                        <label>Grille détaillée des critères et sous-critères (NA, NT, NF, NG) :</label>
-                        <RichTextarea v-model="ref_25"/>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-4 form-check">
-                            <input type="checkbox" class="form-check-input" id="formation_element_majeur" v-model="formation_element_majeur">
-                            <label class="form-check-label" for="formation_element_majeur">Formation, élément majeur de la mission</label>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="label-custom">Pondération artistique (%)</label>
-                            <input type="number" step="0.01" class="input-custom" v-model="poids_artistique">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="label-custom">Pondération technique (%)</label>
-                            <input type="number" step="0.01" class="input-custom" v-model="poids_technique">
-                        </div>
-                        <div class="col-md-4 mt-2">
-                            <label class="label-custom">Pondération financière (%)</label>
-                            <input type="number" step="0.01" class="input-custom" v-model="poids_financiere">
-                        </div>
-                    </div>
                 </div>
 
                 <div v-else-if="currentStep === 12">
+
+                  <h6 class="fw-bold mb-2">Critères et Sous critères de l’évaluation détaillée </h6>
+                  <div class="col-md-12">
+                      <RichTextarea v-model="sous_criteres_essentiels_prop_artistique"/>
+                  </div> <br> 
+
+                </div>
+
+                 <div v-else-if="currentStep === 13">
+
+                  <h6 class="fw-bold mb-2">Critères et Sous critères de l’évaluation détaillée </h6>
+
+                  <div class="col-md-12">
+                      <RichTextarea v-model="sous_criteres_essentiels_prop_technique"/>
+                  </div> <br>
+
+                </div>
+
+                <div v-else-if="currentStep === 14">
                     <h5 class="fw-bold mb-4">Référence 30</h5>
                     <div class="col-md-12">
                         <label>Cautionnement définitif :</label>
@@ -242,7 +231,7 @@
                     </div>
                 </div>
 
-                <div v-else-if="currentStep === 13">
+                <div v-else-if="currentStep === 15">
                     <h5 class="fw-bold mb-4">Référence 36</h5>
                     <div class="col-md-12">
                         <label>Principes Éthiques :</label>
@@ -342,9 +331,97 @@ const criteres_eliminatoires = ref(`
 </table>
 `)
 
-const criteres_essentiels = ref(`
-  <p>L'évalution des critères essentiels ou relatifs à la qualification des soumissionaires portera à titre indicatif sur : </p>
+
+const sous_criteres_essentiels_prop_artistique = ref(`
+<h5>Pour l’évaluation de la Proposition artistique</h5>
+<p>Le jury déterminera la Note Artistique <i>(NA)/100</i> de chaque Soumissionnaire suivant les critères essentiels ci-après :</p>
+
+<p><strong>A.</strong> Une lettre de soumission de la proposition technique ; (01 pt)</p>
+
+<p><strong>B.</strong> l’Avant-Projet Sommaire (APS) comportant notamment (40 pts) :</p>
+
+<p><strong>B.1)</strong> un mémoire explicatif et descriptif présentant un projet technique en adéquation avec le programme à l’instar de l’évaluation du contexte général après visite du site, analyse des besoins spécifiés dans le programme ; (10 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère B.1.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.1.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.1.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>B.2)</strong> un mémoire explicatif et descriptif présentant notamment, le projet retenu en plan et en volumétrie, l’implantation dans le site dans le strict respect de la réglementation, le principe d’ossature, les principes d’organisation fonctionnelle ; (15 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère B.2.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.2.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.2.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>B.3)</strong> un dossier de pièces-graphiques présentant le projet proposé ; (15 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère B.3.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.3.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.3.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>B.4)</strong> la Méthodologie : le RPAO précise les éléments constitutifs de la proposition artistique des soumissionnaires, notamment : une note méthodologique portant sur une analyse des travaux et précisant l’organisation et le programme que le soumissionnaire compte mettre en place ou en œuvre pour les réaliser (installations, planning, PAQ, sous-traitance, attestation de visite du site le cas échéant, etc.) ; (10 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère B.4.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.4.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère B.4.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>C.</strong> Les preuves d’acceptation des conditions du marché : le soumissionnaire remettra les copies dûment paraphées des documents à caractères administratif et technique régissant le marché ; (04 pts)</p>
+<ul>
+<li>C.1) Le Cahier des Clauses Administratives Particulières (CCAP) ; (02 pts)</li>
+<li>C.2) les Termes de Référence ; (02 pts)</li>
+</ul>
+
+<p><strong>D.</strong> Un descriptif de la méthodologie et du plan de travail proposé pour accomplir la mission (Tableau 12D) ; (10 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère D.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère D.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère D.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p><strong>E.</strong> La composition par spécialités de l’équipe proposée, ainsi que la description des tâches confiées à chacun des membres (Tableau 12E) ; (15 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère E.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère E.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère E.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+<p>La note artistique minimale (NAm) requise pour l’ouverture de la proposition Technique est de : <i>[indiquer le nombre minimum de points requis]</i> / 100.</p>
+
+<p><strong>F.</strong> La liste complète et détaillée des études à mener durant la phase de conception ; (20 pts). <i>(NB : ce critère devra être décliné en plusieurs sous critères)</i>.</p>
+<ul>
+<li>sous-critère F.1 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère F.2 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>sous-critère F.3 : <i>[à définir]</i> — Note <i>[à définir]</i></li>
+<li>etc…</li>
+</ul>
+<p><i>[à préciser le nombre de points pour le critère et chaque sous-critère]</i></p>
+
+<p>Le barème proposé ci-dessus est à titre indicatif. Le Maître d’Ouvrage l’adaptera au projet suivant son importance et sa spécificité. <i>[à préciser formellement pour chaque critère, ou sous-critère]</i></p>
+<p>➢ Les critères et sous-critères essentiels détaillés pour chaque lot, le nombre de points attribués pour chaque critère et sous-critère d’évaluation : <i>(valeurs indicatives)</i></p>
 `)
+
+const sous_criteres_essentiels_prop_technique = ref(`
+<h5>Pour l’évaluation de la Proposition technique</h5>
+<p>Proposition technique (100 pts) : références du soumissionnaire (30 pts), qualifications et expérience du personnel (35 pts), disponibilité du matériel (30 pts), respect des délais (03 pts), capacité financière (02 pts).</p>
+<p>Pour la détermination de la Note Financière : NF = 100 x PFm / PF.</p>
+<p>Note générale : NG = (a x NA) + (t x NT) + (f x NF), avec a + t + f = 1.</p>
+`)
+
+
 
 // ===== Champs du RPAO (ref_X_Y = ligne "X.Y" du tableau du RPAO conception-réalisation) =====
 const ref_1_1 = ref(`<p>Faire une description précise du projet. Le concours est organisé sur la base d'un programme établi par le Maître d'Ouvrage ou le Maître d'Ouvrage Délégué qui indique les besoins auxquels doit répondre la prestation. Le contenu des prestations est détaillé dans le programme.</p><p>Lieu d'exécution : <i>[préciser le lieu d'exécution du projet]</i></p><p>Nom, objectifs et description de la mission : <i>[à préciser]</i></p>`)
@@ -1012,8 +1089,6 @@ const ref_22_5 = ref('')
 
 const ref_24 = ref('')
 
-const ref_25 = ref(`<p>Pour l'évaluation de la Proposition artistique (100 pts) : Avant-Projet Sommaire (40 pts), preuves d'acceptation des conditions du marché (04 pts), descriptif de la méthodologie (10 pts), composition de l'équipe (15 pts), liste des études de conception (20 pts).</p><p>Pour l'évaluation de la Proposition technique (100 pts) : références du soumissionnaire (30 pts), qualifications et expérience du personnel (35 pts), disponibilité du matériel (30 pts), respect des délais (03 pts), capacité financière (02 pts).</p><p>Pour la détermination de la Note Financière : NF = 100 x PFm / PF.</p><p>Note générale : NG = (a x NA) + (t x NT) + (f x NF), avec a + t + f = 1.</p>`)
-
 const ref_30 = ref(`<p>Le taux du cautionnement définitif est de : _________________________ <i>[à préciser, entre 2 et 5%]</i> du montant toutes taxes comprises du marché. Dans un délai de vingt (20) jours à compter de la date de notification du marché, le cocontractant fournira un cautionnement définitif suivant le modèle joint au Dossier d'appel d'offres.</p>`)
 
 const ref_35 = ref(`<p>Le marché sera attribué au soumissionnaire ayant présenté une offre conforme pour l'essentiel au DAO et évaluée la mieux-disante, par combinaison des critères techniques, financiers et esthétiques, c'est-à-dire à celui ayant obtenu la Note Générale la plus élevée.</p>`)
@@ -1211,8 +1286,8 @@ onMounted(async () => {
             ref_22_5.value = r.ref_22_5
             ref_24.value = r.ref_24
             criteres_eliminatoires.value = r.criteres_eliminatoires
-            criteres_essentiels.value = r.criteres_essentiels
-            ref_25.value = r.ref_25
+            sous_criteres_essentiels_prop_artistique.value = r.sous_criteres_essentiels_prop_artistique
+            sous_criteres_essentiels_prop_technique.value = r.sous_criteres_essentiels_prop_technique
             ref_30.value = r.ref_30
             ref_35.value = r.ref_35
             ref_36.value = r.ref_36
@@ -1243,8 +1318,9 @@ const handleSubmit = async () => {
             ref_17: ref_17.value,
             ref_18: ref_18.value, ref_19: ref_19.value, ref_20_3: ref_20_3.value, ref_22_5: ref_22_5.value,
             ref_24: ref_24.value,
-            criteres_eliminatoires: criteres_eliminatoires.value, criteres_essentiels: criteres_essentiels.value,
-            ref_25: ref_25.value,
+            criteres_eliminatoires: criteres_eliminatoires.value,
+            sous_criteres_essentiels_prop_artistique: sous_criteres_essentiels_prop_artistique.value,
+            sous_criteres_essentiels_prop_technique: sous_criteres_essentiels_prop_technique.value,
             ref_30: ref_30.value, ref_35: ref_35.value, ref_36: ref_36.value,
             formation_element_majeur: formation_element_majeur.value,
             poids_artistique: poids_artistique.value || null,
