@@ -12,21 +12,25 @@
 
                     <div v-if="currentStep === 0">
                         <h5 class="fw-bold mb-2">I. Contexte et justification</h5>
+                        <p class="text-muted" style="font-size: 0.9em;">Décrivez le contexte général du projet : la situation actuelle, les besoins identifiés, les enjeux techniques, socio-économiques et environnementaux qui justifient le lancement de cet appel d'offres, ainsi que les études ou décisions antérieures ayant conduit à ce projet.</p>
                         <RichTextarea v-model="contexte_justification"/>
                     </div>
 
                     <div v-else-if="currentStep === 1">
                         <h5 class="fw-bold mb-2">II. Objectif de la conception</h5>
+                        <p class="text-muted" style="font-size: 0.9em;">Précisez l'objectif global de la mission de conception : ce que le Maître d'Ouvrage attend du concours (fonctionnalité, performance, capacité, intégration dans le site...), ainsi que les objectifs spécifiques que devra atteindre la proposition artistique et technique.</p>
                         <RichTextarea v-model="objectif_conception"/>
                     </div>
 
                     <div v-else-if="currentStep === 2">
                         <h5 class="fw-bold mb-2">III. Résultats attendus (propositions artistique et technique)</h5>
+                        <p class="text-muted" style="font-size: 0.9em;">Listez les livrables attendus des soumissionnaires pour chaque proposition (documents graphiques, plans, notes explicatives, Avant-Projet Sommaire, méthodologie, calendrier...) en précisant le niveau de détail requis pour chacun.</p>
                         <RichTextarea v-model="resultats_attendus"/>
                     </div>
 
                     <div v-else-if="currentStep === 3">
                         <h5 class="fw-bold mb-2">IV. Qualification des consultants</h5>
+                        <p class="text-muted" style="font-size: 0.9em;">Indiquez les qualifications, expériences et compétences requises pour l'équipe du soumissionnaire (architecte, ingénieurs, spécialités techniques...), ainsi que les références de projets similaires exigées.</p>
                         <RichTextarea v-model="qualification_consultants"/>
                     </div>
 

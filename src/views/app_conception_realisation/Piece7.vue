@@ -15,7 +15,12 @@
           <StepperForm :totalSteps="1" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
             <div v-if="currentStep === 0">
               <div class="container">
-                <h4 class="my-4 text-center text-uppercase">Cadre du Bordereau des Prix Unitaires</h4>
+                <div class="d-flex justify-content-between align-items-center my-4">
+                  <h4 class="text-uppercase mb-0">Cadre du Bordereau des Prix Unitaires</h4>
+                  <button type="button" class="btn-custom" data-bs-toggle="offcanvas" data-bs-target="#bpuConsignes" aria-controls="bpuConsignes">
+                    <i class="bi bi-info-circle"></i> Consignes de rédaction
+                  </button>
+                </div>
 
                   <table class="table">
                     <thead>
@@ -82,7 +87,10 @@
                           </td>
 
                           <td>
-                            <input v-model="row.unit" />
+                            <select v-model="row.unit" class="unit-select">
+                              <option value="">Unité</option>
+                              <option v-for="u in UNITES" :key="u.abbr" :value="u.abbr">{{ u.label }} ({{ u.abbr }})</option>
+                            </select>
                           </td>
 
                           <td>
@@ -135,6 +143,22 @@
           </StepperForm>
         </form>
       </div>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="bpuConsignes" aria-labelledby="bpuConsignesLabel" style="width: 420px;">
+        <div class="offcanvas-header border-bottom">
+          <h5 class="offcanvas-title" id="bpuConsignesLabel">Consignes de rédaction — BPU</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+        </div>
+        <div class="offcanvas-body" style="font-size: 0.9em;">
+          <h6 class="fw-bold">Objectifs</h6>
+          <p>Les objectifs du Bordereau des prix sont :</p>
+          <p>a. De permettre une bonne comparaison des prix des offres à évaluer sur la base d'une nomenclature définissant ces prix en fonction des tâches élémentaires constituant un poste de prix ;</p>
+          <p>b. De permettre, une fois le marché conclu, l'évaluation et le paiement des travaux exécutés. Pour atteindre ces objectifs, le Bordereau des prix doit répertorier les travaux de façon suffisamment détaillée pour distinguer entre différentes natures de travaux, ou entre travaux de même nature exécutés dans des endroits différents, ou entre toutes autres conditions susceptibles de donner lieu à des variations de coûts, sans oublier que les prix comprennent également toutes suggestions découlant de l'application des dispositions administratives et techniques prévues dans les pièces écrites.</p>
+
+          <h6 class="fw-bold mt-3">Séries de prix</h6>
+          <p>Dans un bordereau des prix, les prix sont groupés en rubriques de façon à distinguer entre les parties de travaux qui par nature, accès, calendrier ou toute autre caractéristique peuvent donner lieu à des variations sur les méthodes de construction, ou séquence des travaux, ou considérations de coût. Ces rubriques constituent des séries de prix.</p>
+        </div>
+      </div>
     </div>
 
 </template>
@@ -167,6 +191,23 @@ const rows = ref([]);
 const { getDAO } = useAppelOffre()
 const { get_pieces, update_piece } = usePiece()
 const { get_bpu_dqe, create_bpu_dqe, update_bpu_dqe } = useConceptionRealisation()
+
+const UNITES = [
+  { abbr: 'm', label: 'mètre' },
+  { abbr: 'ha', label: 'hectare' },
+  { abbr: 'l', label: 'litre' },
+  { abbr: 'kg', label: 'kilogramme' },
+  { abbr: 's', label: 'seconde' },
+  { abbr: 'cm', label: 'centimètre' },
+  { abbr: 'm2', label: 'mètre carré' },
+  { abbr: 'm3', label: 'mètre cube' },
+  { abbr: 't', label: 'tonne' },
+  { abbr: 'h', label: 'heure' },
+  { abbr: 'mm', label: 'millimètre' },
+  { abbr: 'mm2', label: 'millimètre carré' },
+  { abbr: 'u', label: 'unité' },
+  { abbr: 'ft', label: 'forfait' },
+]
 
 onMounted(async () => {
     try {
@@ -315,6 +356,29 @@ const removeRow = (index) => {
 
 .delete-btn:hover {
   background: #fee2e2;
+}
+
+.unit-select {
+  width: 100%;
+  font-size: 13px;
+  font-weight: 400;
+  color: #374151;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.unit-select:hover {
+  border-color: #9ca3af;
+}
+
+.unit-select:focus {
+  outline: none;
+  border-color: #4338ca;
+  box-shadow: 0 0 0 2px rgba(67, 56, 202, 0.15);
 }
 
 </style>

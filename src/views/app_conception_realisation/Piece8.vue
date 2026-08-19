@@ -38,6 +38,27 @@
                   <td>{{ row.price }}</td>
                 </tr>
               </template>
+              <tr>
+                <td></td>
+                <td><b>A- Total général HT</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><b>B- Montant TVA  (% de A)</b></td>
+                <td>19.25%</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><b>C- Montant TTC  (A+B)</b></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
