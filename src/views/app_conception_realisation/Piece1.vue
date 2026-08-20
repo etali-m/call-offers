@@ -10,33 +10,40 @@
 
         <div class="form-container">
             <form @submit.prevent="handleSubmit" style="padding-left:10px;">
-                <StepperForm :totalSteps="13" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
+                <ErrorSummary
+                    :errors="errors"
+                    :general-error="generalError"
+                    :field-meta="fieldMeta"
+                    @jump-to-step="(step) => stepperRef?.goToStep(step)"
+                />
+
+                <StepperForm ref="stepperRef" :totalSteps="13" :step-errors="stepErrors" v-slot="{ currentStep, nextStep, prevStep, isLastStep }">
                 <div v-if="currentStep === 0">
                     <div class="mt-3">
                         <h5 class="fw-bold mb-2">1. Objet de l'appel d'offres</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="objet_appel"/>
+                            <RichTextarea v-model="objet_appel" :error="errors.objet_appel"/>
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">2. Consistance des prestations</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="consistence_travaux"/>
+                            <RichTextarea v-model="consistence_travaux" :error="errors.consistence_travaux"/>
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">5. Délais d'exécution</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="delai_previsionnel"/>
+                            <RichTextarea v-model="delai_previsionnel" :error="errors.delai_previsionnel"/>
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">3. Allotissement</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="tranches"/>
+                            <RichTextarea v-model="tranches" :error="errors.tranches"/>
                         </div>
                     </div>
                 </div>
@@ -45,17 +52,17 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">4. Coût prévisionnel</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="cout_previsionnel"/>
+                            <RichTextarea v-model="cout_previsionnel" :error="errors.cout_previsionnel"/>
                         </div>
                     </div>
 
                      <div class="mt-3">
                         <h5 class="fw-bold mb-4">6. Participation et origine</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="participation_origine"/>
+                            <RichTextarea v-model="participation_origine" :error="errors.participation"/>
                         </div>
                     </div>
-                   
+
                 </div>
 
                 <div v-else-if="currentStep === 2">
@@ -63,7 +70,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">7. Financement</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="financement"/>
+                            <RichTextarea v-model="financement" :error="errors.financement"/>
                         </div>
                     </div>
                 </div>
@@ -72,14 +79,14 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">8. Mode de soumission</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="mode_soumission"/>
+                            <RichTextarea v-model="mode_soumission" :error="errors.mode_soumission"/>
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">9. Cautionnement provisoire</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="cautionnement"/>
+                            <RichTextarea v-model="cautionnement" :error="errors.caution_soumission"/>
                         </div>
                     </div>
                 </div>
@@ -88,7 +95,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">10. Consultation du Dossier d'Appel d'Offres</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="consultation"/>
+                            <RichTextarea v-model="consultation" :error="errors.consultation_dossier"/>
                         </div>
                     </div>
                 </div>
@@ -97,7 +104,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">11. Acquisition du Dossier d'Appel d'Offres</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="acquisition_dao"/>
+                            <RichTextarea v-model="acquisition_dao" :error="errors.acquisition_dao"/>
                         </div>
                     </div>
                 </div>
@@ -106,7 +113,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">12. Remise des offres</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="remise_offre"/>
+                            <RichTextarea v-model="remise_offre" :error="errors.remise_offre"/>
                         </div>
                     </div>
                 </div>
@@ -115,7 +122,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">13. Recevabilité des offres</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="recevabilite_plis"/>
+                            <RichTextarea v-model="recevabilite_plis" :error="errors.recevabilite_plis"/>
                         </div>
                     </div>
                 </div>
@@ -124,7 +131,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">14. Ouverture des plis</h5>
                         <div class="col-md-12">
-                            <RichTextarea v-model="ouverture_plis"/>
+                            <RichTextarea v-model="ouverture_plis" :error="errors.ouverture_plis"/>
                         </div>
                     </div>
                 </div>
@@ -135,18 +142,19 @@
                         <div class="col-md-12">
                             <h6 class="fw-bold mb-2">15.1 Critères éliminatoires</h6>
                             <div class="col-md-12">
-                                <RichTextarea v-model="critere_eliminatoire"/>
+                                <RichTextarea v-model="critere_eliminatoire" :error="errors.critere_eliminatoire"/>
                             </div>
                         </div> <br />
                         <div class="col-md-12 mt-4">
                             <h6 class="fw-bold mb-2">15.2 Critères essentiels</h6>
                             <div class="col-md-12">
-                                <RichTextarea v-model="critere_essentiels"/>
+                                <RichTextarea v-model="critere_essentiels" :error="errors.critere_essentielles"/>
                             </div>
                         </div>
                         <div class="col-md-12 mt-4">
                             <label class="label-custom">Note artistique minimale requise (sur 100)</label>
-                            <input type="number" step="0.01" class="input-custom" v-model="note_artistique_minimale" placeholder="70">
+                            <input type="number" step="0.01" class="input-custom" :class="{ 'is-invalid': errors.note_artistique_minimale }" v-model="note_artistique_minimale" placeholder="70">
+                            <small v-if="errors.note_artistique_minimale" class="text-danger d-block mt-1">{{ errors.note_artistique_minimale }}</small>
                         </div>
                     </div>
                 </div>
@@ -155,7 +163,7 @@
                     <div class="col-md-12 mt-4">
                         <h5 class="fw-bold mb-4">16. Attribution</h5>
                          <div class="col-md-12">
-                            <RichTextarea v-model="attributions"/>
+                            <RichTextarea v-model="attributions" :error="errors.attribution"/>
                         </div>
                     </div>
                 </div>
@@ -165,7 +173,8 @@
                         <h5 class="fw-bold mb-4">17. Nombre maximum de lots</h5>
                         <div class="col-md-12">
                             <label>Nombre de lots maximum</label>
-                            <input type="number" class="input-custom" v-model="nombre_lots" placeholder="2">
+                            <input type="number" class="input-custom" :class="{ 'is-invalid': errors.nombre_max_lots }" v-model="nombre_lots" placeholder="2">
+                            <small v-if="errors.nombre_max_lots" class="text-danger d-block mt-1">{{ errors.nombre_max_lots }}</small>
                         </div>
                     </div>
 
@@ -173,7 +182,8 @@
                         <h5 class="fw-bold mb-4">18. Durée de validité des offres</h5>
                         <div class="col-md-12">
                             <label>Durée d'engagement en jours</label>
-                            <input type="number" class="input-custom" v-model="duree_engagement" placeholder="90">
+                            <input type="number" class="input-custom" :class="{ 'is-invalid': errors.duree_validite }" v-model="duree_engagement" placeholder="90">
+                            <small v-if="errors.duree_validite" class="text-danger d-block mt-1">{{ errors.duree_validite }}</small>
                         </div>
                     </div>
                 </div>
@@ -182,7 +192,7 @@
                     <div class="mt-3">
                         <h5 class="fw-bold mb-4">19. Renseignements complémentaires</h5>
                          <div class="col-md-12">
-                            <RichTextarea v-model="renseignements"/>
+                            <RichTextarea v-model="renseignements" :error="errors.renseignement_complementaires"/>
                         </div>
                     </div>
 
@@ -192,7 +202,8 @@
                             <div class="col-md-12">
                                 <p>Pour toute dénonciation pour des pratiques, faits ou actes de corruption ou faits de mauvaises pratiques, bien vouloir appeler la CONAC au numéro 1517, l'Autorité chargée des Marchés Publics (MINMAP) (SMS ou appel) aux numéros : (+237) 673 20 57 25 et 699 37 07 48, l'ARMP au numéro</p>
                                 <label>Numéro maître d'ouvrage ou maître d'ouvrage délégué</label>
-                                <input type="number" class="input-custom" v-model="numero_moa" placeholder="678 45 14 35">
+                                <input type="number" class="input-custom" :class="{ 'is-invalid': errors.numero_moa }" v-model="numero_moa" placeholder="678 45 14 35">
+                                <small v-if="errors.numero_moa" class="text-danger d-block mt-1">{{ errors.numero_moa }}</small>
                             </div>
                         </div>
                     </div>
@@ -211,18 +222,47 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, computed, nextTick, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Loader from '@/components/Loader.vue';
 import HeaderPiece from '@/components/HeaderPiece.vue'
 import StepperForm from '@/components/StepperForm.vue'
 import PieceNavigator from '@/components/PieceNavigator';
 import RichTextarea from '@/components/RichTextarea.vue';
+import ErrorSummary from '@/components/ErrorSummary.vue';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { useAppelOffre } from '@/composables/useAppelOffre';
 import { usePiece } from '@/composables/usePiece';
 import { useConceptionRealisation } from '@/composables/useConceptionRealisation';
+import { useFormErrors } from '@/composables/useFormErrors';
+
+// Associe chaque champ (nom du champ côté API/serializer) à son step (index
+// 0-based du StepperForm) et à un libellé lisible, pour le résumé d'erreurs.
+const fieldMeta = {
+    objet_appel: { label: "1. Objet de l'appel d'offres", step: 0 },
+    consistence_travaux: { label: '2. Consistance des prestations', step: 0 },
+    delai_previsionnel: { label: "5. Délais d'exécution", step: 0 },
+    tranches: { label: '3. Allotissement', step: 0 },
+    cout_previsionnel: { label: '4. Coût prévisionnel', step: 1 },
+    participation: { label: '6. Participation et origine', step: 1 },
+    financement: { label: '7. Financement', step: 2 },
+    mode_soumission: { label: '8. Mode de soumission', step: 3 },
+    caution_soumission: { label: '9. Cautionnement provisoire', step: 3 },
+    consultation_dossier: { label: "10. Consultation du Dossier d'Appel d'Offres", step: 4 },
+    acquisition_dao: { label: "11. Acquisition du Dossier d'Appel d'Offres", step: 5 },
+    remise_offre: { label: '12. Remise des offres', step: 6 },
+    recevabilite_plis: { label: '13. Recevabilité des offres', step: 7 },
+    ouverture_plis: { label: '14. Ouverture des plis', step: 8 },
+    critere_eliminatoire: { label: '15.1 Critères éliminatoires', step: 9 },
+    critere_essentielles: { label: '15.2 Critères essentiels', step: 9 },
+    note_artistique_minimale: { label: 'Note artistique minimale requise', step: 9 },
+    attribution: { label: '16. Attribution', step: 10 },
+    nombre_max_lots: { label: '17. Nombre maximum de lots', step: 11 },
+    duree_validite: { label: '18. Durée de validité des offres', step: 11 },
+    renseignement_complementaires: { label: '19. Renseignements complémentaires', step: 12 },
+    numero_moa: { label: "Numéro maître d'ouvrage ou délégué", step: 12 },
+}
 
 export default {
     components: {
@@ -230,6 +270,7 @@ export default {
         StepperForm,
         RichTextarea,
         PieceNavigator,
+        ErrorSummary,
         Loader
     },
 
@@ -245,11 +286,18 @@ export default {
         const trouve = ref(false)
 
         const message = ref('');
-        const errors = ref({});
+        const stepperRef = ref(null)
 
         const { getDAO } = useAppelOffre()
         const { get_pieces, update_piece } =  usePiece()
         const { get_aao, create_aao, update_aao } = useConceptionRealisation()
+        const { errors, generalError, parseErrors, clearErrors } = useFormErrors()
+
+        const stepErrors = computed(() =>
+            Array.from({ length: 13 }, (_, step) =>
+                Object.keys(errors.value).some((field) => fieldMeta[field]?.step === step)
+            )
+        )
 
         const objet_appel = ref('')
         const consistence_travaux = ref('')
@@ -368,7 +416,7 @@ export default {
         })
 
         const handleSubmit = async () => {
-            errors.value = {}
+            clearErrors()
             isLoading.value = true;
 
             try {
@@ -412,12 +460,23 @@ export default {
                 });
 
             } catch (err) {
-                toast.error(err, {
-                    theme: 'colored',
-                    autoClose: 2000,
-                });
-                errors.value = err;
-                console.log(err)
+                parseErrors(err)
+                // isLoading conditionne le v-if/v-else qui monte le StepperForm : il faut
+                // le repasser à false et attendre le prochain tick avant de pouvoir lui
+                // demander de sauter à un step, sinon stepperRef pointe vers une instance
+                // pas encore (re)montée et l'appel ne fait rien.
+                isLoading.value = false;
+                await nextTick()
+                const firstErrorField = Object.keys(errors.value)[0]
+                if (firstErrorField && fieldMeta[firstErrorField]) {
+                    stepperRef.value?.goToStep(fieldMeta[firstErrorField].step)
+                }
+                toast.error(
+                    Object.keys(errors.value).length
+                        ? 'Veuillez corriger les erreurs indiquées dans le formulaire'
+                        : generalError.value,
+                    { theme: 'colored', autoClose: 3000 }
+                );
             }finally {
                 isLoading.value = false;
             }
@@ -428,6 +487,11 @@ export default {
             dao,
             pieces,
             isLoading,
+            errors,
+            generalError,
+            fieldMeta,
+            stepErrors,
+            stepperRef,
             objet_appel,
             consistence_travaux,
             tranches,

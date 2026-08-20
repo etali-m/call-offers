@@ -4,11 +4,12 @@
       v-for="n in totalSteps"
       :key="n"
       class="timeline-step"
-      :class="{ active: currentStep === n - 1, 'timeline-completed': n - 1 < currentStep }"
+      :class="{ active: currentStep === n - 1, 'timeline-completed': n - 1 < currentStep, 'timeline-error': stepErrors?.[n - 1] }"
       @click="handleStep(n)"
     >
       <span class="step-circle">
-        <i v-if="n - 1 < currentStep" class="bi bi-check-lg"></i>
+        <i v-if="stepErrors?.[n - 1]" class="bi bi-exclamation-lg"></i>
+        <i v-else-if="n - 1 < currentStep" class="bi bi-check-lg"></i>
         <template v-else>{{ n }}</template>
       </span>
     </li>
@@ -31,6 +32,12 @@ const props = defineProps({
   totalSteps: {
     type: Number,
     required: true
+  },
+  // Tableau optionnel de booléens (un par step) : true = ce step contient un champ en erreur.
+  // Affiche un point rouge sur le cercle du step concerné dans la timeline.
+  stepErrors: {
+    type: Array,
+    default: null
   }
 })
 
@@ -38,6 +45,12 @@ const currentStep = ref(0)
 
 const handleStep = (n) => {
   currentStep.value = n-1
+}
+
+const goToStep = (n) => {
+  if (n >= 0 && n < props.totalSteps) {
+    currentStep.value = n
+  }
 }
 
 const nextStep = () => {
@@ -53,6 +66,9 @@ const prevStep = () => {
 }
 
 const isLastStep = computed(() => currentStep.value === props.totalSteps - 1)
+
+// Permet au parent (ex. un résumé d'erreurs) de sauter directement à un step donné.
+defineExpose({ goToStep, currentStep })
 </script>
 
 <style scoped>
@@ -64,6 +80,8 @@ const isLastStep = computed(() => currentStep.value === props.totalSteps - 1)
   --orange-500: #FF6A1A;
   --orange-600: #F0560A;
   --line:       rgba(36, 21, 5, 0.08);
+  --red-500:    #dc3545;
+  --red-100:    #f8d7da;
 
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   display: flex;
@@ -139,6 +157,23 @@ const isLastStep = computed(() => currentStep.value === props.totalSteps - 1)
   color: #fff;
   transform: scale(1.12);
   box-shadow: 0 0 0 5px var(--orange-100);
+}
+
+.timeline-step.timeline-error::before {
+  background: var(--red-500);
+}
+
+.timeline-step.timeline-error .step-circle {
+  background: #fff;
+  border-color: var(--red-500);
+  color: var(--red-500);
+}
+
+.timeline-step.timeline-error.active .step-circle {
+  background: var(--red-500);
+  border-color: var(--red-500);
+  color: #fff;
+  box-shadow: 0 0 0 5px var(--red-100);
 }
 
 .step-panel {

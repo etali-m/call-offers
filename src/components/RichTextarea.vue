@@ -1,5 +1,5 @@
 <template>
-  <div class="rte-wrapper">
+  <div class="rte-wrapper" :class="{ 'rte-invalid': !!error }">
     <!-- Toolbar principale -->
     <div class="toolbar" @mousedown.prevent>
       <div class="toolbar-group">
@@ -145,6 +145,12 @@
       :style="{ maxHeight: height, overflowY: 'auto' }"
     />
   </div>
+
+  <!-- Message d'erreur affiché juste en dessous du champ -->
+  <p v-if="error" class="rte-error-message">
+    <AlertCircleIcon :size="14" />
+    {{ error }}
+  </p>
 </template>
 
 <script setup>
@@ -161,7 +167,7 @@ import {
   AlignLeftIcon, AlignCenterIcon, AlignRightIcon, AlignJustifyIcon,
   TableIcon, PlusIcon, MinusIcon,
   ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon,
-  Trash2Icon, MergeIcon, SplitIcon,
+  Trash2Icon, MergeIcon, SplitIcon, AlertCircleIcon,
 } from 'lucide-vue-next'
 
 const props = defineProps({
@@ -169,6 +175,12 @@ const props = defineProps({
   height: {
     type: String,
     default: '600px',
+  },
+  // Message d'erreur à afficher sous le champ (ex: "Ce champ est requis").
+  // Ajoute aussi une bordure rouge autour de l'éditeur quand non vide.
+  error: {
+    type: String,
+    default: '',
   },
 })
 
@@ -270,6 +282,22 @@ watch(() => props.modelValue, (value) => {
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.rte-wrapper.rte-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.12);
+}
+
+.rte-error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 2px 0;
+  color: #dc3545;
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
 /* ─── Toolbar ─────────────────────────────────────────────── */
